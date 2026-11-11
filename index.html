@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Saathi User Dashboard</title>
+<meta name="description" content="Saathi usage: unique users by district and role, onboarding drop-off funnel and Micro Improvement Plan funnel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap">
+<style>
+  /* Layout: one reading column; headline number beside the drop-off funnel, MIP funnel below. */
+  :root {
+    --bg: #f6f7f5; --panel: #ffffff; --fg: #1c2421; --muted: #5d6b66; --line: #dde3df;
+    --track: #e8ede9; --accent: #1f6f5c; --accent-2: #c0782b; --bad: #b3412f;
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #121715; --panel: #1a211e; --fg: #e7ece9; --muted: #9aa8a2; --line: #2c3632;
+    --track: #26302c; --accent: #4fb89a; --accent-2: #e09a52; --bad: #e07a66; color-scheme: dark; } }
+  :root[data-theme="dark"] {
+    --bg: #121715; --panel: #1a211e; --fg: #e7ece9; --muted: #9aa8a2; --line: #2c3632;
+    --track: #26302c; --accent: #4fb89a; --accent-2: #e09a52; --bad: #e07a66; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-block: 32px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 24px; }
+  .eyebrow { font-size: 12px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 4vw, 42px); line-height: 1.1; margin: 6px 0 8px; text-wrap: balance; }
+  .lede { margin: 0; max-width: 68ch; color: var(--muted); font-size: 16px; }
+  .lede b { color: var(--fg); font-weight: 600; }
+  .num { font-variant-numeric: tabular-nums; }
+  .top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 20px; align-items: start; }
+  @media (max-width: 760px) { .top { grid-template-columns: minmax(0, 1fr); } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; min-width: 0; }
+  .card h2 { font-size: 17px; font-weight: 600; margin: 0 0 2px; }
+  .sub { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+  .big { display: grid; gap: 6px; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+  .big:hover { border-color: var(--accent); }
+  .big:focus-visible, .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .big .value { font-family: var(--font-display); font-size: 68px; line-height: 1; color: var(--accent); }
+  .big .hint { font-size: 13px; color: var(--accent); font-weight: 500; }
+  .split { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .split b { color: var(--fg); font-weight: 600; }
+  .funnel { display: grid; gap: 10px; }
+  .row { display: grid; grid-template-columns: minmax(0, 13em) minmax(0, 1fr) 4.5em 5em; gap: 10px; align-items: center; }
+  .lbl small { display: block; color: var(--muted); font-size: 12px; }
+  .track { height: 22px; background: var(--track); border-radius: 4px; overflow: hidden; }
+  .bar { height: 100%; width: 0; border-radius: 4px; background: var(--accent); }
+  .mip .bar { background: var(--accent-2); }
+  .n { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .p { text-align: right; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 520px) { .row { grid-template-columns: minmax(0, 1fr) 4em 5em; } .row .track { grid-column: 1 / -1; grid-row: 2; } }
+  @media (prefers-reduced-motion: no-preference) { .bar { transition: width .6s cubic-bezier(.2,.7,.2,1); } }
+  .note { font-size: 13px; color: var(--muted); margin: 14px 0 0; max-width: 75ch; }
+  .note b { color: var(--bad); font-weight: 600; }
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+  .tab { font: inherit; background: none; border: 0; cursor: pointer; padding: 8px 14px; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); font-weight: 500; }
+  .tablewrap { overflow: auto; max-height: 540px; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 14px; }
+  th, td { padding: 7px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  thead th { position: sticky; top: 0; background: var(--panel); font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; user-select: none; }
+  thead th[aria-sort="descending"]::after { content: " ▾"; } thead th[aria-sort="ascending"]::after { content: " ▴"; }
+  details summary { cursor: pointer; font-weight: 600; }
+  dl { display: grid; grid-template-columns: minmax(0, 14em) minmax(0, 1fr); gap: 6px 16px; margin: 14px 0 0; font-size: 13px; }
+  dt { font-weight: 600; } dd { margin: 0; color: var(--muted); }
+  @media (max-width: 520px) { dl { grid-template-columns: minmax(0, 1fr); } }
+  .status { font-size: 13px; color: var(--bad); }
+  footer { font-size: 12px; color: var(--muted); }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Saathi · <span id="period">loading…</span> · data updated <span id="synced">—</span></div>
+    <h1>Saathi user dashboard</h1>
+    <p class="lede"><b id="t-users" class="num">—</b> people used Saathi in this period. <b id="t-answer" class="num">—</b> of them (<span id="t-answer-pct" class="num">—</span>) got an answer or a plan, and <b id="t-mip" class="num">—</b> generated a Micro Improvement Plan.</p>
+    <p class="status" id="status" hidden></p>
+  </header>
+
+  <div class="top">
+    <div>
+      <button type="button" class="big" id="total-users" aria-expanded="false" aria-controls="breakdown">
+        <span class="eyebrow">Total unique users</span>
+        <span class="value num" id="big-users">—</span>
+        <span class="hint" id="big-hint">Click to see by district and role ▾</span>
+      </button>
+      <div class="split">
+        <span>Profile found <b id="found" class="num">—</b></span>
+        <span>Profile not found <b id="not-found" class="num">—</b></span>
+      </div>
+    </div>
+
+    <section class="card" id="dropoff-funnel">
+      <h2>Drop-off funnel</h2>
+      <p class="sub">Unique users reaching each step. The percentage is the share of everyone who logged in.</p>
+      <div class="funnel" id="funnel"></div>
+      <p class="note">Biggest drop: <b id="big-drop">—</b>.</p>
+    </section>
+  </div>
+
+  <section class="card" id="breakdown" hidden>
+    <h2>Users by district and role</h2>
+    <p class="sub">How far each group's users got. Click a column heading to sort.</p>
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab" role="tab" id="tab-district" aria-selected="true" aria-controls="panel-district">District-wise</button>
+      <button type="button" class="tab" role="tab" id="tab-role" aria-selected="false" aria-controls="panel-role">Role-wise</button>
+    </div>
+    <div class="tablewrap" id="panel-district" role="tabpanel" aria-labelledby="tab-district"><table id="table-district"></table></div>
+    <div class="tablewrap" id="panel-role" role="tabpanel" aria-labelledby="tab-role" hidden><table id="table-role"></table></div>
+    <p class="note">Districts are matched across Hindi and English spellings. Roles are grouped: Teacher includes subject, assistant and BPSC teachers; Head of school includes HM, Principal, Head Teacher and in-charge. "Not captured" is mostly users whose profile was not found.</p>
+  </section>
+
+  <section class="card mip" id="mip-funnel">
+    <h2>Micro Improvement Plan funnel</h2>
+    <p class="sub">Conversations where Saathi took the MIP route: challenge, goal, objectives, plan. Bars show conversations; unique users are shown alongside.</p>
+    <div class="funnel" id="mip"></div>
+    <p class="note">The logs record when Saathi says a plan is ready to download, not whether the user tapped download, so the last step is an upper bound.</p>
+  </section>
+
+  <details class="card" id="definitions">
+    <summary>How each step is counted</summary>
+    <dl>
+      <dt>Source</dt><dd>Every tab of the Saathi conversation data log ("Saathi Data logs - Monthly"). Tabs overlap, so a message in more than one tab is counted once. New tabs are picked up automatically at each hourly sync.</dd>
+      <dt>Unique user</dt><dd>A distinct user_id with at least one message.</dd>
+      <dt>Started onboarding</dt><dd>mapping_status is "Profile found". "Profile not found" users are counted as dropping off at login.</dd>
+      <dt>Completed onboarding</dt><dd>Profile found, with role and district captured.</dd>
+      <dt>Started a conversation</dt><dd>Sent at least one message that was not an answer to Saathi's onboarding questions.</dd>
+      <dt>Received an answer or MIP</dt><dd>Saathi sent a reply drawing on its knowledge base, a reply of 400+ characters, or an improvement plan.</dd>
+      <dt>MIP steps</dt><dd>Detected from Saathi's own wording: "Let me understand… build a plan", "here is your Goal", "Objective", "Here is your Improvement Plan", and "ready to download" in a conversation that produced a plan.</dd>
+      <dt>District</dt><dd>Matched to Bihar's 38 districts (and a few outside Bihar) from Hindi or English input, allowing small typos.</dd>
+      <dt>Not removed</dt><dd>Internal and test accounts are still counted.</dd>
+    </dl>
+  </details>
+
+  <footer>Data: <a href="https://github.com/chandana-collab/saathi-user-dashboard/tree/main/data">data/</a> in this repository, refreshed hourly from the Saathi data log.</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(async function () {
+  const fmt = d3.format(',');
+  const $ = (id) => document.getElementById(id);
+  const bust = '?v=' + Date.now();
+  let users, mipSessions, coverage;
+  try {
+    [users, mipSessions, coverage] = await Promise.all([
+      d3.csv('data/saathi-users.csv' + bust), d3.csv('data/saathi-mip-sessions.csv' + bust), d3.csv('data/saathi-coverage.csv' + bust),
+    ]);
+  } catch (e) {
+    $('status').hidden = false; $('status').textContent = 'The data files could not be loaded. Refresh the page, or check the data/ folder in the repository.';
+    return;
+  }
+  const flag = (col) => users.filter((u) => u[col] === '1').length;
+
+  // Header
+  const cov = coverage[0] || {};
+  const day = d3.utcFormat('%-d %b %Y');
+  if (cov.from) $('period').textContent = `${day(new Date(cov.from + 'T00:00:00Z'))} to ${day(new Date(cov.to + 'T00:00:00Z'))}`;
+  if (cov.refreshed) $('synced').textContent = d3.timeFormat('%-d %b %Y, %H:%M')(new Date(cov.refreshed));
+
+  // Drop-off funnel
+  const steps = [
+    ['login', 'User logged in', '', 'logged_in'],
+    ['onb_start', 'Started onboarding', 'Profile found', 'started_onboarding'],
+    ['onb_done', 'Completed onboarding', 'Role and district captured', 'completed_onboarding'],
+    ['convo', 'Started a conversation', 'Asked an education query or challenge', 'started_conversation'],
+    ['answer', 'Received an answer or MIP', '', 'received_answer'],
+  ].map(([step, label, sub, col]) => ({ step, label, sub, n: flag(col) }));
+  const base = steps[0].n || 1;
+  const pct = (n) => (n / base * 100).toFixed(1) + '%';
+  const drawRows = (el, rows, value, extra) => {
+    el.replaceChildren(...rows.map((r) => {
+      const row = document.createElement('div'); row.className = 'row';
+      const lbl = document.createElement('span'); lbl.className = 'lbl'; lbl.textContent = r.label;
+      if (r.sub) { const s = document.createElement('small'); s.textContent = r.sub; lbl.append(s); }
+      const track = document.createElement('div'); track.className = 'track';
+      const bar = document.createElement('div'); bar.className = 'bar'; track.append(bar);
+      const n = document.createElement('span'); n.className = 'n'; n.textContent = fmt(r[value]);
+      const p = document.createElement('span'); p.className = 'p'; p.textContent = extra(r);
+      row.append(lbl, track, n, p);
+      requestAnimationFrame(() => { bar.style.width = (r[value] / (rows[0][value] || 1) * 100) + '%'; });
+      return row;
+    }));
+  };
+  drawRows($('funnel'), steps, 'n', (r) => pct(r.n));
+
+  let worst = null;
+  steps.forEach((r, i) => { if (i) { const lost = steps[i - 1].n - r.n; if (!worst || lost > worst.lost) worst = { lost, from: steps[i - 1].label, to: r.label }; } });
+  if (worst) $('big-drop').textContent = `${worst.from.toLowerCase()} → ${worst.to.toLowerCase()}, ${fmt(worst.lost)} users`;
+
+  // MIP funnel
+  const bySession = Object.fromEntries(mipSessions.map((r) => [r.stage, +r.sessions]));
+  const mip = [
+    ['Asked a school or classroom challenge', 'Asked a school/classroom challenge', 'mip_challenge', ''],
+    ['Reached goal', 'Reached goal', 'mip_goal', ''],
+    ['Reached objectives', 'Reached objectives', 'mip_objective', ''],
+    ['Generated MIP', 'Generated MIP', 'mip_generated', ''],
+    ['Downloaded MIP', 'MIP ready to download', 'mip_downloaded', 'Plan offered as a download'],
+  ].map(([label, stage, col, sub]) => ({ label, sub, sessions: bySession[stage] || 0, users: flag(col) }));
+  drawRows($('mip'), mip, 'sessions', (r) => fmt(r.users) + ' users');
+
+  // Headline
+  const total = new Set(users.map((u) => u.user_id)).size;
+  $('t-users').textContent = fmt(total); $('big-users').textContent = fmt(total);
+  $('t-answer').textContent = fmt(steps[4].n); $('t-answer-pct').textContent = pct(steps[4].n);
+  $('t-mip').textContent = fmt(mip[3].users);
+  $('found').textContent = fmt(steps[1].n);
+  $('not-found').textContent = fmt(users.filter((u) => u.profile === 'Not found').length);
+
+  // District / role tables
+  const cols = [['users', 'Users'], ['completed_onboarding', 'Onboarded'], ['started_conversation', 'Started conversation'], ['received_answer', 'Got answer'], ['mip_generated', 'Generated MIP'], ['mip_downloaded', 'MIP downloadable']];
+  const group = (key) => {
+    const m = new Map();
+    for (const u of users) {
+      const name = u[key] || 'Not captured';
+      const g = m.get(name) || Object.fromEntries([[key, name], ...cols.map(([c]) => [c, 0])]);
+      g.users += 1; for (const [c] of cols.slice(1)) g[c] += u[c] === '1' ? 1 : 0;
+      m.set(name, g);
+    }
+    return [...m.values()];
+  };
+  const table = (el, key, heading) => {
+    const rows = group(key); let sortBy = 'users', dir = -1;
+    const thead = el.createTHead(); const tbody = el.createTBody();
+    const hr = thead.insertRow();
+    [[key, heading], ...cols].forEach(([c, label]) => {
+      const th = document.createElement('th'); th.textContent = label; th.scope = 'col'; th.tabIndex = 0;
+      const sort = () => { dir = sortBy === c ? -dir : (c === key ? 1 : -1); sortBy = c; render(); };
+      th.addEventListener('click', sort); th.addEventListener('keydown', (e) => { if (e.key === 'Enter') sort(); });
+      hr.append(th);
+    });
+    const render = () => {
+      [...hr.children].forEach((th, i) => { const c = i ? cols[i - 1][0] : key; th.setAttribute('aria-sort', c === sortBy ? (dir < 0 ? 'descending' : 'ascending') : 'none'); });
+      const last = (r) => (r[key] === 'Not captured' || String(r[key]).startsWith('Unrecognised')) ? 1 : 0;
+      rows.sort((a, b) => last(a) - last(b) || (sortBy === key ? dir * String(a[key]).localeCompare(String(b[key])) : dir * (a[sortBy] - b[sortBy])));
+      tbody.replaceChildren(...rows.map((r) => { const tr = document.createElement('tr'); [key, ...cols.map(([c]) => c)].forEach((c) => { const td = tr.insertCell(); td.textContent = c === key ? r[c] : fmt(r[c]); }); return tr; }));
+    };
+    render();
+  };
+  table($('table-district'), 'district', 'District');
+  table($('table-role'), 'role', 'Role');
+
+  // Interactions
+  const btn = $('total-users');
+  const setOpen = (open) => {
+    btn.setAttribute('aria-expanded', String(open)); $('breakdown').hidden = !open;
+    $('big-hint').textContent = open ? 'Hide district and role ▴' : 'Click to see by district and role ▾';
+  };
+  btn.addEventListener('click', () => { const open = btn.getAttribute('aria-expanded') !== 'true'; setOpen(open); if (open) history.replaceState(null, '', '#breakdown'); });
+  document.querySelectorAll('.tab').forEach((tab) => tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach((t) => { const on = t === tab; t.setAttribute('aria-selected', String(on)); $(t.getAttribute('aria-controls')).hidden = !on; });
+  }));
+  if (location.hash === '#breakdown') setOpen(true);
+})();
+</script>
+</body>
+</html>
