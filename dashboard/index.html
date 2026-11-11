@@ -1,0 +1,288 @@
+<meta name="dash-one-writer">
+<style>
+  .sd { display: grid; gap: var(--cds-gap-xl); font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+  .sd-head h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .sd-head p { margin: var(--cds-gap-xs) 0 0; color: var(--color-fg-muted); max-width: 70ch; }
+  .sd-eyebrow { font-size: var(--cds-font-size-caption); letter-spacing: .06em; text-transform: uppercase; color: var(--color-fg-muted); }
+  .sd-num { font-variant-numeric: tabular-nums; }
+  .sd-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--cds-gap-lg); align-items: start; }
+  @container (max-width: 680px) { .sd-top { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 680px) { .sd-top { grid-template-columns: minmax(0, 1fr); } }
+  .sd-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; }
+  .sd-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0 0 var(--cds-gap-xs); }
+  .sd-card .sd-sub { margin: 0 0 var(--cds-gap-md); color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .sd-big { all: unset; box-sizing: border-box; display: grid; gap: var(--cds-gap-xs); width: 100%; cursor: pointer; background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); }
+  .sd-big:hover { border-color: var(--color-fg-muted); }
+  .sd-big:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .sd-big .sd-value { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 64px; line-height: 1; }
+  .sd-big .sd-hint { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .sd-big[aria-expanded="true"] .sd-hint-open { display: none; }
+  .sd-big[aria-expanded="false"] .sd-hint-close { display: none; }
+  .sd-split { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); margin-top: var(--cds-gap-sm); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .sd-split b { color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+  .sd-funnel { display: grid; gap: var(--cds-gap-sm); }
+  .sd-row { display: grid; grid-template-columns: minmax(0, 13em) minmax(0, 1fr) 4.5em 5.5em; gap: var(--cds-gap-sm); align-items: center; }
+  .sd-row .sd-lbl { font-size: var(--cds-font-size-body); min-width: 0; }
+  .sd-row .sd-lbl small { display: block; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .sd-track { height: 22px; background: var(--cds-chart-grid); border-radius: 3px; overflow: hidden; }
+  .sd-bar { height: 100%; width: 0; border-radius: 3px; }
+  .sd-row .sd-n { text-align: right; font-variant-numeric: tabular-nums; font-weight: var(--cds-font-weight-medium); }
+  .sd-row .sd-p { text-align: right; font-variant-numeric: tabular-nums; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .sd-colhead { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .sd-drop { color: var(--color-bad); }
+  @media (max-width: 520px) { .sd-row { grid-template-columns: minmax(0, 1fr) 4em 5em; } .sd-row .sd-track { grid-column: 1 / -1; grid-row: 2; } }
+  .sd-tabs { display: flex; gap: var(--cds-gap-xs); border-bottom: 1px solid var(--color-border-line); margin-bottom: var(--cds-gap-md); }
+  .sd-tab { all: unset; cursor: pointer; padding: var(--cds-pad-sm) var(--cds-pad-md); font-size: var(--cds-font-size-body); color: var(--color-fg-muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .sd-tab[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); }
+  .sd-tab:focus-visible { outline: 2px solid var(--color-fg); }
+  .sd-tablewrap { overflow-x: auto; max-height: 520px; overflow-y: auto; }
+  .sd-table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-body); font-variant-numeric: tabular-nums; }
+  .sd-table th, .sd-table td { padding: 6px 10px; border-bottom: 1px solid var(--color-border-line); text-align: right; white-space: nowrap; }
+  .sd-table th:first-child, .sd-table td:first-child { text-align: left; }
+  .sd-table thead th { position: sticky; top: 0; background: var(--color-panel); font-weight: var(--cds-font-weight-medium); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .sd-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: var(--cds-gap-md) 0 0; max-width: 75ch; }
+  .sd-legend { display: flex; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-bottom: var(--cds-gap-sm); }
+  .sd-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .sd-details summary { cursor: pointer; font-weight: var(--cds-font-weight-medium); }
+  .sd-details dl { display: grid; grid-template-columns: minmax(0, 14em) minmax(0, 1fr); gap: var(--cds-gap-xs) var(--cds-gap-md); margin: var(--cds-gap-md) 0 0; font-size: var(--cds-font-size-caption); }
+  .sd-details dt { font-weight: var(--cds-font-weight-medium); }
+  .sd-details dd { margin: 0; color: var(--color-fg-muted); }
+  @media (max-width: 520px) { .sd-details dl { grid-template-columns: minmax(0, 1fr); } }
+  [data-dash-source-state=refreshing] { opacity: .5; }
+  @media (prefers-reduced-motion: no-preference) { .sd-bar { transition: width var(--cds-dur-slow) var(--cds-ease-out); } }
+</style>
+
+<div class="sd">
+  <header class="sd-head" id="summary">
+    <div class="sd-eyebrow">Saathi · <span data-draw="covFrom" data-source="coverage" data-field="from" data-row="0">—</span> to <span data-draw="covTo" data-source="coverage" data-field="to" data-row="0">—</span> · last synced <span data-draw="covSync" data-source="coverage" data-field="refreshed" data-row="0">—</span></div>
+    <h1>Saathi usage</h1>
+    <p data-read lang="en"><b data-draw="tUsers" data-source="totalUsers" class="sd-num">—</b> people used Saathi in this period. <b data-draw="tAnswer" data-source="funnel" data-field="users" data-where="step=answer" class="sd-num">—</b> of them (<span data-draw="tAnswerPct" data-source="funnel" data-field="pct_of_login" data-where="step=answer" class="sd-num">—</span>%) got an answer or a plan, and <b data-draw="tMip" data-source="mipFunnel" data-field="users" data-where="step=mip" class="sd-num">—</b> users generated a Micro Improvement Plan.</p>
+  </header>
+
+  <div class="sd-top">
+    <div>
+      <button type="button" class="sd-big" id="total-users" aria-expanded="false" aria-controls="breakdown">
+        <span class="sd-eyebrow">Total unique users</span>
+        <span class="sd-value sd-num" data-draw="bigUsers" data-source="totalUsers">—</span>
+        <span class="sd-hint"><span class="sd-hint-open">Click to see by district and role ▾</span><span class="sd-hint-close">Hide district and role ▴</span></span>
+      </button>
+      <div class="sd-split">
+        <span>Profile found <b data-draw="splitFound" data-source="funnel" data-field="users" data-where="step=onb_start" class="sd-num">—</b></span>
+        <span>Profile not found <b data-draw="splitNotFound" data-source="profileNotFound" class="sd-num">—</b></span>
+      </div>
+    </div>
+
+    <section class="sd-card" id="dropoff-funnel">
+      <h2>Drop-off funnel</h2>
+      <p class="sd-sub">Unique users reaching each step. The percentage is the share of everyone who logged in.</p>
+      <div class="sd-funnel" data-source="funnel">
+        <div class="sd-row"><span class="sd-lbl">User logged in</span><div class="sd-track"><div class="sd-bar" data-draw="fBar" data-step="login"></div></div><span class="sd-n" data-draw="fUsers" data-step="login" data-source="funnel" data-field="users" data-where="step=login">—</span><span class="sd-p" data-draw="fPct" data-step="login" data-source="funnel" data-field="pct_of_login" data-where="step=login">—</span></div>
+        <div class="sd-row"><span class="sd-lbl">Started onboarding<small>Profile found</small></span><div class="sd-track"><div class="sd-bar" data-draw="fBar" data-step="onb_start"></div></div><span class="sd-n" data-draw="fUsers" data-step="onb_start" data-source="funnel" data-field="users" data-where="step=onb_start">—</span><span class="sd-p" data-draw="fPct" data-step="onb_start" data-source="funnel" data-field="pct_of_login" data-where="step=onb_start">—</span></div>
+        <div class="sd-row"><span class="sd-lbl">Completed onboarding<small>Role and district captured</small></span><div class="sd-track"><div class="sd-bar" data-draw="fBar" data-step="onb_done"></div></div><span class="sd-n" data-draw="fUsers" data-step="onb_done" data-source="funnel" data-field="users" data-where="step=onb_done">—</span><span class="sd-p" data-draw="fPct" data-step="onb_done" data-source="funnel" data-field="pct_of_login" data-where="step=onb_done">—</span></div>
+        <div class="sd-row"><span class="sd-lbl">Started a conversation<small>Asked an education query or challenge</small></span><div class="sd-track"><div class="sd-bar" data-draw="fBar" data-step="convo"></div></div><span class="sd-n" data-draw="fUsers" data-step="convo" data-source="funnel" data-field="users" data-where="step=convo">—</span><span class="sd-p" data-draw="fPct" data-step="convo" data-source="funnel" data-field="pct_of_login" data-where="step=convo">—</span></div>
+        <div class="sd-row"><span class="sd-lbl">Received an answer or MIP</span><div class="sd-track"><div class="sd-bar" data-draw="fBar" data-step="answer"></div></div><span class="sd-n" data-draw="fUsers" data-step="answer" data-source="funnel" data-field="users" data-where="step=answer">—</span><span class="sd-p" data-draw="fPct" data-step="answer" data-source="funnel" data-field="pct_of_login" data-where="step=answer">—</span></div>
+      </div>
+      <p class="sd-note">Biggest drop: <b data-draw="bigDrop">—</b>.</p>
+    </section>
+  </div>
+
+  <section class="sd-card" id="breakdown" hidden>
+    <h2>Users by district and role</h2>
+    <p class="sd-sub">How far each group's users got. District names are merged across Hindi and English spellings.</p>
+    <div class="sd-tabs" role="tablist">
+      <button type="button" class="sd-tab" role="tab" id="tab-district" aria-selected="true" aria-controls="panel-district">District-wise</button>
+      <button type="button" class="sd-tab" role="tab" id="tab-role" aria-selected="false" aria-controls="panel-role">Role-wise</button>
+    </div>
+    <div id="panel-district" role="tabpanel" aria-labelledby="tab-district" class="sd-tablewrap">
+      <table class="sd-table" data-source="byDistrict" data-row-key="district">
+        <thead><tr><th data-field="district">District</th><th data-field="users">Users</th><th data-field="completed_onboarding">Onboarded</th><th data-field="started_conversation">Started conversation</th><th data-field="received_answer">Got answer</th><th data-field="mip_generated">Generated MIP</th><th data-field="mip_downloaded">MIP downloadable</th></tr></thead>
+        <tbody data-draw="distRows"></tbody>
+      </table>
+    </div>
+    <div id="panel-role" role="tabpanel" aria-labelledby="tab-role" class="sd-tablewrap" hidden>
+      <table class="sd-table" data-source="byRole" data-row-key="role">
+        <thead><tr><th data-field="role">Role</th><th data-field="users">Users</th><th data-field="completed_onboarding">Onboarded</th><th data-field="started_conversation">Started conversation</th><th data-field="received_answer">Got answer</th><th data-field="mip_generated">Generated MIP</th><th data-field="mip_downloaded">MIP downloadable</th></tr></thead>
+        <tbody data-draw="roleRows"></tbody>
+      </table>
+    </div>
+    <p class="sd-note">Roles are grouped from what users typed: Teacher includes subject, assistant and BPSC teachers; Head of school includes HM, Principal, Head Teacher and in-charge. "Not captured" is mostly users whose profile was not found.</p>
+  </section>
+
+  <section class="sd-card" id="mip-funnel">
+    <h2>Micro Improvement Plan funnel</h2>
+    <p class="sd-sub">Conversations where Saathi took the MIP route: challenge, goal, objectives, plan. The bar shows conversations, with the unique users behind them alongside.</p>
+    <div class="sd-legend"><span><i data-draw="mipSwatch"></i>Conversations</span><span>Users shown after the count</span></div>
+    <div class="sd-funnel" data-source="mipFunnel">
+      <div class="sd-row"><span class="sd-lbl">Asked a school or classroom challenge</span><div class="sd-track"><div class="sd-bar" data-draw="mBar" data-step="challenge"></div></div><span class="sd-n" data-draw="mSess" data-step="challenge" data-source="mipFunnel" data-field="sessions" data-where="step=challenge">—</span><span class="sd-p"><span data-draw="mUsers" data-step="challenge" data-source="mipFunnel" data-field="users" data-where="step=challenge">—</span> users</span></div>
+      <div class="sd-row"><span class="sd-lbl">Reached goal</span><div class="sd-track"><div class="sd-bar" data-draw="mBar" data-step="goal"></div></div><span class="sd-n" data-draw="mSess" data-step="goal" data-source="mipFunnel" data-field="sessions" data-where="step=goal">—</span><span class="sd-p"><span data-draw="mUsers" data-step="goal" data-source="mipFunnel" data-field="users" data-where="step=goal">—</span> users</span></div>
+      <div class="sd-row"><span class="sd-lbl">Reached objectives</span><div class="sd-track"><div class="sd-bar" data-draw="mBar" data-step="objective"></div></div><span class="sd-n" data-draw="mSess" data-step="objective" data-source="mipFunnel" data-field="sessions" data-where="step=objective">—</span><span class="sd-p"><span data-draw="mUsers" data-step="objective" data-source="mipFunnel" data-field="users" data-where="step=objective">—</span> users</span></div>
+      <div class="sd-row"><span class="sd-lbl">Generated MIP</span><div class="sd-track"><div class="sd-bar" data-draw="mBar" data-step="mip"></div></div><span class="sd-n" data-draw="mSess" data-step="mip" data-source="mipFunnel" data-field="sessions" data-where="step=mip">—</span><span class="sd-p"><span data-draw="mUsers" data-step="mip" data-source="mipFunnel" data-field="users" data-where="step=mip">—</span> users</span></div>
+      <div class="sd-row"><span class="sd-lbl">Downloaded MIP<small>Plan offered as a download</small></span><div class="sd-track"><div class="sd-bar" data-draw="mBar" data-step="download"></div></div><span class="sd-n" data-draw="mSess" data-step="download" data-source="mipFunnel" data-field="sessions" data-where="step=download">—</span><span class="sd-p"><span data-draw="mUsers" data-step="download" data-source="mipFunnel" data-field="users" data-where="step=download">—</span> users</span></div>
+    </div>
+    <p class="sd-note">The logs record when Saathi says a plan is ready to download, not whether the user tapped download. Treat the last step as an upper bound until the app logs real downloads.</p>
+  </section>
+
+  <details class="sd-details sd-card" id="definitions">
+    <summary>How each step is counted</summary>
+    <dl>
+      <dt>Source</dt><dd>Every tab of the Saathi conversation data log shared in the "Saathi Data logs - Monthly" thread, one row per message. Tabs overlap, so a message that appears in more than one tab is counted once. New tabs are picked up automatically at each sync.</dd>
+      <dt>District</dt><dd>Matched to Bihar's 38 districts (plus a few outside Bihar) from what users typed, in Hindi or English, allowing small spelling mistakes. Names that match no district are listed as "Unrecognised".</dd>
+      <dt>Unique user</dt><dd>A distinct user_id with at least one message in the month.</dd>
+      <dt>Started onboarding</dt><dd>mapping_status is "Profile found". "Profile not found" users are counted as dropping off at login.</dd>
+      <dt>Completed onboarding</dt><dd>Profile found, with role and district captured.</dd>
+      <dt>Started a conversation</dt><dd>Sent at least one message that was not an answer to Saathi's onboarding questions (name, role, school, state, district).</dd>
+      <dt>Received an answer or MIP</dt><dd>Saathi sent a substantive reply: one drawing on the knowledge base, a reply of 400+ characters, or an improvement plan.</dd>
+      <dt>MIP steps</dt><dd>Detected from Saathi's own wording: "Let me understand… build a plan" (challenge), "here is your Goal", "Objective", "Here is your Improvement Plan", and "ready to download" in a conversation that produced a plan.</dd>
+      <dt>Not removed</dt><dd>Internal and test accounts (for example a user named "Testing") are still counted.</dd>
+    </dl>
+  </details>
+</div>
+
+<script>
+  dash.calc('totalUsers', {
+    inputs: ['users'], title: 'Total unique users', description: 'Distinct user IDs in the month.',
+    fn: (users) => new Set(users.map((u) => u.user_id)).size,
+  });
+  dash.calc('profileNotFound', {
+    inputs: ['users'], title: 'Profile not found', description: 'Users whose mapping status was "Profile not found".',
+    fn: (users) => users.filter((u) => u.profile === 'Not found').length,
+  });
+  dash.calc('funnel', {
+    inputs: ['users'], title: 'Drop-off funnel', description: 'Users reaching each step, as a share of users who logged in and of the step before.',
+    fn: (users) => {
+      const steps = [['login', 'logged_in'], ['onb_start', 'started_onboarding'], ['onb_done', 'completed_onboarding'], ['convo', 'started_conversation'], ['answer', 'received_answer']];
+      const count = (col) => users.filter((u) => u[col] === '1').length;
+      const base = count('logged_in');
+      let prev = base;
+      return steps.map(([step, col]) => {
+        const n = count(col);
+        const row = { step, users: n, pct_of_login: base ? Math.round((n / base) * 1000) / 10 : 0, pct_of_prev: prev ? Math.round((n / prev) * 1000) / 10 : 0 };
+        prev = n;
+        return row;
+      });
+    },
+  });
+  dash.calc('mipFunnel', {
+    inputs: ['users', 'mipSessions'], title: 'MIP funnel', description: 'Conversations and unique users reaching each step of the Micro Improvement Plan flow.',
+    fn: (users, sessions) => {
+      const steps = [['challenge', 'Asked a school/classroom challenge', 'mip_challenge'], ['goal', 'Reached goal', 'mip_goal'], ['objective', 'Reached objectives', 'mip_objective'], ['mip', 'Generated MIP', 'mip_generated'], ['download', 'MIP ready to download', 'mip_downloaded']];
+      const bySession = Object.fromEntries(sessions.map((r) => [r.stage, Number(r.sessions)]));
+      return steps.map(([step, stage, col]) => ({ step, sessions: bySession[stage] ?? 0, users: users.filter((u) => u[col] === '1').length }));
+    },
+  });
+  dash.calc('byDistrict', { inputs: ['users'], title: 'Users by district', description: 'Funnel counts per district.', fn: (users) => {
+    const cols = ['completed_onboarding', 'started_conversation', 'received_answer', 'mip_generated', 'mip_downloaded'];
+    const groups = new Map();
+    for (const u of users) {
+      const district = u.district || 'Not captured';
+      const g = groups.get(district) || { district, users: 0, completed_onboarding: 0, started_conversation: 0, received_answer: 0, mip_generated: 0, mip_downloaded: 0 };
+      g.users += 1;
+      for (const c of cols) g[c] += u[c] === '1' ? 1 : 0;
+      groups.set(district, g);
+    }
+    return [...groups.values()].sort((a, b) => (a.district === 'Not captured') - (b.district === 'Not captured') || b.users - a.users);
+  } });
+  dash.calc('byRole', { inputs: ['users'], title: 'Users by role', description: 'Funnel counts per role group.', fn: (users) => {
+    const cols = ['completed_onboarding', 'started_conversation', 'received_answer', 'mip_generated', 'mip_downloaded'];
+    const groups = new Map();
+    for (const u of users) {
+      const role = u.role || 'Not captured';
+      const g = groups.get(role) || { role, users: 0, completed_onboarding: 0, started_conversation: 0, received_answer: 0, mip_generated: 0, mip_downloaded: 0 };
+      g.users += 1;
+      for (const c of cols) g[c] += u[c] === '1' ? 1 : 0;
+      groups.set(role, g);
+    }
+    return [...groups.values()].sort((a, b) => (a.role === 'Not captured') - (b.role === 'Not captured') || b.users - a.users);
+  } });
+</script>
+
+<script>
+  const fmt = d3.format(',');
+  const skel = (el, d) => el.classList.toggle('dash-skeleton', d.status === 'loading');
+  const single = (name, id) => dash.draw(name, (el) => {
+    const d = dash.data(id); skel(el, d);
+    el.textContent = d.status === 'ok' && d.data != null ? fmt(d.data) : '—';
+  });
+  const covField = (name, key, f) => dash.draw(name, (el) => {
+    const d = dash.data('coverage'); skel(el, d);
+    const r = d.status === 'ok' ? (d.data || [])[0] : null;
+    el.textContent = r && r[key] ? f(r[key]) : '—';
+  });
+  const dayFmt = d3.utcFormat('%-d %b %Y');
+  covField('covFrom', 'from', (v) => dayFmt(new Date(v + 'T00:00:00Z')));
+  covField('covTo', 'to', (v) => dayFmt(new Date(v + 'T00:00:00Z')));
+  covField('covSync', 'refreshed', (v) => d3.timeFormat('%-d %b, %H:%M')(new Date(v)));
+  single('tUsers', 'totalUsers');
+  single('bigUsers', 'totalUsers');
+  single('splitNotFound', 'profileNotFound');
+
+  const rowOf = (id, step) => { const d = dash.data(id); return d.status === 'ok' ? (d.data || []).find((r) => r.step === step) : null; };
+  const field = (name, id, step, key, f) => dash.draw(name, (el) => {
+    const d = dash.data(id); skel(el, d);
+    const r = rowOf(id, step || el.dataset.step);
+    el.textContent = r ? f(r[key]) : '—';
+  });
+  field('tAnswer', 'funnel', 'answer', 'users', fmt);
+  field('tAnswerPct', 'funnel', 'answer', 'pct_of_login', (v) => v.toFixed(0));
+  field('tMip', 'mipFunnel', 'mip', 'users', fmt);
+  field('splitFound', 'funnel', 'onb_start', 'users', fmt);
+  field('fUsers', 'funnel', null, 'users', fmt);
+  field('fPct', 'funnel', null, 'pct_of_login', (v) => v.toFixed(1) + '%');
+  field('mSess', 'mipFunnel', null, 'sessions', fmt);
+  field('mUsers', 'mipFunnel', null, 'users', fmt);
+
+  dash.draw('fBar', (el) => {
+    const r = rowOf('funnel', el.dataset.step);
+    el.style.background = dash.colors[0];
+    el.style.width = r ? r.pct_of_login + '%' : '0';
+  });
+  dash.draw('mBar', (el) => {
+    const d = dash.data('mipFunnel');
+    const rows = d.status === 'ok' ? d.data || [] : [];
+    const max = d3.max(rows, (r) => r.sessions) || 1;
+    const r = rows.find((x) => x.step === el.dataset.step);
+    el.style.background = dash.colors[1] || dash.colors[0];
+    el.style.width = r ? (r.sessions / max) * 100 + '%' : '0';
+  });
+  dash.draw('mipSwatch', (el) => { el.style.background = dash.colors[1] || dash.colors[0]; });
+
+  dash.draw('bigDrop', (el) => {
+    const d = dash.data('funnel'); skel(el, d);
+    const labels = { onb_start: 'logged in → started onboarding', onb_done: 'started → completed onboarding', convo: 'onboarded → started a conversation', answer: 'started a conversation → got an answer' };
+    if (d.status !== 'ok' || !d.data.length) { el.textContent = '—'; return; }
+    let worst = null;
+    d.data.forEach((r, i) => { if (i === 0) return; const lost = d.data[i - 1].users - r.users; if (!worst || lost > worst.lost) worst = { lost, step: r.step }; });
+    el.textContent = worst ? `${labels[worst.step]}, ${fmt(worst.lost)} users` : '—';
+  });
+
+  const tableRows = (name, id, key) => dash.draw(name, (tbody) => {
+    const d = dash.data(id);
+    const rows = d.status === 'ok' ? d.data || [] : [];
+    const cols = [key, 'users', 'completed_onboarding', 'started_conversation', 'received_answer', 'mip_generated', 'mip_downloaded'];
+    d3.select(tbody).selectAll('tr').data(rows, (r) => r[key]).join('tr')
+      .attr('data-key', (r) => encodeURIComponent(r[key]))
+      .selectAll('td').data((r) => cols.map((c) => (c === key ? r[c] : fmt(r[c])))).join('td').text((v) => v);
+  });
+  tableRows('distRows', 'byDistrict', 'district');
+  tableRows('roleRows', 'byRole', 'role');
+
+  // Big number opens the district / role breakdown; tabs switch between them.
+  document.querySelectorAll('#total-users').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      document.querySelectorAll('#breakdown').forEach((p) => { p.hidden = !open; });
+      if (open) dash.setLink('breakdown');
+    });
+  });
+  document.querySelectorAll('.sd-tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.sd-tab').forEach((t) => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        document.querySelectorAll('#' + t.getAttribute('aria-controls')).forEach((p) => { p.hidden = !on; });
+      });
+    });
+  });
+  if (location.hash === '#breakdown') document.querySelectorAll('#total-users').forEach((b) => b.click());
+</script>

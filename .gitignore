@@ -1,0 +1,10 @@
+# Raw conversation logs contain names and messages - never commit them
+*.raw.csv
+tabs/
+merged.csv
+oct.csv
+tab-*.csv
+sync.log
+CHANGED
+LAST_UPLOADED_HASH
+dashboard.json
