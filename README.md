@@ -2,7 +2,7 @@
 
 Usage dashboard for **Saathi**, built from the Saathi conversation data log (Google Sheet shared in the "Saathi Data logs - Monthly" thread).
 
-Live dashboard (claude.ai, private until shared): https://claude.ai/artifact/73fBDwkrxDqgsqgADWM9ce
+Live dashboard (claude.ai; viewers need it shared with them): https://claude.ai/artifact/73fBDwkrxDqgsqgADWM9ce
 
 ## What it shows
 
