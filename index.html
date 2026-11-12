@@ -3,260 +3,1246 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Saathi User Dashboard</title>
-<meta name="description" content="Saathi usage: unique users by district and role, onboarding drop-off funnel and Micro Improvement Plan funnel.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap">
-<style>
-  /* Layout: one reading column; headline number beside the drop-off funnel, MIP funnel below. */
-  :root {
-    --bg: #f6f7f5; --panel: #ffffff; --fg: #1c2421; --muted: #5d6b66; --line: #dde3df;
-    --track: #e8ede9; --accent: #1f6f5c; --accent-2: #c0782b; --bad: #b3412f;
-    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    color-scheme: light;
-  }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-    --bg: #121715; --panel: #1a211e; --fg: #e7ece9; --muted: #9aa8a2; --line: #2c3632;
-    --track: #26302c; --accent: #4fb89a; --accent-2: #e09a52; --bad: #e07a66; color-scheme: dark; } }
-  :root[data-theme="dark"] {
-    --bg: #121715; --panel: #1a211e; --fg: #e7ece9; --muted: #9aa8a2; --line: #2c3632;
-    --track: #26302c; --accent: #4fb89a; --accent-2: #e09a52; --bad: #e07a66; color-scheme: dark; }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body); }
-  .wrap { max-width: 1120px; margin: 0 auto; padding-block: 32px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 24px; }
-  .eyebrow { font-size: 12px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
-  h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 4vw, 42px); line-height: 1.1; margin: 6px 0 8px; text-wrap: balance; }
-  .lede { margin: 0; max-width: 68ch; color: var(--muted); font-size: 16px; }
-  .lede b { color: var(--fg); font-weight: 600; }
-  .num { font-variant-numeric: tabular-nums; }
-  .top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 20px; align-items: start; }
-  @media (max-width: 760px) { .top { grid-template-columns: minmax(0, 1fr); } }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; min-width: 0; }
-  .card h2 { font-size: 17px; font-weight: 600; margin: 0 0 2px; }
-  .sub { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
-  .big { display: grid; gap: 6px; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
-  .big:hover { border-color: var(--accent); }
-  .big:focus-visible, .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .big .value { font-family: var(--font-display); font-size: 68px; line-height: 1; color: var(--accent); }
-  .big .hint { font-size: 13px; color: var(--accent); font-weight: 500; }
-  .split { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 13px; color: var(--muted); }
-  .split b { color: var(--fg); font-weight: 600; }
-  .funnel { display: grid; gap: 10px; }
-  .row { display: grid; grid-template-columns: minmax(0, 13em) minmax(0, 1fr) 4.5em 5em; gap: 10px; align-items: center; }
-  .lbl small { display: block; color: var(--muted); font-size: 12px; }
-  .track { height: 22px; background: var(--track); border-radius: 4px; overflow: hidden; }
-  .bar { height: 100%; width: 0; border-radius: 4px; background: var(--accent); }
-  .mip .bar { background: var(--accent-2); }
-  .n { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .p { text-align: right; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
-  @media (max-width: 520px) { .row { grid-template-columns: minmax(0, 1fr) 4em 5em; } .row .track { grid-column: 1 / -1; grid-row: 2; } }
-  @media (prefers-reduced-motion: no-preference) { .bar { transition: width .6s cubic-bezier(.2,.7,.2,1); } }
-  .note { font-size: 13px; color: var(--muted); margin: 14px 0 0; max-width: 75ch; }
-  .note b { color: var(--bad); font-weight: 600; }
-  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
-  .tab { font: inherit; background: none; border: 0; cursor: pointer; padding: 8px 14px; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
-  .tab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); font-weight: 500; }
-  .tablewrap { overflow: auto; max-height: 540px; }
-  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 14px; }
-  th, td { padding: 7px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
-  th:first-child, td:first-child { text-align: left; }
-  thead th { position: sticky; top: 0; background: var(--panel); font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; user-select: none; }
-  thead th[aria-sort="descending"]::after { content: " ▾"; } thead th[aria-sort="ascending"]::after { content: " ▴"; }
-  details summary { cursor: pointer; font-weight: 600; }
-  dl { display: grid; grid-template-columns: minmax(0, 14em) minmax(0, 1fr); gap: 6px 16px; margin: 14px 0 0; font-size: 13px; }
-  dt { font-weight: 600; } dd { margin: 0; color: var(--muted); }
-  @media (max-width: 520px) { dl { grid-template-columns: minmax(0, 1fr); } }
-  .status { font-size: 13px; color: var(--bad); }
-  footer { font-size: 12px; color: var(--muted); }
-  footer a { color: var(--accent); }
-</style>
 </head>
 <body>
-<div class="wrap">
+<title>Saathi Live Dashboard</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Hind:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm column of sections; summary (users, repeat) first, detail opens on demand. */
+:root {
+  --bg: #f6f7f5; --surface: #ffffff; --line: #dfe3df; --fg: #1b2420; --muted: #5e6b65;
+  --accent: #1f6f5c; --accent-soft: #d7ebe4; --track: #e9edea; --warn: #a3541b;
+  --display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --body: "Hind", "Nirmala UI", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121815; --surface: #1a221e; --line: #2c3631; --fg: #e6ece9; --muted: #9aa8a1;
+  --accent: #5cc0a2; --accent-soft: #1f3a31; --track: #26302b; --warn: #e39a62; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121815; --surface: #1a221e; --line: #2c3631; --fg: #e6ece9; --muted: #9aa8a1;
+  --accent: #5cc0a2; --accent-soft: #1f3a31; --track: #26302b; --warn: #e39a62; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+h1 { font-size: 1.7rem; font-weight: 700; }
+h2 { font-size: 1.15rem; font-weight: 600; }
+h3 { font-size: .95rem; font-weight: 600; }
+.sub { color: var(--muted); font-size: .9rem; margin: 4px 0 0; }
+.label { font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.num { font-variant-numeric: tabular-nums; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+section { display: grid; gap: 14px; }
+.hero { display: grid; gap: 4px; }
+.big { font-family: var(--display); font-size: 3.4rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.big small { font-size: 1.2rem; color: var(--muted); font-weight: 500; }
+button.link { all: unset; cursor: pointer; color: var(--accent); font-weight: 600; font-size: .9rem; }
+button.link:focus-visible, .tabs button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.bars { display: grid; gap: 9px; }
+.bar { display: grid; grid-template-columns: minmax(110px, 38%) 1fr auto; gap: 10px; align-items: center; font-size: .9rem; }
+.bar .name { min-width: 0; overflow-wrap: anywhere; }
+.track { height: 12px; background: var(--track); border-radius: 0 4px 4px 0; overflow: hidden; display: flex; gap: 2px; }
+.fill { height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.fill.alt { background: var(--muted); opacity: .55; }
+.val { font-variant-numeric: tabular-nums; text-align: right; min-width: 64px; }
+.val em { font-style: normal; color: var(--muted); font-size: .8rem; margin-left: 4px; }
+.step-drop { color: var(--warn); font-size: .78rem; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.tile { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 2px; }
+.tile b { font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.tile span { color: var(--muted); font-size: .82rem; }
+.legend { display: flex; gap: 16px; font-size: .82rem; color: var(--muted); flex-wrap: wrap; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; background: var(--accent); }
+.legend i.alt { background: var(--muted); opacity: .55; }
+.quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+blockquote { margin: 0; padding: 14px 16px; background: var(--accent-soft); border-radius: 8px; font-size: .92rem; display: grid; gap: 6px; }
+blockquote cite { font-style: normal; font-size: .75rem; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+details { border-top: 1px solid var(--line); padding-top: 10px; }
+details summary { cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary .bar .name::before { content: "+ "; color: var(--accent); font-weight: 700; }
+details[open] summary .bar .name::before { content: "\2212  "; }
+details ul { margin: 10px 0 4px; padding-left: 20px; display: grid; gap: 6px; font-size: .9rem; }
+.tag { font-size: .7rem; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); margin-left: 6px; white-space: nowrap; }
+.insights { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 75ch; }
+.tabs { display: flex; gap: 6px; }
+.tabs button { font: inherit; font-size: .85rem; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.tablewrap { overflow-x: auto; max-height: 420px; overflow-y: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; position: sticky; top: 0; background: var(--surface); }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.note { color: var(--muted); font-size: .82rem; margin: 0; }
+@media (max-width: 520px) { .big { font-size: 2.8rem; } .bar { grid-template-columns: 1fr auto; } .bar .track { grid-column: 1 / -1; grid-row: 2; } }
+@media (prefers-reduced-motion: no-preference) { .fill { transition: width .4s ease; } }
+</style>
+
+<div class="wrap" id="app">
   <header>
-    <div class="eyebrow">Saathi · <span id="period">loading…</span> · data updated <span id="synced">—</span></div>
-    <h1>Saathi user dashboard</h1>
-    <p class="lede"><b id="t-users" class="num">—</b> people used Saathi in this period. <b id="t-answer" class="num">—</b> of them (<span id="t-answer-pct" class="num">—</span>) got an answer or a plan, and <b id="t-mip" class="num">—</b> generated a Micro Improvement Plan.</p>
-    <p class="status" id="status" hidden></p>
+    <h1>Saathi live dashboard</h1>
+    <p class="sub" id="period"></p>
   </header>
 
-  <div class="top">
-    <div>
-      <button type="button" class="big" id="total-users" aria-expanded="false" aria-controls="breakdown">
-        <span class="eyebrow">Total unique users</span>
-        <span class="value num" id="big-users">—</span>
-        <span class="hint" id="big-hint">Click to see by district and role ▾</span>
-      </button>
-      <div class="split">
-        <span>Profile found <b id="found" class="num">—</b></span>
-        <span>Profile not found <b id="not-found" class="num">—</b></span>
+  <div class="grid2">
+    <div class="card">
+      <div class="hero">
+        <span class="label">Unique users</span>
+        <div class="big num" id="users"></div>
+        <span class="sub" id="usersSub"></span>
+      </div>
+      <button class="link" id="toggleBreakdown" aria-expanded="false" aria-controls="breakdown">See district-wise and role-wise users</button>
+      <div id="breakdown" hidden>
+        <div class="tabs" role="tablist">
+          <button role="tab" id="tabDistrict" aria-selected="true">District</button>
+          <button role="tab" id="tabRole" aria-selected="false">Role</button>
+        </div>
+        <div class="tablewrap"><table><thead><tr><th id="bdHead">District</th><th class="n">Users</th><th class="n">Got an answer</th><th class="n">Got an MIP</th></tr></thead><tbody id="bdBody"></tbody></table></div>
       </div>
     </div>
-
-    <section class="card" id="dropoff-funnel">
-      <h2>Drop-off funnel</h2>
-      <p class="sub">Unique users reaching each step. The percentage is the share of everyone who logged in.</p>
-      <div class="funnel" id="funnel"></div>
-      <p class="note">Biggest drop: <b id="big-drop">—</b>.</p>
-    </section>
+    <div class="card">
+      <div class="hero">
+        <span class="label">Came back at least once</span>
+        <div class="big num" id="repeatPct"></div>
+        <span class="sub" id="repeatSub"></span>
+      </div>
+      <div class="bars" id="repeatBars"></div>
+      <p class="note" id="repeatNote"></p>
+    </div>
   </div>
 
-  <section class="card" id="breakdown" hidden>
-    <h2>Users by district and role</h2>
-    <p class="sub">How far each group's users got. Click a column heading to sort.</p>
-    <div class="tabs" role="tablist">
-      <button type="button" class="tab" role="tab" id="tab-district" aria-selected="true" aria-controls="panel-district">District-wise</button>
-      <button type="button" class="tab" role="tab" id="tab-role" aria-selected="false" aria-controls="panel-role">Role-wise</button>
+  <div class="grid2">
+    <div class="card"><h2>Drop-off funnel</h2><p class="note">Users at each step, with the share lost from the step before.</p><div class="bars" id="funnel"></div></div>
+    <div class="card"><h2>Micro-improvement plan (MIP) funnel</h2><p class="note">Users in conversations where Saathi chose the MIP flow.</p><div class="bars" id="mipFunnel"></div><p class="note" id="mipNote"></p></div>
+  </div>
+
+  <section>
+    <h2>Conversation analysis</h2>
+    <div class="grid2">
+      <div class="card"><h3>Language chosen (users)</h3><div class="bars" id="lang"></div>
+        <h3>Voice vs text (user messages)</h3><div class="legend"><span><i></i>Voice</span><span><i class="alt"></i>Text</span></div><div class="bars" id="voice"></div></div>
+      <div class="card"><h3>Time taken (median)</h3><div class="tiles" id="time"></div><p class="note">Times are from message timestamps, which are recorded to the minute.</p></div>
     </div>
-    <div class="tablewrap" id="panel-district" role="tabpanel" aria-labelledby="tab-district"><table id="table-district"></table></div>
-    <div class="tablewrap" id="panel-role" role="tabpanel" aria-labelledby="tab-role" hidden><table id="table-role"></table></div>
-    <p class="note">Districts are matched across Hindi and English spellings. Roles are grouped: Teacher includes subject, assistant and BPSC teachers; Head of school includes HM, Principal, Head Teacher and in-charge. "Not captured" is mostly users whose profile was not found.</p>
   </section>
 
-  <section class="card mip" id="mip-funnel">
-    <h2>Micro Improvement Plan funnel</h2>
-    <p class="sub">Conversations where Saathi took the MIP route: challenge, goal, objectives, plan. Bars show conversations; unique users are shown alongside.</p>
-    <div class="funnel" id="mip"></div>
-    <p class="note">The logs record when Saathi says a plan is ready to download, not whether the user tapped download, so the last step is an upper bound.</p>
+  <section>
+    <h2>Tone and warmth</h2>
+    <p class="note">Examples of Saathi's replies that acknowledge the teacher before helping. Names are hidden.</p>
+    <div class="quotes" id="warmth"></div>
   </section>
 
-  <details class="card" id="definitions">
-    <summary>How each step is counted</summary>
-    <dl>
-      <dt>Source</dt><dd>Every tab of the Saathi conversation data log ("Saathi Data logs - Monthly"). Tabs overlap, so a message in more than one tab is counted once. New tabs are picked up automatically at each hourly sync.</dd>
-      <dt>Unique user</dt><dd>A distinct user_id with at least one message.</dd>
-      <dt>Started onboarding</dt><dd>mapping_status is "Profile found". "Profile not found" users are counted as dropping off at login.</dd>
-      <dt>Completed onboarding</dt><dd>Profile found, with role and district captured.</dd>
-      <dt>Started a conversation</dt><dd>Sent at least one message that was not an answer to Saathi's onboarding questions.</dd>
-      <dt>Received an answer or MIP</dt><dd>Saathi sent a reply drawing on its knowledge base, a reply of 400+ characters, or an improvement plan.</dd>
-      <dt>MIP steps</dt><dd>Detected from Saathi's own wording: "Let me understand… build a plan", "here is your Goal", "Objective", "Here is your Improvement Plan", and "ready to download" in a conversation that produced a plan.</dd>
-      <dt>District</dt><dd>Matched to Bihar's 38 districts (and a few outside Bihar) from Hindi or English input, allowing small typos.</dd>
-      <dt>Not removed</dt><dd>Internal and test accounts are still counted.</dd>
-    </dl>
-  </details>
+  <section>
+    <h2>What users ask</h2>
+    <div class="grid2">
+      <div class="card"><h3>Knowledge query vs MIP</h3><div class="legend"><span><i></i>MIP flow</span><span><i class="alt"></i>Knowledge answer</span></div><div class="bars" id="kvm"></div>
+        <h3>Starter prompts tapped first</h3><div class="bars" id="starters"></div></div>
+      <div class="card"><h3>Query themes</h3><p class="note">First typed question in each conversation. Open a theme to see the exact queries, in the language they were asked.</p><div id="themes"></div></div>
+    </div>
+  </section>
 
-  <footer>Data: <a href="https://github.com/chandana-collab/saathi-user-dashboard/tree/main/data">data/</a> in this repository, refreshed hourly from the Saathi data log.</footer>
+  <section class="card">
+    <h2>Insights from the logs</h2>
+    <ol class="insights" id="insights"></ol>
+  </section>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script>
-(async function () {
-  const fmt = d3.format(',');
-  const $ = (id) => document.getElementById(id);
-  const bust = '?v=' + Date.now();
-  let users, mipSessions, coverage;
-  try {
-    [users, mipSessions, coverage] = await Promise.all([
-      d3.csv('data/saathi-users.csv' + bust), d3.csv('data/saathi-mip-sessions.csv' + bust), d3.csv('data/saathi-coverage.csv' + bust),
-    ]);
-  } catch (e) {
-    $('status').hidden = false; $('status').textContent = 'The data files could not be loaded. Refresh the page, or check the data/ folder in the repository.';
-    return;
-  }
-  const flag = (col) => users.filter((u) => u[col] === '1').length;
+const D = {
+    "from":  "2026-10-26",
+    "to":  "2026-11-03",
+    "refreshed":  "2026-11-12 17:24",
+    "totals":  {
+                   "users":  925,
+                   "conversations":  1502,
+                   "messages":  16528,
+                   "duplicatesRemoved":  7630
+               },
+    "repeat":  {
+                   "returnedPct":  6.3,
+                   "returned":  58,
+                   "buckets":  [
+                                   {
+                                       "name":  "Same day",
+                                       "users":  40,
+                                       "pct":  4.3
+                                   },
+                                   {
+                                       "name":  "After 1 day",
+                                       "users":  13,
+                                       "pct":  1.4
+                                   },
+                                   {
+                                       "name":  "After 2 days",
+                                       "users":  4,
+                                       "pct":  0.4
+                                   },
+                                   {
+                                       "name":  "After 3 days",
+                                       "users":  0,
+                                       "pct":  0
+                                   },
+                                   {
+                                       "name":  "After 4+ days",
+                                       "users":  1,
+                                       "pct":  0.1
+                                   },
+                                   {
+                                       "name":  "Never came back",
+                                       "users":  867,
+                                       "pct":  93.7
+                                   }
+                               ],
+                   "returnedPctOfConversing":  12,
+                   "eligibleUsers":  390,
+                   "eligibleReturnedPct":  5.6,
+                   "multiDay":  19,
+                   "threePlusVisits":  3
+               },
+    "funnel":  {
+                   "loggedIn":  925,
+                   "startedOnboarding":  765,
+                   "completedOnboarding":  765,
+                   "startedConversation":  382,
+                   "receivedAnswer":  309
+               },
+    "mipSessions":  {
+                        "chal":  245,
+                        "goal":  163,
+                        "obj":  146,
+                        "mip":  74,
+                        "dl":  64
+                    },
+    "mipUsers":  {
+                     "chal":  239,
+                     "goal":  161,
+                     "obj":  144,
+                     "mip":  74,
+                     "dl":  64
+                 },
+    "byDistrict":  [
+                       {
+                           "name":  "Not captured",
+                           "users":  161,
+                           "answered":  0,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Katihar",
+                           "users":  74,
+                           "answered":  24,
+                           "mip":  11
+                       },
+                       {
+                           "name":  "Patna",
+                           "users":  68,
+                           "answered":  29,
+                           "mip":  11
+                       },
+                       {
+                           "name":  "Munger",
+                           "users":  64,
+                           "answered":  30,
+                           "mip":  10
+                       },
+                       {
+                           "name":  "Vaishali",
+                           "users":  57,
+                           "answered":  21,
+                           "mip":  3
+                       },
+                       {
+                           "name":  "Gopalganj",
+                           "users":  54,
+                           "answered":  29,
+                           "mip":  8
+                       },
+                       {
+                           "name":  "Begusarai",
+                           "users":  44,
+                           "answered":  17,
+                           "mip":  3
+                       },
+                       {
+                           "name":  "Nalanda",
+                           "users":  38,
+                           "answered":  16,
+                           "mip":  5
+                       },
+                       {
+                           "name":  "Saran",
+                           "users":  36,
+                           "answered":  14,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Sheikhpura",
+                           "users":  35,
+                           "answered":  13,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Muzaffarpur",
+                           "users":  33,
+                           "answered":  11,
+                           "mip":  2
+                       },
+                       {
+                           "name":  "Jamui",
+                           "users":  32,
+                           "answered":  13,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Gaya",
+                           "users":  31,
+                           "answered":  6,
+                           "mip":  2
+                       },
+                       {
+                           "name":  "Kaimur",
+                           "users":  23,
+                           "answered":  12,
+                           "mip":  2
+                       },
+                       {
+                           "name":  "Bhagalpur",
+                           "users":  21,
+                           "answered":  12,
+                           "mip":  3
+                       },
+                       {
+                           "name":  "Sitamarhi",
+                           "users":  18,
+                           "answered":  6,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Rohtas",
+                           "users":  17,
+                           "answered":  8,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "East Champaran",
+                           "users":  13,
+                           "answered":  4,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Jehanabad",
+                           "users":  12,
+                           "answered":  6,
+                           "mip":  2
+                       },
+                       {
+                           "name":  "Siwan",
+                           "users":  11,
+                           "answered":  4,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Lakhisarai",
+                           "users":  10,
+                           "answered":  5,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Samastipur",
+                           "users":  9,
+                           "answered":  3,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Madhubani",
+                           "users":  7,
+                           "answered":  2,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Banka",
+                           "users":  7,
+                           "answered":  3,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Araria",
+                           "users":  6,
+                           "answered":  2,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Buxar",
+                           "users":  6,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Kishanganj",
+                           "users":  6,
+                           "answered":  2,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Darbhanga",
+                           "users":  6,
+                           "answered":  2,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Nawada",
+                           "users":  5,
+                           "answered":  3,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Saharsa",
+                           "users":  4,
+                           "answered":  1,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Bhojpur",
+                           "users":  4,
+                           "answered":  2,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Aurangabad",
+                           "users":  2,
+                           "answered":  0,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Khagaria",
+                           "users":  2,
+                           "answered":  2,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Purnia",
+                           "users":  2,
+                           "answered":  2,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Supaul",
+                           "users":  2,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "(state only)",
+                           "users":  1,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "West Champaran",
+                           "users":  1,
+                           "answered":  0,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Sheohar",
+                           "users":  1,
+                           "answered":  0,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Madhepura",
+                           "users":  1,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Bengaluru",
+                           "users":  1,
+                           "answered":  1,
+                           "mip":  0
+                       }
+                   ],
+    "byRole":  [
+                   {
+                       "name":  "Teacher",
+                       "users":  628,
+                       "answered":  251,
+                       "mip":  55
+                   },
+                   {
+                       "name":  "Not captured",
+                       "users":  164,
+                       "answered":  0,
+                       "mip":  1
+                   },
+                   {
+                       "name":  "Head of school",
+                       "users":  126,
+                       "answered":  54,
+                       "mip":  18
+                   },
+                   {
+                       "name":  "Other",
+                       "users":  4,
+                       "answered":  3,
+                       "mip":  0
+                   },
+                   {
+                       "name":  "Program / system staff",
+                       "users":  3,
+                       "answered":  1,
+                       "mip":  0
+                   }
+               ],
+    "language":  {
+                     "users":  [
+                                   {
+                                       "name":  "Hindi",
+                                       "users":  648,
+                                       "pct":  70.1
+                                   },
+                                   {
+                                       "name":  "English",
+                                       "users":  277,
+                                       "pct":  29.9
+                                   }
+                               ],
+                     "voiceByLang":  [
+                                         {
+                                             "name":  "Hindi",
+                                             "messages":  6003,
+                                             "voice":  653,
+                                             "text":  5350,
+                                             "voicePct":  10.9
+                                         },
+                                         {
+                                             "name":  "English",
+                                             "messages":  2250,
+                                             "voice":  93,
+                                             "text":  2157,
+                                             "voicePct":  4.1
+                                         }
+                                     ]
+                 },
+    "time":  {
+                 "onboardingMedian":  1,
+                 "onboardingAvg":  1.8,
+                 "onboardingN":  753,
+                 "answerMedian":  1,
+                 "answerAvg":  2.1,
+                 "answerN":  333,
+                 "planMedian":  7,
+                 "planAvg":  16,
+                 "planN":  74
+             },
+    "questionsToPlan":  {
+                            "median":  6,
+                            "avg":  6.9,
+                            "userRepliesMedian":  8
+                        },
+    "starterPrompts":  [
+                           {
+                               "text":  "किसी चुनौती पर काम करें",
+                               "conversations":  11
+                           },
+                           {
+                               "text":  "गहरे जाना",
+                               "conversations":  4
+                           },
+                           {
+                               "text":  "इस पर और गहराई से विचार करें",
+                               "conversations":  3
+                           },
+                           {
+                               "text":  "सभी छात्र",
+                               "conversations":  2
+                           },
+                           {
+                               "text":  "सभी विषय",
+                               "conversations":  2
+                           },
+                           {
+                               "text":  "पूरे स्कूल में",
+                               "conversations":  2
+                           },
+                           {
+                               "text":  "धन्यवाद",
+                               "conversations":  2
+                           },
+                           {
+                               "text":  "कक्षा 6-8",
+                               "conversations":  2
+                           }
+                       ],
+    "starterConversations":  45,
+    "warmth":  [
+                   {
+                       "lang":  "English",
+                       "text":  "Good — now I understand the real challenge. The funds are there, but the Head Teacher isn\u0027t releasing them. Let me ask one more thing to build the right plan: **Have you already tried talking to the Head Teacher about..."
+                   },
+                   {
+                       "lang":  "English",
+                       "text":  "Ah, I understand now. Students are coming to school, but they\u0027re not doing the homework — they\u0027re arriving without it completed. Is that right?"
+                   },
+                   {
+                       "lang":  "English",
+                       "text":  "I think I understand — children aren\u0027t completing their homework, or they\u0027re not coming to school because of homework issues. Let me ask a clarifying question to make sure I have this right: **Are you saying that stud..."
+                   },
+                   {
+                       "lang":  "Hindi",
+                       "text":  "I understand you\u0027re asking for a summary of Class 5 Hindi Chapter 1. Let me give you that in simple English: --- **Chapter 1 \"किरन\" (Kiran) — Summary** This is a poem about a ray of light (किरन). **Main idea:** - A ra..."
+                   },
+                   {
+                       "lang":  "Hindi",
+                       "text":  "Great! Here are some practical Hindi teaching materials you can create for Grade 6-8 students: --- ## **1. Vocabulary Building Worksheet** **Topic: Daily Life Words (दैनिक जीवन)** Create a worksheet with: - Pictures o..."
+                   },
+                   {
+                       "lang":  "Hindi",
+                       "text":  "बहुत अच्छा! जब भी आपको मदद की जरूरत हो, मैं यहाँ हूँ। शुभकामनाएं आपके स्कूल के लिए! 🙏"
+                   }
+               ],
+    "themes":  [
+                   {
+                       "name":  "Other / unclear (short or general replies)",
+                       "count":  128,
+                       "pct":  32.8,
+                       "mip":  85,
+                       "examples":  [
+                                        {
+                                            "text":  "एक सहायता योजना बनाएं",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "कैंपस की सीमाएँ",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "आधारभूत संरचना",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Path thika taiyar kar sakte hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "आवश्यकता पड़ने पर ही बोला जाए वरना मत बोलो",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Yes I do have a challenge here",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "सब कुछ ठीक है",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Practical kaiser karwaye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "तीनों समान रूप से",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "छात्र अधिगम परिणाम",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "पूछना क्या चाहते हो तो बताओ",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "जल्लक्ष की लक्ष्य की पूर्ति करने",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Classroom improvement",
+                       "count":  85,
+                       "pct":  21.8,
+                       "mip":  61,
+                       "examples":  [
+                                        {
+                                            "text":  "बच्चों की गुणवत्ता पूर्ण शिक्षा",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Kaise class ko improvement me laye",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "कक्षाएं बाधित हुईं",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Mujhe class 7 me ganit me samikaran padhana hai ekdum basic se kuchh idea do aur kuchh prasn v jise mai balack board par banwa saku",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "मेरी स्वयं की सीख",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "सीखने का मार्ग",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "बच्चों को भाग कितने विधि से बताया जा सकता है",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "मुझे क्लास 5 में लघुत्तम समापवर्तक पढ़ना है उससे संबंधित 10 क्वेश्चन दो",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "nahi main shikshak hu shikshika nhi",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Mera subject sanskrit hai or bachche isme jata bhi ruchi nhi lete ye sabhi class ka haal hai",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "कक्षा प्रबंधन संबंधी मुद्दे",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Class\u0027s six ke bachche maths me kum intrest lete hai",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "School or classroom improvement challenge",
+                       "count":  63,
+                       "pct":  16.2,
+                       "mip":  51,
+                       "examples":  [
+                                        {
+                                            "text":  "teacher ka abhav",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "स्कूल में टीचर की कमी है 800 बच्चे हैं मात्र 5 टीचर है",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "मेरे स्कूल में विद्यालय में विद्यालय में फ्री फायर में बना हुआ शौचालय है जो बाढ़ के कारण वस्तु हो चुका है है विभाग मेरी बात सुनता नहीं है मैं क्या करूं",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "माध्यमिक विद्यालय (कक्षा 6-8)",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Tips for better administration",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "होमवर्क की वजह से स्कूल ना आना",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Boundary wall ki bahut jaruri",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "पानी की असुविधा",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "पानी की कमी,शिक्षक की कमी",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "संसाधनों की कमी",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "वो स्कूल में हमेशा सोए ही रहते हैं उपस्थिति दर्ज करके",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Lake of books",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Teaching/learning resource request",
+                       "count":  58,
+                       "pct":  14.9,
+                       "mip":  23,
+                       "examples":  [
+                                        {
+                                            "text":  "शिक्षण सामग्री तैयार करें",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "सामान्य रणनीतियाँ",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "रणनीतियों में और गहराई से उतरें",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Create study notes",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "सामग्री बनाएं",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Pariyojna karya ka nirdharan Kaise kiya jaye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "शिक्षकों के लिए एआई उपकरण",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "शिक्षण में एआई",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Ok then give me notes of plant chapter of biology in a very easy and lucid language",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Class 6 ka science project",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "क्या बच्चे टीचर्स के साथ मिलकर खेल के साथ पाठ्यक्रम सीख सकते हैं",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Class 5 me shikshan se sambndhit kon si activity karvaye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Subject knowledge question",
+                       "count":  22,
+                       "pct":  5.6,
+                       "mip":  7,
+                       "examples":  [
+                                        {
+                                            "text":  "घटना का मतलब",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Full syllabus",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Shabd ke kitne parkar hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "खान-पान की गलती तस्वीर पाठ की व्याख्या",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Masal battry test",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Physics ke magnetic field ko graph k madhyam se",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Gharshan kitne parkar ke hote hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Aaj ki topic kya hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "इसका मुख्य उद्देश्य पैसे से संबंधित गणना और ब्याज से है",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Sam samyik ghatna par 50 parasna aur uttar de",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Social science",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Student ki Upasthti kis prakar Bdha sakte hai",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Saathi / app help",
+                       "count":  16,
+                       "pct":  4.1,
+                       "mip":  6,
+                       "examples":  [
+                                        {
+                                            "text":  "still in Hindi",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Both happening",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Mere profile me state ke naam me Bihar kar dijiye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Is there any SAATHI app also",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Can you talk to me in Hindi",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Posting parkriya me aap hamarakya madad kar sakte hain.",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Kya mera form fill ho gya h",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Ye app meri kaise madad ker sakta hai",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "How to change in language in the",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Do you have any app?",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "How to fill google form for it. What details i would require to fill.",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Google form kaise bhare",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Lesson plan",
+                       "count":  10,
+                       "pct":  2.6,
+                       "mip":  3,
+                       "examples":  [
+                                        {
+                                            "text":  "Classroom lesson activity",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Kya mere liye lesson plan taiyar kro",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "about lesson plan",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "स्कूल में पाठ योजना के अनुसार कैसे प्रदान करें",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Padhai ka plan banana",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "नई पाठ योजना बनाएं",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Create a lesson plan",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "can you make this lesson plan with project based learning pedagogy",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Classroom management",
+                       "count":  8,
+                       "pct":  2.1,
+                       "mip":  6,
+                       "examples":  [
+                                        {
+                                            "text":  "Study time management",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "पलटकर जबाब देते है",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "एक नमूना रूटीन बनाएं",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "पर्याप्त ध्यान नहीं दिया गया",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Decipline in students",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Bacche aapas me marpit kar lety hai book lekar nahi aaty hi",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "बच्चे भाषा के तरफ ज्यादा ध्यान नहीं देते अन्य विषय के अपेक्ष",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Bacchon mein anushasan ka",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   }
+               ],
+    "knowledgeVsMip":  {
+                           "knowledge":  148,
+                           "mip":  242
+                       },
+    "insights":  [
+                     "17.3% of people who logged in (160) were stopped at login: their profile was not found.",
+                     "50.1% of onboarded users (383) never asked a question - the biggest leak after login.",
+                     "In the MIP flow, the steepest drop is from objectives to plan: only 50.7% of conversations get past it.",
+                     "Saathi asks a median of 6 clarifying questions (median 8 user replies, ~7 min) before a plan appears.",
+                     "Users who came back are 3.2x as likely to have a plan (22.4% vs 7% of one-visit users).",
+                     "Voice is 9% of all user messages; highest in Hindi (10.9%).",
+                     "Peak hour is 12 PM-1 PM: 19.3% of user messages.",
+                     "Most common query theme: Classroom improvement (21.8% of conversations).",
+                     "Plan rate by role: Teacher 8.8%, Head of school 14.3% of users reach an MIP.",
+                     "A conversation has a median of 6 user messages.",
+                     "Note: 535 users first came on the last 2 days of data, so they have had little time to return."
+                 ],
+    "daily":  [
+                  {
+                      "date":  "2026-10-26",
+                      "users":  1
+                  },
+                  {
+                      "date":  "2026-10-27",
+                      "users":  88
+                  },
+                  {
+                      "date":  "2026-10-28",
+                      "users":  104
+                  },
+                  {
+                      "date":  "2026-10-29",
+                      "users":  30
+                  },
+                  {
+                      "date":  "2026-10-30",
+                      "users":  88
+                  },
+                  {
+                      "date":  "2026-10-31",
+                      "users":  83
+                  },
+                  {
+                      "date":  "2026-11-02",
+                      "users":  379
+                  },
+                  {
+                      "date":  "2026-11-03",
+                      "users":  171
+                  }
+              ]
+};
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmt = n => Number(n).toLocaleString('en-IN');
+const pct = (a, b) => b ? Math.round(1000 * a / b) / 10 : 0;
+const day = s => new Date(s + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+function bar(name, value, max, valHtml, title) {
+  const w = max ? Math.max(1, 100 * value / max) : 0;
+  return `<div class="bar" title="${esc(title || name + ': ' + value)}"><span class="name">${name}</span><div class="track"><div class="fill" style="width:${w}%"></div></div><span class="val">${valHtml}</span></div>`;
+}
+function split(name, a, b, title) {
+  const t = a + b, wa = t ? 100 * a / t : 0;
+  return `<div class="bar" title="${esc(title)}"><span class="name">${esc(name)}</span><div class="track"><div class="fill" style="width:${wa}%"></div><div class="fill alt" style="width:${100 - wa}%;border-radius:0"></div></div><span class="val">${pct(a, t)}%<em>${fmt(a)}/${fmt(t)}</em></span></div>`;
+}
+function funnel(el, steps) {
+  const max = steps[0][1];
+  $(el).innerHTML = steps.map(([n, v], i) => {
+    const drop = i ? pct(steps[i - 1][1] - v, steps[i - 1][1]) : null;
+    return bar(esc(n) + (drop !== null ? ` <span class="step-drop">&minus;${drop}%</span>` : ''), v, max, `${fmt(v)}<em>${pct(v, max)}%</em>`, `${n}: ${v} (${pct(v, max)}% of first step)`);
+  }).join('');
+}
 
-  // Header
-  const cov = coverage[0] || {};
-  const day = d3.utcFormat('%-d %b %Y');
-  if (cov.from) $('period').textContent = `${day(new Date(cov.from + 'T00:00:00Z'))} to ${day(new Date(cov.to + 'T00:00:00Z'))}`;
-  if (cov.refreshed) $('synced').textContent = d3.timeFormat('%-d %b %Y, %H:%M')(new Date(cov.refreshed));
+$('period').textContent = `${day(D.from)} to ${day(D.to)} · ${fmt(D.totals.conversations)} conversations · ${fmt(D.totals.messages)} messages (duplicates removed) · refreshed ${D.refreshed}`;
+$('users').textContent = fmt(D.totals.users);
+$('usersSub').textContent = `${fmt(D.funnel.receivedAnswer)} got an answer or plan`;
 
-  // Drop-off funnel
-  const steps = [
-    ['login', 'User logged in', '', 'logged_in'],
-    ['onb_start', 'Started onboarding', 'Profile found', 'started_onboarding'],
-    ['onb_done', 'Completed onboarding', 'Role and district captured', 'completed_onboarding'],
-    ['convo', 'Started a conversation', 'Asked an education query or challenge', 'started_conversation'],
-    ['answer', 'Received an answer or MIP', '', 'received_answer'],
-  ].map(([step, label, sub, col]) => ({ step, label, sub, n: flag(col) }));
-  const base = steps[0].n || 1;
-  const pct = (n) => (n / base * 100).toFixed(1) + '%';
-  const drawRows = (el, rows, value, extra) => {
-    el.replaceChildren(...rows.map((r) => {
-      const row = document.createElement('div'); row.className = 'row';
-      const lbl = document.createElement('span'); lbl.className = 'lbl'; lbl.textContent = r.label;
-      if (r.sub) { const s = document.createElement('small'); s.textContent = r.sub; lbl.append(s); }
-      const track = document.createElement('div'); track.className = 'track';
-      const bar = document.createElement('div'); bar.className = 'bar'; track.append(bar);
-      const n = document.createElement('span'); n.className = 'n'; n.textContent = fmt(r[value]);
-      const p = document.createElement('span'); p.className = 'p'; p.textContent = extra(r);
-      row.append(lbl, track, n, p);
-      requestAnimationFrame(() => { bar.style.width = (r[value] / (rows[0][value] || 1) * 100) + '%'; });
-      return row;
-    }));
-  };
-  drawRows($('funnel'), steps, 'n', (r) => pct(r.n));
+// breakdown
+let bdKey = 'byDistrict';
+function renderBd() {
+  $('bdHead').textContent = bdKey === 'byDistrict' ? 'District' : 'Role';
+  $('bdBody').innerHTML = D[bdKey].map(r => `<tr><td>${esc(r.name)}</td><td class="n">${fmt(r.users)}</td><td class="n">${fmt(r.answered)}</td><td class="n">${fmt(r.mip)}</td></tr>`).join('');
+  $('tabDistrict').setAttribute('aria-selected', bdKey === 'byDistrict'); $('tabRole').setAttribute('aria-selected', bdKey === 'byRole');
+}
+$('toggleBreakdown').onclick = () => { const b = $('breakdown'); b.hidden = !b.hidden; $('toggleBreakdown').setAttribute('aria-expanded', !b.hidden); $('toggleBreakdown').textContent = b.hidden ? 'See district-wise and role-wise users' : 'Hide breakdown'; };
+$('tabDistrict').onclick = () => { bdKey = 'byDistrict'; renderBd(); };
+$('tabRole').onclick = () => { bdKey = 'byRole'; renderBd(); };
+renderBd();
 
-  let worst = null;
-  steps.forEach((r, i) => { if (i) { const lost = steps[i - 1].n - r.n; if (!worst || lost > worst.lost) worst = { lost, from: steps[i - 1].label, to: r.label }; } });
-  if (worst) $('big-drop').textContent = `${worst.from.toLowerCase()} → ${worst.to.toLowerCase()}, ${fmt(worst.lost)} users`;
+// repeat
+const R = D.repeat;
+$('repeatPct').innerHTML = `${R.returnedPct}<small>%</small>`;
+$('repeatSub').textContent = `${fmt(R.returned)} of ${fmt(D.totals.users)} users had a second visit`;
+const rb = R.buckets.filter(b => b.name !== 'Never came back'), never = R.buckets.find(b => b.name === 'Never came back');
+const rmax = Math.max(...rb.map(b => b.users), 1);
+$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${b.pct}%</em>`, `${b.name}: ${b.users} users`)).join('')
+  + `<div class="bar"><span class="name">Never came back</span><span></span><span class="val">${fmt(never.users)}<em>${never.pct}%</em></span></div>`;
+$('repeatNote').textContent = `A visit is a run of messages with no gap over 30 minutes; "after N days" is the gap between the first and second visit. Of the ${fmt(R.eligibleUsers)} users who started at least 3 days before the latest data, ${R.eligibleReturnedPct}% came back. ${fmt(R.multiDay)} users were active on 2 or more days.`;
 
-  // MIP funnel
-  const bySession = Object.fromEntries(mipSessions.map((r) => [r.stage, +r.sessions]));
-  const mip = [
-    ['Asked a school or classroom challenge', 'Asked a school/classroom challenge', 'mip_challenge', ''],
-    ['Reached goal', 'Reached goal', 'mip_goal', ''],
-    ['Reached objectives', 'Reached objectives', 'mip_objective', ''],
-    ['Generated MIP', 'Generated MIP', 'mip_generated', ''],
-    ['Downloaded MIP', 'MIP ready to download', 'mip_downloaded', 'Plan offered as a download'],
-  ].map(([label, stage, col, sub]) => ({ label, sub, sessions: bySession[stage] || 0, users: flag(col) }));
-  drawRows($('mip'), mip, 'sessions', (r) => fmt(r.users) + ' users');
+// funnels
+const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;
+funnel('funnel', [['Logged in', F.loggedIn], ['Started onboarding (profile found)', F.startedOnboarding], ['Completed onboarding', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Received an answer or MIP', F.receivedAnswer]]);
+funnel('mipFunnel', [['Asked a school or classroom challenge', M.chal], ['Reached goal', M.goal], ['Reached objectives', M.obj], ['Generated MIP', M.mip], ['MIP ready to download', M.dl]]);
+$('mipNote').textContent = `Conversations: ${MS.chal} → ${MS.goal} → ${MS.obj} → ${MS.mip} → ${MS.dl}. The logs record the download offer, not the tap, so the last step is an upper bound.`;
 
-  // Headline
-  const total = new Set(users.map((u) => u.user_id)).size;
-  $('t-users').textContent = fmt(total); $('big-users').textContent = fmt(total);
-  $('t-answer').textContent = fmt(steps[4].n); $('t-answer-pct').textContent = pct(steps[4].n);
-  $('t-mip').textContent = fmt(mip[3].users);
-  $('found').textContent = fmt(steps[1].n);
-  $('not-found').textContent = fmt(users.filter((u) => u.profile === 'Not found').length);
+// language and voice
+const L = D.language, lmax = Math.max(...L.users.map(x => x.users));
+$('lang').innerHTML = L.users.map(x => bar(esc(x.name), x.users, lmax, `${x.pct}%<em>${fmt(x.users)}</em>`)).join('');
+$('voice').innerHTML = L.voiceByLang.map(x => split(x.name, x.voice, x.text, `${x.name}: ${x.voice} voice, ${x.text} text`)).join('');
 
-  // District / role tables
-  const cols = [['users', 'Users'], ['completed_onboarding', 'Onboarded'], ['started_conversation', 'Started conversation'], ['received_answer', 'Got answer'], ['mip_generated', 'Generated MIP'], ['mip_downloaded', 'MIP downloadable']];
-  const group = (key) => {
-    const m = new Map();
-    for (const u of users) {
-      const name = u[key] || 'Not captured';
-      const g = m.get(name) || Object.fromEntries([[key, name], ...cols.map(([c]) => [c, 0])]);
-      g.users += 1; for (const [c] of cols.slice(1)) g[c] += u[c] === '1' ? 1 : 0;
-      m.set(name, g);
-    }
-    return [...m.values()];
-  };
-  const table = (el, key, heading) => {
-    const rows = group(key); let sortBy = 'users', dir = -1;
-    const thead = el.createTHead(); const tbody = el.createTBody();
-    const hr = thead.insertRow();
-    [[key, heading], ...cols].forEach(([c, label]) => {
-      const th = document.createElement('th'); th.textContent = label; th.scope = 'col'; th.tabIndex = 0;
-      const sort = () => { dir = sortBy === c ? -dir : (c === key ? 1 : -1); sortBy = c; render(); };
-      th.addEventListener('click', sort); th.addEventListener('keydown', (e) => { if (e.key === 'Enter') sort(); });
-      hr.append(th);
-    });
-    const render = () => {
-      [...hr.children].forEach((th, i) => { const c = i ? cols[i - 1][0] : key; th.setAttribute('aria-sort', c === sortBy ? (dir < 0 ? 'descending' : 'ascending') : 'none'); });
-      const last = (r) => (r[key] === 'Not captured' || String(r[key]).startsWith('Unrecognised')) ? 1 : 0;
-      rows.sort((a, b) => last(a) - last(b) || (sortBy === key ? dir * String(a[key]).localeCompare(String(b[key])) : dir * (a[sortBy] - b[sortBy])));
-      tbody.replaceChildren(...rows.map((r) => { const tr = document.createElement('tr'); [key, ...cols.map(([c]) => c)].forEach((c) => { const td = tr.insertCell(); td.textContent = c === key ? r[c] : fmt(r[c]); }); return tr; }));
-    };
-    render();
-  };
-  table($('table-district'), 'district', 'District');
-  table($('table-role'), 'role', 'Role');
+// time
+const T = D.time, Q = D.questionsToPlan, mins = v => v === null || v === undefined ? '–' : (v < 1 ? '<1' : Math.round(v * 10) / 10);
+$('time').innerHTML = [
+  [mins(T.onboardingMedian) + ' min', `to complete onboarding (average ${T.onboardingAvg} min, ${fmt(T.onboardingN)} users)`],
+  [mins(T.answerMedian) + ' min', `from first question to first answer (average ${T.answerAvg} min)`],
+  [mins(T.planMedian) + ' min', `from first message to an MIP (average ${T.planAvg} min, ${T.planN} plans)`],
+  [Q.median ?? '–', `questions Saathi asks before an MIP (median; ${Q.userRepliesMedian} user replies)`]
+].map(([b, s]) => `<div class="tile"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
 
-  // Interactions
-  const btn = $('total-users');
-  const setOpen = (open) => {
-    btn.setAttribute('aria-expanded', String(open)); $('breakdown').hidden = !open;
-    $('big-hint').textContent = open ? 'Hide district and role ▴' : 'Click to see by district and role ▾';
-  };
-  btn.addEventListener('click', () => { const open = btn.getAttribute('aria-expanded') !== 'true'; setOpen(open); if (open) history.replaceState(null, '', '#breakdown'); });
-  document.querySelectorAll('.tab').forEach((tab) => tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach((t) => { const on = t === tab; t.setAttribute('aria-selected', String(on)); $(t.getAttribute('aria-controls')).hidden = !on; });
-  }));
-  if (location.hash === '#breakdown') setOpen(true);
-})();
+// warmth
+$('warmth').innerHTML = D.warmth.map(w => `<blockquote><cite>${esc(w.lang)}</cite>${esc(w.text)}</blockquote>`).join('');
+
+// queries
+const K = D.knowledgeVsMip;
+$('kvm').innerHTML = split('Conversations', K.mip, K.knowledge, `${K.mip} MIP, ${K.knowledge} knowledge`);
+const st = D.starterPrompts || [], smax = Math.max(...st.map(s => s.conversations), 1);
+$('starters').innerHTML = st.length ? st.slice(0, 5).map(s => bar(esc(s.text), s.conversations, smax, fmt(s.conversations))).join('') + `<p class="note">${fmt(D.starterConversations)} conversations began with a tapped starter prompt.</p>` : '<p class="note">None detected.</p>';
+const tmax = Math.max(...D.themes.map(t => t.count));
+$('themes').innerHTML = D.themes.map(t => `<details><summary>${bar(esc(t.name), t.count, tmax, `${fmt(t.count)}<em>${t.pct}%</em>`, `${t.name}: ${t.count} conversations, ${t.mip} went into the MIP flow`)}</summary>
+  <ul>${t.examples.map(e => `<li>${esc(e.text)}<span class="tag">${esc(e.type)}</span></li>`).join('')}</ul></details>`).join('');
+
+// insights
+$('insights').innerHTML = D.insights.map(i => `<li>${esc(i)}</li>`).join('');
 </script>
+
 </body>
 </html>

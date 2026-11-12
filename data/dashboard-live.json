@@ -1,0 +1,1011 @@
+{
+    "from":  "2026-10-26",
+    "to":  "2026-11-03",
+    "refreshed":  "2026-11-12 17:24",
+    "totals":  {
+                   "users":  925,
+                   "conversations":  1502,
+                   "messages":  16528,
+                   "duplicatesRemoved":  7630
+               },
+    "repeat":  {
+                   "returnedPct":  6.3,
+                   "returned":  58,
+                   "buckets":  [
+                                   {
+                                       "name":  "Same day",
+                                       "users":  40,
+                                       "pct":  4.3
+                                   },
+                                   {
+                                       "name":  "After 1 day",
+                                       "users":  13,
+                                       "pct":  1.4
+                                   },
+                                   {
+                                       "name":  "After 2 days",
+                                       "users":  4,
+                                       "pct":  0.4
+                                   },
+                                   {
+                                       "name":  "After 3 days",
+                                       "users":  0,
+                                       "pct":  0
+                                   },
+                                   {
+                                       "name":  "After 4+ days",
+                                       "users":  1,
+                                       "pct":  0.1
+                                   },
+                                   {
+                                       "name":  "Never came back",
+                                       "users":  867,
+                                       "pct":  93.7
+                                   }
+                               ],
+                   "returnedPctOfConversing":  12,
+                   "eligibleUsers":  390,
+                   "eligibleReturnedPct":  5.6,
+                   "multiDay":  19,
+                   "threePlusVisits":  3
+               },
+    "funnel":  {
+                   "loggedIn":  925,
+                   "startedOnboarding":  765,
+                   "completedOnboarding":  765,
+                   "startedConversation":  382,
+                   "receivedAnswer":  309
+               },
+    "mipSessions":  {
+                        "chal":  245,
+                        "goal":  163,
+                        "obj":  146,
+                        "mip":  74,
+                        "dl":  64
+                    },
+    "mipUsers":  {
+                     "chal":  239,
+                     "goal":  161,
+                     "obj":  144,
+                     "mip":  74,
+                     "dl":  64
+                 },
+    "byDistrict":  [
+                       {
+                           "name":  "Not captured",
+                           "users":  161,
+                           "answered":  0,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Katihar",
+                           "users":  74,
+                           "answered":  24,
+                           "mip":  11
+                       },
+                       {
+                           "name":  "Patna",
+                           "users":  68,
+                           "answered":  29,
+                           "mip":  11
+                       },
+                       {
+                           "name":  "Munger",
+                           "users":  64,
+                           "answered":  30,
+                           "mip":  10
+                       },
+                       {
+                           "name":  "Vaishali",
+                           "users":  57,
+                           "answered":  21,
+                           "mip":  3
+                       },
+                       {
+                           "name":  "Gopalganj",
+                           "users":  54,
+                           "answered":  29,
+                           "mip":  8
+                       },
+                       {
+                           "name":  "Begusarai",
+                           "users":  44,
+                           "answered":  17,
+                           "mip":  3
+                       },
+                       {
+                           "name":  "Nalanda",
+                           "users":  38,
+                           "answered":  16,
+                           "mip":  5
+                       },
+                       {
+                           "name":  "Saran",
+                           "users":  36,
+                           "answered":  14,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Sheikhpura",
+                           "users":  35,
+                           "answered":  13,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Muzaffarpur",
+                           "users":  33,
+                           "answered":  11,
+                           "mip":  2
+                       },
+                       {
+                           "name":  "Jamui",
+                           "users":  32,
+                           "answered":  13,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Gaya",
+                           "users":  31,
+                           "answered":  6,
+                           "mip":  2
+                       },
+                       {
+                           "name":  "Kaimur",
+                           "users":  23,
+                           "answered":  12,
+                           "mip":  2
+                       },
+                       {
+                           "name":  "Bhagalpur",
+                           "users":  21,
+                           "answered":  12,
+                           "mip":  3
+                       },
+                       {
+                           "name":  "Sitamarhi",
+                           "users":  18,
+                           "answered":  6,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Rohtas",
+                           "users":  17,
+                           "answered":  8,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "East Champaran",
+                           "users":  13,
+                           "answered":  4,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Jehanabad",
+                           "users":  12,
+                           "answered":  6,
+                           "mip":  2
+                       },
+                       {
+                           "name":  "Siwan",
+                           "users":  11,
+                           "answered":  4,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Lakhisarai",
+                           "users":  10,
+                           "answered":  5,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Samastipur",
+                           "users":  9,
+                           "answered":  3,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Madhubani",
+                           "users":  7,
+                           "answered":  2,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Banka",
+                           "users":  7,
+                           "answered":  3,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Araria",
+                           "users":  6,
+                           "answered":  2,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Buxar",
+                           "users":  6,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Kishanganj",
+                           "users":  6,
+                           "answered":  2,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Darbhanga",
+                           "users":  6,
+                           "answered":  2,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Nawada",
+                           "users":  5,
+                           "answered":  3,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Saharsa",
+                           "users":  4,
+                           "answered":  1,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Bhojpur",
+                           "users":  4,
+                           "answered":  2,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Aurangabad",
+                           "users":  2,
+                           "answered":  0,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Khagaria",
+                           "users":  2,
+                           "answered":  2,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Purnia",
+                           "users":  2,
+                           "answered":  2,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Supaul",
+                           "users":  2,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "(state only)",
+                           "users":  1,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "West Champaran",
+                           "users":  1,
+                           "answered":  0,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Sheohar",
+                           "users":  1,
+                           "answered":  0,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Madhepura",
+                           "users":  1,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Bengaluru",
+                           "users":  1,
+                           "answered":  1,
+                           "mip":  0
+                       }
+                   ],
+    "byRole":  [
+                   {
+                       "name":  "Teacher",
+                       "users":  628,
+                       "answered":  251,
+                       "mip":  55
+                   },
+                   {
+                       "name":  "Not captured",
+                       "users":  164,
+                       "answered":  0,
+                       "mip":  1
+                   },
+                   {
+                       "name":  "Head of school",
+                       "users":  126,
+                       "answered":  54,
+                       "mip":  18
+                   },
+                   {
+                       "name":  "Other",
+                       "users":  4,
+                       "answered":  3,
+                       "mip":  0
+                   },
+                   {
+                       "name":  "Program / system staff",
+                       "users":  3,
+                       "answered":  1,
+                       "mip":  0
+                   }
+               ],
+    "language":  {
+                     "users":  [
+                                   {
+                                       "name":  "Hindi",
+                                       "users":  648,
+                                       "pct":  70.1
+                                   },
+                                   {
+                                       "name":  "English",
+                                       "users":  277,
+                                       "pct":  29.9
+                                   }
+                               ],
+                     "voiceByLang":  [
+                                         {
+                                             "name":  "Hindi",
+                                             "messages":  6003,
+                                             "voice":  653,
+                                             "text":  5350,
+                                             "voicePct":  10.9
+                                         },
+                                         {
+                                             "name":  "English",
+                                             "messages":  2250,
+                                             "voice":  93,
+                                             "text":  2157,
+                                             "voicePct":  4.1
+                                         }
+                                     ]
+                 },
+    "time":  {
+                 "onboardingMedian":  1,
+                 "onboardingAvg":  1.8,
+                 "onboardingN":  753,
+                 "answerMedian":  1,
+                 "answerAvg":  2.1,
+                 "answerN":  333,
+                 "planMedian":  7,
+                 "planAvg":  16,
+                 "planN":  74
+             },
+    "questionsToPlan":  {
+                            "median":  6,
+                            "avg":  6.9,
+                            "userRepliesMedian":  8
+                        },
+    "starterPrompts":  [
+                           {
+                               "text":  "किसी चुनौती पर काम करें",
+                               "conversations":  11
+                           },
+                           {
+                               "text":  "गहरे जाना",
+                               "conversations":  4
+                           },
+                           {
+                               "text":  "इस पर और गहराई से विचार करें",
+                               "conversations":  3
+                           },
+                           {
+                               "text":  "सभी छात्र",
+                               "conversations":  2
+                           },
+                           {
+                               "text":  "सभी विषय",
+                               "conversations":  2
+                           },
+                           {
+                               "text":  "पूरे स्कूल में",
+                               "conversations":  2
+                           },
+                           {
+                               "text":  "धन्यवाद",
+                               "conversations":  2
+                           },
+                           {
+                               "text":  "कक्षा 6-8",
+                               "conversations":  2
+                           }
+                       ],
+    "starterConversations":  45,
+    "warmth":  [
+                   {
+                       "lang":  "English",
+                       "text":  "Good — now I understand the real challenge. The funds are there, but the Head Teacher isn\u0027t releasing them. Let me ask one more thing to build the right plan: **Have you already tried talking to the Head Teacher about..."
+                   },
+                   {
+                       "lang":  "English",
+                       "text":  "Ah, I understand now. Students are coming to school, but they\u0027re not doing the homework — they\u0027re arriving without it completed. Is that right?"
+                   },
+                   {
+                       "lang":  "English",
+                       "text":  "I think I understand — children aren\u0027t completing their homework, or they\u0027re not coming to school because of homework issues. Let me ask a clarifying question to make sure I have this right: **Are you saying that stud..."
+                   },
+                   {
+                       "lang":  "Hindi",
+                       "text":  "I understand you\u0027re asking for a summary of Class 5 Hindi Chapter 1. Let me give you that in simple English: --- **Chapter 1 \"किरन\" (Kiran) — Summary** This is a poem about a ray of light (किरन). **Main idea:** - A ra..."
+                   },
+                   {
+                       "lang":  "Hindi",
+                       "text":  "Great! Here are some practical Hindi teaching materials you can create for Grade 6-8 students: --- ## **1. Vocabulary Building Worksheet** **Topic: Daily Life Words (दैनिक जीवन)** Create a worksheet with: - Pictures o..."
+                   },
+                   {
+                       "lang":  "Hindi",
+                       "text":  "बहुत अच्छा! जब भी आपको मदद की जरूरत हो, मैं यहाँ हूँ। शुभकामनाएं आपके स्कूल के लिए! 🙏"
+                   }
+               ],
+    "themes":  [
+                   {
+                       "name":  "Other / unclear (short or general replies)",
+                       "count":  128,
+                       "pct":  32.8,
+                       "mip":  85,
+                       "examples":  [
+                                        {
+                                            "text":  "एक सहायता योजना बनाएं",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "कैंपस की सीमाएँ",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "आधारभूत संरचना",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Path thika taiyar kar sakte hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "आवश्यकता पड़ने पर ही बोला जाए वरना मत बोलो",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Yes I do have a challenge here",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "सब कुछ ठीक है",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Practical kaiser karwaye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "तीनों समान रूप से",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "छात्र अधिगम परिणाम",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "पूछना क्या चाहते हो तो बताओ",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "जल्लक्ष की लक्ष्य की पूर्ति करने",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Classroom improvement",
+                       "count":  85,
+                       "pct":  21.8,
+                       "mip":  61,
+                       "examples":  [
+                                        {
+                                            "text":  "बच्चों की गुणवत्ता पूर्ण शिक्षा",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Kaise class ko improvement me laye",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "कक्षाएं बाधित हुईं",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Mujhe class 7 me ganit me samikaran padhana hai ekdum basic se kuchh idea do aur kuchh prasn v jise mai balack board par banwa saku",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "मेरी स्वयं की सीख",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "सीखने का मार्ग",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "बच्चों को भाग कितने विधि से बताया जा सकता है",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "मुझे क्लास 5 में लघुत्तम समापवर्तक पढ़ना है उससे संबंधित 10 क्वेश्चन दो",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "nahi main shikshak hu shikshika nhi",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Mera subject sanskrit hai or bachche isme jata bhi ruchi nhi lete ye sabhi class ka haal hai",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "कक्षा प्रबंधन संबंधी मुद्दे",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Class\u0027s six ke bachche maths me kum intrest lete hai",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "School or classroom improvement challenge",
+                       "count":  63,
+                       "pct":  16.2,
+                       "mip":  51,
+                       "examples":  [
+                                        {
+                                            "text":  "teacher ka abhav",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "स्कूल में टीचर की कमी है 800 बच्चे हैं मात्र 5 टीचर है",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "मेरे स्कूल में विद्यालय में विद्यालय में फ्री फायर में बना हुआ शौचालय है जो बाढ़ के कारण वस्तु हो चुका है है विभाग मेरी बात सुनता नहीं है मैं क्या करूं",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "माध्यमिक विद्यालय (कक्षा 6-8)",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Tips for better administration",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "होमवर्क की वजह से स्कूल ना आना",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Boundary wall ki bahut jaruri",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "पानी की असुविधा",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "पानी की कमी,शिक्षक की कमी",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "संसाधनों की कमी",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "वो स्कूल में हमेशा सोए ही रहते हैं उपस्थिति दर्ज करके",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Lake of books",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Teaching/learning resource request",
+                       "count":  58,
+                       "pct":  14.9,
+                       "mip":  23,
+                       "examples":  [
+                                        {
+                                            "text":  "शिक्षण सामग्री तैयार करें",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "सामान्य रणनीतियाँ",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "रणनीतियों में और गहराई से उतरें",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Create study notes",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "सामग्री बनाएं",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Pariyojna karya ka nirdharan Kaise kiya jaye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "शिक्षकों के लिए एआई उपकरण",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "शिक्षण में एआई",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Ok then give me notes of plant chapter of biology in a very easy and lucid language",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Class 6 ka science project",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "क्या बच्चे टीचर्स के साथ मिलकर खेल के साथ पाठ्यक्रम सीख सकते हैं",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Class 5 me shikshan se sambndhit kon si activity karvaye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Subject knowledge question",
+                       "count":  22,
+                       "pct":  5.6,
+                       "mip":  7,
+                       "examples":  [
+                                        {
+                                            "text":  "घटना का मतलब",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Full syllabus",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Shabd ke kitne parkar hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "खान-पान की गलती तस्वीर पाठ की व्याख्या",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Masal battry test",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Physics ke magnetic field ko graph k madhyam se",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Gharshan kitne parkar ke hote hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Aaj ki topic kya hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "इसका मुख्य उद्देश्य पैसे से संबंधित गणना और ब्याज से है",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Sam samyik ghatna par 50 parasna aur uttar de",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Social science",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Student ki Upasthti kis prakar Bdha sakte hai",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Saathi / app help",
+                       "count":  16,
+                       "pct":  4.1,
+                       "mip":  6,
+                       "examples":  [
+                                        {
+                                            "text":  "still in Hindi",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Both happening",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Mere profile me state ke naam me Bihar kar dijiye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Is there any SAATHI app also",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Can you talk to me in Hindi",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Posting parkriya me aap hamarakya madad kar sakte hain.",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Kya mera form fill ho gya h",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Ye app meri kaise madad ker sakta hai",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "How to change in language in the",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Do you have any app?",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "How to fill google form for it. What details i would require to fill.",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Google form kaise bhare",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Lesson plan",
+                       "count":  10,
+                       "pct":  2.6,
+                       "mip":  3,
+                       "examples":  [
+                                        {
+                                            "text":  "Classroom lesson activity",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Kya mere liye lesson plan taiyar kro",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "about lesson plan",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "स्कूल में पाठ योजना के अनुसार कैसे प्रदान करें",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Padhai ka plan banana",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "नई पाठ योजना बनाएं",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Create a lesson plan",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "can you make this lesson plan with project based learning pedagogy",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Classroom management",
+                       "count":  8,
+                       "pct":  2.1,
+                       "mip":  6,
+                       "examples":  [
+                                        {
+                                            "text":  "Study time management",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "पलटकर जबाब देते है",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "एक नमूना रूटीन बनाएं",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "पर्याप्त ध्यान नहीं दिया गया",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Decipline in students",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Bacche aapas me marpit kar lety hai book lekar nahi aaty hi",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "बच्चे भाषा के तरफ ज्यादा ध्यान नहीं देते अन्य विषय के अपेक्ष",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Bacchon mein anushasan ka",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   }
+               ],
+    "knowledgeVsMip":  {
+                           "knowledge":  148,
+                           "mip":  242
+                       },
+    "insights":  [
+                     "17.3% of people who logged in (160) were stopped at login: their profile was not found.",
+                     "50.1% of onboarded users (383) never asked a question - the biggest leak after login.",
+                     "In the MIP flow, the steepest drop is from objectives to plan: only 50.7% of conversations get past it.",
+                     "Saathi asks a median of 6 clarifying questions (median 8 user replies, ~7 min) before a plan appears.",
+                     "Users who came back are 3.2x as likely to have a plan (22.4% vs 7% of one-visit users).",
+                     "Voice is 9% of all user messages; highest in Hindi (10.9%).",
+                     "Peak hour is 12 PM-1 PM: 19.3% of user messages.",
+                     "Most common query theme: Classroom improvement (21.8% of conversations).",
+                     "Plan rate by role: Teacher 8.8%, Head of school 14.3% of users reach an MIP.",
+                     "A conversation has a median of 6 user messages.",
+                     "Note: 535 users first came on the last 2 days of data, so they have had little time to return."
+                 ],
+    "daily":  [
+                  {
+                      "date":  "2026-10-26",
+                      "users":  1
+                  },
+                  {
+                      "date":  "2026-10-27",
+                      "users":  88
+                  },
+                  {
+                      "date":  "2026-10-28",
+                      "users":  104
+                  },
+                  {
+                      "date":  "2026-10-29",
+                      "users":  30
+                  },
+                  {
+                      "date":  "2026-10-30",
+                      "users":  88
+                  },
+                  {
+                      "date":  "2026-10-31",
+                      "users":  83
+                  },
+                  {
+                      "date":  "2026-11-02",
+                      "users":  379
+                  },
+                  {
+                      "date":  "2026-11-03",
+                      "users":  171
+                  }
+              ]
+}

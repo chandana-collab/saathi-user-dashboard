@@ -13,5 +13,6 @@ Steps:
    source.url to the new /_blob/ url, updated = {at: <now UTC ISO>, by: "Scheduled sync of all tabs in the Saathi conversation data log"},
    edit = {via: "claude", at: <now UTC ISO>}. Change nothing else. Do not touch files/index.html.
 4. After the batch succeeds, delete each OLD asset id from step 1 (Artifact action delete, path = old id), only if it differs from the new one.
+4b. Republish the live dashboard page: Artifact publish with file_path C:\Users\jeeva\ChandanaOS\outputs\saathi-dashboard\saathi-live.html and url https://claude.ai/artifact/DUp55QiTfM6KVYm57oKHzJ (sync.ps1 has already rebuilt it). No other change.
 5. If every step succeeded, end your reply with the single line: SYNC_OK
    If anything failed, say what failed and do not print SYNC_OK.
