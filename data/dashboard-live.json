@@ -2,21 +2,22 @@
     "start":  "2026-10-25",
     "from":  "2026-10-26",
     "to":  "2026-11-11",
-    "refreshed":  "2026-11-12 18:57",
+    "refreshed":  "2026-11-12 19:04",
     "totals":  {
                    "users":  1028,
                    "conversations":  1679,
                    "messages":  18356,
-                   "duplicatesRemoved":  76
+                   "duplicatesRemoved":  76,
+                   "perTabSum":  1039
                },
     "repeat":  {
-                   "returnedPct":  7.1,
-                   "returned":  73,
+                   "returnedPct":  5.5,
+                   "returned":  57,
                    "buckets":  [
                                    {
                                        "name":  "Same day",
-                                       "users":  45,
-                                       "pct":  4.4
+                                       "users":  29,
+                                       "pct":  2.8
                                    },
                                    {
                                        "name":  "After 1 day",
@@ -40,15 +41,15 @@
                                    },
                                    {
                                        "name":  "Never came back",
-                                       "users":  955,
-                                       "pct":  92.9
+                                       "users":  971,
+                                       "pct":  94.5
                                    }
                                ],
-                   "returnedPctOfConversing":  12.6,
+                   "returnedPctOfConversing":  10.2,
                    "eligibleUsers":  1016,
-                   "eligibleReturnedPct":  7,
+                   "eligibleReturnedPct":  5.5,
                    "multiDay":  31,
-                   "threePlusVisits":  5
+                   "threePlusVisits":  4
                },
     "funnel":  {
                    "startedOnboarding":  1028,
@@ -869,7 +870,7 @@
                      "50.7% of onboarded users (451) never asked a question - the biggest leak after login.",
                      "In the MIP flow, the steepest drop is from objectives to plan: only 52.2% of conversations get past it.",
                      "Saathi asks a median of 6 clarifying questions (median 8 user replies, ~7 min) before a plan appears.",
-                     "Users who came back are 3.5x as likely to have a plan (23.3% vs 6.7% of one-visit users).",
+                     "Users who came back are 3.9x as likely to have a plan (26.3% vs 6.8% of one-visit users).",
                      "Voice is 9% of all user messages; highest in Hindi (10.8%).",
                      "Peak hour is 12 PM-1 PM: 19.2% of user messages.",
                      "Most common query theme: Classroom improvement (37.6% of conversations).",

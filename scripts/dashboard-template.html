@@ -167,7 +167,7 @@ function funnel(el, steps) {
 
 $('period').textContent = `${day(D.start || D.from)} to ${day(D.to)} (latest data) · updated ${D.refreshed}`;
 $('users').textContent = fmt(D.totals.users);
-$('usersSub').textContent = `${fmt(D.funnel.receivedAnswer)} got an answer or plan`;
+$('usersSub').textContent = `Adding up each tab's user count gives ${fmt(D.totals.perTabSum)}, because ${fmt(D.totals.perTabSum - D.totals.users)} users appear in more than one tab.`;
 
 // breakdown
 let bdKey = 'byDistrict';
@@ -189,7 +189,7 @@ const rb = R.buckets.filter(b => b.name !== 'Never came back'), never = R.bucket
 const rmax = Math.max(...rb.map(b => b.users), 1);
 $('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${b.pct}%</em>`, `${b.name}: ${b.users} users`)).join('')
   + `<div class="bar"><span class="name">Never came back</span><span></span><span class="val">${fmt(never.users)}<em>${never.pct}%</em></span></div>`;
-$('repeatNote').textContent = `Many users joined in the last 2 days and have not had time to come back yet.`;
+$('repeatNote').textContent = `A user counts as coming back when there is a gap of 1 hour or more between messages.`;
 
 // funnels
 const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;
