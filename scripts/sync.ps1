@@ -1,11 +1,12 @@
 ﻿# Saathi dashboard sync: find every tab in the data-log sheet, download, de-duplicate, analyse.
 # Writes data\saathi\out\{saathi-users,saathi-mip-sessions,saathi-coverage}.csv and sets
 # data\saathi\out\CHANGED (exists only when the dashboard files differ from the last upload).
-param([string]$SheetId = '1GsdRbV7Scrb7uKdEpnRt-A1UQ0lk_1kl61NT3EFmQFw')
+param([string]$SheetId = '1IT11SiZus_XivI0IorpPtSK8k8FavOwmnMAHibIo2o4')
 $ErrorActionPreference = 'Stop'
 $root = 'C:\Users\jeeva\ChandanaOS'
 $work = Join-Path $root 'data\saathi'; $tabsDir = Join-Path $work 'tabs'; $outDir = Join-Path $work 'out'
 New-Item -ItemType Directory -Force $tabsDir, $outDir | Out-Null
+Get-ChildItem $tabsDir -Filter *.csv | Remove-Item   # only tabs present in the source this run
 $log = Join-Path $work 'sync.log'
 function Log($m) { "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')  $m" | Add-Content -Encoding utf8 $log; $m }
 

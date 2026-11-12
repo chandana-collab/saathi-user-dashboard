@@ -117,7 +117,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
   </section>
 
   <div class="grid2">
-    <div class="card"><h2>Drop-off funnel</h2><p class="note">How many users reached each step. The orange number is the drop from the step before.</p><div class="bars" id="funnel"></div></div>
+    <div class="card"><h2>Drop-off funnel</h2><p class="note">How many users reached each step. The orange number is the drop from the step before.</p><div class="bars" id="funnel"></div><p class="note" id="profileNote"></p></div>
     <div class="card"><h2>Micro-improvement plan (MIP) funnel</h2><p class="note">Users who went through the step-by-step plan flow.</p><div class="bars" id="mipFunnel"></div><p class="note" id="mipNote"></p></div>
   </div>
 
@@ -193,7 +193,8 @@ $('repeatNote').textContent = `Many users joined in the last 2 days and have not
 
 // funnels
 const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;
-funnel('funnel', [['Logged in', F.loggedIn], ['Started onboarding (profile found)', F.startedOnboarding], ['Completed onboarding', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Received an answer or MIP', F.receivedAnswer]]);
+funnel('funnel', [['Started onboarding', F.startedOnboarding], ['Completed onboarding', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Received an answer or MIP', F.receivedAnswer]]);
+$('profileNote').textContent = `${fmt(F.profileFound)} users already had profile details; ${fmt(F.profileNotFound)} did not.`;
 funnel('mipFunnel', [['Asked a school or classroom challenge', M.chal], ['Reached goal', M.goal], ['Reached objectives', M.obj], ['Generated MIP', M.mip], ['MIP ready to download', M.dl]]);
 $('mipNote').textContent = `"Ready to download" means Saathi offered the download. We cannot see if the user tapped it.`;
 
