@@ -127,10 +127,10 @@ foreach ($st in $users.Values) { if ($st.found -and $st.role -ne 'Not captured' 
 # ---------- funnels ----------
 $U = @($users.Values | ForEach-Object { [pscustomobject]$_ })
 function Funnel($set) { $set = @($set); [ordered]@{
-  loggedIn = $set.Count; startedOnboarding = @($set | Where-Object found).Count
-  completedOnboarding = @($set | Where-Object { $_.found -and $_.onbDone }).Count
-  startedConversation = @($set | Where-Object { $_.found -and $_.onbDone -and $_.query }).Count
-  receivedAnswer = @($set | Where-Object { $_.found -and $_.onbDone -and $_.query -and $_.answered }).Count } }
+  startedOnboarding = $set.Count; profileFound = @($set | Where-Object found).Count; profileNotFound = @($set | Where-Object { -not $_.found }).Count
+  completedOnboarding = @($set | Where-Object onbDone).Count
+  startedConversation = @($set | Where-Object { $_.onbDone -and $_.query }).Count
+  receivedAnswer = @($set | Where-Object { $_.onbDone -and $_.query -and $_.answered }).Count } }
 function MipU($set) { $set = @($set); [ordered]@{ chal=@($set | Where-Object chal).Count; goal=@($set | Where-Object goal).Count; obj=@($set | Where-Object obj).Count; mip=@($set | Where-Object mip).Count; dl=@($set | Where-Object dl).Count } }
 function Breakdown($key) { @($U | Group-Object { $_.$key } | Sort-Object Count -Descending | ForEach-Object { [ordered]@{ name=$_.Name; users=$_.Count; answered=(Funnel $_.Group).receivedAnswer; mip=@($_.Group | Where-Object mip).Count } }) }
 
@@ -170,8 +170,7 @@ $warmOut = @(); foreach ($l in 'English','Hindi') { $warmOut += @($warm.ToArray(
 # ---------- insights ----------
 $ins = New-Object System.Collections.Generic.List[string]
 $f = Funnel $U; $mu = MipU $U
-$notFound = $f.loggedIn - $f.startedOnboarding
-$ins.Add("$(Pct $notFound $f.loggedIn)% of people who logged in ($notFound) were stopped at login: their profile was not found.")
+$ins.Add("$(Pct ($f.startedOnboarding - $f.completedOnboarding) $f.startedOnboarding)% of users ($($f.startedOnboarding - $f.completedOnboarding)) started onboarding but did not finish it.")
 $ins.Add("$(Pct ($f.completedOnboarding - $f.startedConversation) $f.completedOnboarding)% of onboarded users ($($f.completedOnboarding - $f.startedConversation)) never asked a question - the biggest leak after login.")
 $steps = @(@('challenge','goal',$mipSess.chal,$mipSess.goal), @('goal','objectives',$mipSess.goal,$mipSess.obj), @('objectives','plan',$mipSess.obj,$mipSess.mip))
 $worst = $steps | Sort-Object { if ($_[2]) { $_[3] / $_[2] } else { 1 } } | Select-Object -First 1

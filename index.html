@@ -124,7 +124,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
   </section>
 
   <div class="grid2">
-    <div class="card"><h2>Drop-off funnel</h2><p class="note">How many users reached each step. The orange number is the drop from the step before.</p><div class="bars" id="funnel"></div></div>
+    <div class="card"><h2>Drop-off funnel</h2><p class="note">How many users reached each step. The orange number is the drop from the step before.</p><div class="bars" id="funnel"></div><p class="note" id="profileNote"></p></div>
     <div class="card"><h2>Micro-improvement plan (MIP) funnel</h2><p class="note">Users who went through the step-by-step plan flow.</p><div class="bars" id="mipFunnel"></div><p class="note" id="mipNote"></p></div>
   </div>
 
@@ -154,12 +154,12 @@ const D = {
     "start":  "2026-10-25",
     "from":  "2026-10-26",
     "to":  "2026-11-03",
-    "refreshed":  "2026-11-12 17:36",
+    "refreshed":  "2026-11-12 18:43",
     "totals":  {
                    "users":  925,
                    "conversations":  1502,
                    "messages":  16528,
-                   "duplicatesRemoved":  7630
+                   "duplicatesRemoved":  68
                },
     "repeat":  {
                    "returnedPct":  6.3,
@@ -203,11 +203,12 @@ const D = {
                    "threePlusVisits":  3
                },
     "funnel":  {
-                   "loggedIn":  925,
-                   "startedOnboarding":  765,
-                   "completedOnboarding":  765,
-                   "startedConversation":  382,
-                   "receivedAnswer":  309
+                   "startedOnboarding":  925,
+                   "profileFound":  765,
+                   "profileNotFound":  160,
+                   "completedOnboarding":  799,
+                   "startedConversation":  396,
+                   "receivedAnswer":  320
                },
     "mipSessions":  {
                         "chal":  245,
@@ -227,7 +228,7 @@ const D = {
                        {
                            "name":  "Not captured",
                            "users":  161,
-                           "answered":  0,
+                           "answered":  11,
                            "mip":  1
                        },
                        {
@@ -475,7 +476,7 @@ const D = {
                    {
                        "name":  "Not captured",
                        "users":  164,
-                       "answered":  0,
+                       "answered":  11,
                        "mip":  1
                    },
                    {
@@ -597,11 +598,11 @@ const D = {
                    },
                    {
                        "lang":  "Hindi",
-                       "text":  "Great! Here are some practical Hindi teaching materials you can create for Grade 6-8 students: --- ## **1. Vocabulary Building Worksheet** **Topic: Daily Life Words (दैनिक जीवन)** Create a worksheet with: - Pictures o..."
+                       "text":  "बहुत अच्छा! जब भी आपको मदद की जरूरत हो, मैं यहाँ हूँ। शुभकामनाएं आपके स्कूल के लिए! 🙏"
                    },
                    {
                        "lang":  "Hindi",
-                       "text":  "बहुत अच्छा! जब भी आपको मदद की जरूरत हो, मैं यहाँ हूँ। शुभकामनाएं आपके स्कूल के लिए! 🙏"
+                       "text":  "बहुत अच्छा! क्या कोई और स्कूल की चुनौती है जिस पर आप काम करना चाहते हैं, या कोई सवाल पूछना है?"
                    }
                ],
     "themes":  [
@@ -999,8 +1000,8 @@ const D = {
                            "mip":  206
                        },
     "insights":  [
-                     "17.3% of people who logged in (160) were stopped at login: their profile was not found.",
-                     "50.1% of onboarded users (383) never asked a question - the biggest leak after login.",
+                     "13.6% of users (126) started onboarding but did not finish it.",
+                     "50.4% of onboarded users (403) never asked a question - the biggest leak after login.",
                      "In the MIP flow, the steepest drop is from objectives to plan: only 50.7% of conversations get past it.",
                      "Saathi asks a median of 6 clarifying questions (median 8 user replies, ~7 min) before a plan appears.",
                      "Users who came back are 3.2x as likely to have a plan (22.4% vs 7% of one-visit users).",
@@ -1095,7 +1096,8 @@ $('repeatNote').textContent = `Many users joined in the last 2 days and have not
 
 // funnels
 const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;
-funnel('funnel', [['Logged in', F.loggedIn], ['Started onboarding (profile found)', F.startedOnboarding], ['Completed onboarding', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Received an answer or MIP', F.receivedAnswer]]);
+funnel('funnel', [['Started onboarding', F.startedOnboarding], ['Completed onboarding', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Received an answer or MIP', F.receivedAnswer]]);
+$('profileNote').textContent = `${fmt(F.profileFound)} users already had profile details; ${fmt(F.profileNotFound)} did not.`;
 funnel('mipFunnel', [['Asked a school or classroom challenge', M.chal], ['Reached goal', M.goal], ['Reached objectives', M.obj], ['Generated MIP', M.mip], ['MIP ready to download', M.dl]]);
 $('mipNote').textContent = `"Ready to download" means Saathi offered the download. We cannot see if the user tapped it.`;
 

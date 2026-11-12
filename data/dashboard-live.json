@@ -2,12 +2,12 @@
     "start":  "2026-10-25",
     "from":  "2026-10-26",
     "to":  "2026-11-03",
-    "refreshed":  "2026-11-12 17:36",
+    "refreshed":  "2026-11-12 18:43",
     "totals":  {
                    "users":  925,
                    "conversations":  1502,
                    "messages":  16528,
-                   "duplicatesRemoved":  7630
+                   "duplicatesRemoved":  68
                },
     "repeat":  {
                    "returnedPct":  6.3,
@@ -51,11 +51,12 @@
                    "threePlusVisits":  3
                },
     "funnel":  {
-                   "loggedIn":  925,
-                   "startedOnboarding":  765,
-                   "completedOnboarding":  765,
-                   "startedConversation":  382,
-                   "receivedAnswer":  309
+                   "startedOnboarding":  925,
+                   "profileFound":  765,
+                   "profileNotFound":  160,
+                   "completedOnboarding":  799,
+                   "startedConversation":  396,
+                   "receivedAnswer":  320
                },
     "mipSessions":  {
                         "chal":  245,
@@ -75,7 +76,7 @@
                        {
                            "name":  "Not captured",
                            "users":  161,
-                           "answered":  0,
+                           "answered":  11,
                            "mip":  1
                        },
                        {
@@ -323,7 +324,7 @@
                    {
                        "name":  "Not captured",
                        "users":  164,
-                       "answered":  0,
+                       "answered":  11,
                        "mip":  1
                    },
                    {
@@ -445,11 +446,11 @@
                    },
                    {
                        "lang":  "Hindi",
-                       "text":  "Great! Here are some practical Hindi teaching materials you can create for Grade 6-8 students: --- ## **1. Vocabulary Building Worksheet** **Topic: Daily Life Words (दैनिक जीवन)** Create a worksheet with: - Pictures o..."
+                       "text":  "बहुत अच्छा! जब भी आपको मदद की जरूरत हो, मैं यहाँ हूँ। शुभकामनाएं आपके स्कूल के लिए! 🙏"
                    },
                    {
                        "lang":  "Hindi",
-                       "text":  "बहुत अच्छा! जब भी आपको मदद की जरूरत हो, मैं यहाँ हूँ। शुभकामनाएं आपके स्कूल के लिए! 🙏"
+                       "text":  "बहुत अच्छा! क्या कोई और स्कूल की चुनौती है जिस पर आप काम करना चाहते हैं, या कोई सवाल पूछना है?"
                    }
                ],
     "themes":  [
@@ -847,8 +848,8 @@
                            "mip":  206
                        },
     "insights":  [
-                     "17.3% of people who logged in (160) were stopped at login: their profile was not found.",
-                     "50.1% of onboarded users (383) never asked a question - the biggest leak after login.",
+                     "13.6% of users (126) started onboarding but did not finish it.",
+                     "50.4% of onboarded users (403) never asked a question - the biggest leak after login.",
                      "In the MIP flow, the steepest drop is from objectives to plan: only 50.7% of conversations get past it.",
                      "Saathi asks a median of 6 clarifying questions (median 8 user replies, ~7 min) before a plan appears.",
                      "Users who came back are 3.2x as likely to have a plan (22.4% vs 7% of one-visit users).",

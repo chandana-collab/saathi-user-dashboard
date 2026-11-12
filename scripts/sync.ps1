@@ -6,6 +6,7 @@ $ErrorActionPreference = 'Stop'
 $root = 'C:\Users\jeeva\ChandanaOS'
 $work = Join-Path $root 'data\saathi'; $tabsDir = Join-Path $work 'tabs'; $outDir = Join-Path $work 'out'
 New-Item -ItemType Directory -Force $tabsDir, $outDir | Out-Null
+Get-ChildItem $tabsDir -Filter *.csv | Remove-Item   # only tabs present in the source this run
 $log = Join-Path $work 'sync.log'
 function Log($m) { "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')  $m" | Add-Content -Encoding utf8 $log; $m }
 
