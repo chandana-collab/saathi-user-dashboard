@@ -1,27 +1,27 @@
 {
     "start":  "2026-10-25",
     "from":  "2026-10-26",
-    "to":  "2026-11-03",
-    "refreshed":  "2026-11-12 18:43",
+    "to":  "2026-11-11",
+    "refreshed":  "2026-11-12 18:57",
     "totals":  {
-                   "users":  925,
-                   "conversations":  1502,
-                   "messages":  16528,
-                   "duplicatesRemoved":  68
+                   "users":  1028,
+                   "conversations":  1679,
+                   "messages":  18356,
+                   "duplicatesRemoved":  76
                },
     "repeat":  {
-                   "returnedPct":  6.3,
-                   "returned":  58,
+                   "returnedPct":  7.1,
+                   "returned":  73,
                    "buckets":  [
                                    {
                                        "name":  "Same day",
-                                       "users":  40,
-                                       "pct":  4.3
+                                       "users":  45,
+                                       "pct":  4.4
                                    },
                                    {
                                        "name":  "After 1 day",
-                                       "users":  13,
-                                       "pct":  1.4
+                                       "users":  15,
+                                       "pct":  1.5
                                    },
                                    {
                                        "name":  "After 2 days",
@@ -30,77 +30,83 @@
                                    },
                                    {
                                        "name":  "After 3 days",
-                                       "users":  0,
-                                       "pct":  0
+                                       "users":  3,
+                                       "pct":  0.3
                                    },
                                    {
                                        "name":  "After 4+ days",
-                                       "users":  1,
-                                       "pct":  0.1
+                                       "users":  6,
+                                       "pct":  0.6
                                    },
                                    {
                                        "name":  "Never came back",
-                                       "users":  867,
-                                       "pct":  93.7
+                                       "users":  955,
+                                       "pct":  92.9
                                    }
                                ],
-                   "returnedPctOfConversing":  12,
-                   "eligibleUsers":  390,
-                   "eligibleReturnedPct":  5.6,
-                   "multiDay":  19,
-                   "threePlusVisits":  3
+                   "returnedPctOfConversing":  12.6,
+                   "eligibleUsers":  1016,
+                   "eligibleReturnedPct":  7,
+                   "multiDay":  31,
+                   "threePlusVisits":  5
                },
     "funnel":  {
-                   "startedOnboarding":  925,
-                   "profileFound":  765,
-                   "profileNotFound":  160,
-                   "completedOnboarding":  799,
-                   "startedConversation":  396,
-                   "receivedAnswer":  320
+                   "startedOnboarding":  1028,
+                   "profileFound":  851,
+                   "profileNotFound":  177,
+                   "completedOnboarding":  889,
+                   "startedConversation":  438,
+                   "receivedAnswer":  354
                },
     "mipSessions":  {
-                        "chal":  245,
-                        "goal":  163,
-                        "obj":  146,
-                        "mip":  74,
-                        "dl":  64
+                        "chal":  270,
+                        "goal":  180,
+                        "obj":  159,
+                        "mip":  83,
+                        "dl":  71
                     },
     "mipUsers":  {
-                     "chal":  239,
-                     "goal":  161,
-                     "obj":  144,
-                     "mip":  74,
-                     "dl":  64
+                     "chal":  262,
+                     "goal":  176,
+                     "obj":  155,
+                     "mip":  81,
+                     "dl":  71
                  },
     "byDistrict":  [
                        {
                            "name":  "Not captured",
-                           "users":  161,
-                           "answered":  11,
+                           "users":  178,
+                           "answered":  13,
                            "mip":  1
                        },
                        {
+                           "name":  "Patna",
+                           "users":  75,
+                           "answered":  32,
+                           "mip":  12
+                       },
+                       {
                            "name":  "Katihar",
-                           "users":  74,
-                           "answered":  24,
+                           "users":  75,
+                           "answered":  25,
                            "mip":  11
                        },
                        {
-                           "name":  "Patna",
+                           "name":  "Saran",
                            "users":  68,
                            "answered":  29,
-                           "mip":  11
+                           "mip":  4
                        },
                        {
                            "name":  "Munger",
-                           "users":  64,
+                           "users":  68,
                            "answered":  30,
                            "mip":  10
                        },
                        {
                            "name":  "Vaishali",
-                           "users":  57,
-                           "answered":  21,
+                           "users":  61,
+                           "answered":  22,
                            "mip":  3
                        },
                        {
@@ -111,9 +117,15 @@
                        },
                        {
                            "name":  "Begusarai",
-                           "users":  44,
-                           "answered":  17,
+                           "users":  48,
+                           "answered":  18,
                            "mip":  3
+                       },
+                       {
+                           "name":  "Muzaffarpur",
+                           "users":  42,
+                           "answered":  11,
+                           "mip":  2
                        },
                        {
                            "name":  "Nalanda",
@@ -122,39 +134,27 @@
                            "mip":  5
                        },
                        {
-                           "name":  "Saran",
-                           "users":  36,
-                           "answered":  14,
-                           "mip":  1
-                       },
-                       {
                            "name":  "Sheikhpura",
                            "users":  35,
                            "answered":  13,
                            "mip":  1
                        },
                        {
-                           "name":  "Muzaffarpur",
-                           "users":  33,
-                           "answered":  11,
+                           "name":  "Jamui",
+                           "users":  34,
+                           "answered":  15,
                            "mip":  2
                        },
                        {
-                           "name":  "Jamui",
-                           "users":  32,
-                           "answered":  13,
-                           "mip":  1
-                       },
-                       {
                            "name":  "Gaya",
-                           "users":  31,
+                           "users":  33,
                            "answered":  6,
                            "mip":  2
                        },
                        {
                            "name":  "Kaimur",
-                           "users":  23,
-                           "answered":  12,
+                           "users":  25,
+                           "answered":  13,
                            "mip":  2
                        },
                        {
@@ -165,7 +165,7 @@
                        },
                        {
                            "name":  "Sitamarhi",
-                           "users":  18,
+                           "users":  19,
                            "answered":  6,
                            "mip":  1
                        },
@@ -177,7 +177,7 @@
                        },
                        {
                            "name":  "East Champaran",
-                           "users":  13,
+                           "users":  14,
                            "answered":  4,
                            "mip":  0
                        },
@@ -201,9 +201,21 @@
                        },
                        {
                            "name":  "Samastipur",
-                           "users":  9,
+                           "users":  10,
                            "answered":  3,
                            "mip":  1
+                       },
+                       {
+                           "name":  "Aurangabad",
+                           "users":  9,
+                           "answered":  2,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Bhojpur",
+                           "users":  7,
+                           "answered":  4,
+                           "mip":  0
                        },
                        {
                            "name":  "Madhubani",
@@ -218,15 +230,21 @@
                            "mip":  0
                        },
                        {
+                           "name":  "Buxar",
+                           "users":  6,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
                            "name":  "Araria",
                            "users":  6,
                            "answered":  2,
                            "mip":  1
                        },
                        {
-                           "name":  "Buxar",
+                           "name":  "Nawada",
                            "users":  6,
-                           "answered":  1,
+                           "answered":  4,
                            "mip":  0
                        },
                        {
@@ -242,32 +260,14 @@
                            "mip":  1
                        },
                        {
-                           "name":  "Nawada",
-                           "users":  5,
-                           "answered":  3,
-                           "mip":  0
-                       },
-                       {
                            "name":  "Saharsa",
-                           "users":  4,
+                           "users":  5,
                            "answered":  1,
                            "mip":  1
                        },
                        {
-                           "name":  "Bhojpur",
-                           "users":  4,
-                           "answered":  2,
-                           "mip":  0
-                       },
-                       {
-                           "name":  "Aurangabad",
-                           "users":  2,
-                           "answered":  0,
-                           "mip":  0
-                       },
-                       {
-                           "name":  "Khagaria",
-                           "users":  2,
+                           "name":  "Supaul",
+                           "users":  3,
                            "answered":  2,
                            "mip":  0
                        },
@@ -278,21 +278,33 @@
                            "mip":  1
                        },
                        {
-                           "name":  "Supaul",
+                           "name":  "Bengaluru",
                            "users":  2,
-                           "answered":  1,
+                           "answered":  2,
+                           "mip":  1
+                       },
+                       {
+                           "name":  "Khagaria",
+                           "users":  2,
+                           "answered":  2,
                            "mip":  0
+                       },
+                       {
+                           "name":  "Unrecognised: Muzaffarnagar",
+                           "users":  1,
+                           "answered":  0,
+                           "mip":  0
+                       },
+                       {
+                           "name":  "Unrecognised: बेगुसराई",
+                           "users":  1,
+                           "answered":  1,
+                           "mip":  1
                        },
                        {
                            "name":  "(state only)",
                            "users":  1,
                            "answered":  1,
-                           "mip":  0
-                       },
-                       {
-                           "name":  "West Champaran",
-                           "users":  1,
-                           "answered":  0,
                            "mip":  0
                        },
                        {
@@ -308,34 +320,34 @@
                            "mip":  0
                        },
                        {
-                           "name":  "Bengaluru",
+                           "name":  "West Champaran",
                            "users":  1,
-                           "answered":  1,
+                           "answered":  0,
                            "mip":  0
                        }
                    ],
     "byRole":  [
                    {
                        "name":  "Teacher",
-                       "users":  628,
-                       "answered":  251,
-                       "mip":  55
+                       "users":  694,
+                       "answered":  273,
+                       "mip":  59
                    },
                    {
                        "name":  "Not captured",
-                       "users":  164,
-                       "answered":  11,
+                       "users":  181,
+                       "answered":  13,
                        "mip":  1
                    },
                    {
                        "name":  "Head of school",
-                       "users":  126,
-                       "answered":  54,
-                       "mip":  18
+                       "users":  145,
+                       "answered":  64,
+                       "mip":  21
                    },
                    {
                        "name":  "Other",
-                       "users":  4,
+                       "users":  5,
                        "answered":  3,
                        "mip":  0
                    },
@@ -350,42 +362,42 @@
                      "users":  [
                                    {
                                        "name":  "Hindi",
-                                       "users":  648,
-                                       "pct":  70.1
+                                       "users":  729,
+                                       "pct":  70.9
                                    },
                                    {
                                        "name":  "English",
-                                       "users":  277,
-                                       "pct":  29.9
+                                       "users":  299,
+                                       "pct":  29.1
                                    }
                                ],
                      "voiceByLang":  [
                                          {
                                              "name":  "Hindi",
-                                             "messages":  6003,
-                                             "voice":  653,
-                                             "text":  5350,
-                                             "voicePct":  10.9
+                                             "messages":  6696,
+                                             "voice":  723,
+                                             "text":  5973,
+                                             "voicePct":  10.8
                                          },
                                          {
                                              "name":  "English",
-                                             "messages":  2250,
-                                             "voice":  93,
-                                             "text":  2157,
-                                             "voicePct":  4.1
+                                             "messages":  2468,
+                                             "voice":  105,
+                                             "text":  2363,
+                                             "voicePct":  4.3
                                          }
                                      ]
                  },
     "time":  {
                  "onboardingMedian":  1,
                  "onboardingAvg":  1.8,
-                 "onboardingN":  753,
+                 "onboardingN":  837,
                  "answerMedian":  1,
-                 "answerAvg":  2.1,
-                 "answerN":  333,
+                 "answerAvg":  2,
+                 "answerN":  371,
                  "planMedian":  7,
-                 "planAvg":  16,
-                 "planN":  74
+                 "planAvg":  15.2,
+                 "planN":  83
              },
     "questionsToPlan":  {
                             "median":  6,
@@ -395,50 +407,54 @@
     "starterPrompts":  [
                            {
                                "text":  "किसी चुनौती पर काम करें",
-                               "conversations":  12
-                           },
-                           {
-                               "text":  "हां, हमने कोशिश की है",
-                               "conversations":  5
+                               "conversations":  13
                            },
                            {
                                "text":  "गहरे जाना",
                                "conversations":  5
                            },
                            {
+                               "text":  "हां, हमने कोशिश की है",
+                               "conversations":  5
+                           },
+                           {
+                               "text":  "Yes, confirm goal",
+                               "conversations":  4
+                           },
+                           {
+                               "text":  "हाँ, लक्ष्य की पुष्टि करें",
+                               "conversations":  4
+                           },
+                           {
                                "text":  "कुछ और",
                                "conversations":  4
                            },
                            {
-                               "text":  "Yes, confirm goal",
-                               "conversations":  3
-                           },
-                           {
-                               "text":  "सभी छात्र",
-                               "conversations":  3
-                           },
-                           {
-                               "text":  "निश्चित नहीं",
-                               "conversations":  3
-                           },
-                           {
                                "text":  "धन्यवाद",
+                               "conversations":  4
+                           },
+                           {
+                               "text":  "हां, हमने कुछ चीजें आजमाई हैं",
                                "conversations":  3
                            }
                        ],
-    "starterConversations":  78,
+    "starterConversations":  88,
     "warmth":  [
                    {
                        "lang":  "English",
-                       "text":  "Good — now I understand the real challenge. The funds are there, but the Head Teacher isn\u0027t releasing them. Let me ask one more thing to build the right plan: **Have you already tried talking to the Head Teacher about..."
+                       "text":  "Ah, I understand now! You\u0027re asking about **\"Hamare Atit-2\"** (Our Past-2), which is the **History textbook for Class 7** in the NCERT curriculum. **Chapter 6: \"Bhakti aur Sufi Parampara\" (Bhakti and Sufi Traditions)*..."
                    },
                    {
                        "lang":  "English",
-                       "text":  "Ah, I understand now. Students are coming to school, but they\u0027re not doing the homework — they\u0027re arriving without it completed. Is that right?"
+                       "text":  "I want to make sure I understand — when you say you don\u0027t see any benefit, do you mean: - You\u0027re not sure how to make Sanskrit feel relevant or useful to the students, or - You\u0027re questioning whether Sanskrit itself h..."
                    },
                    {
                        "lang":  "English",
-                       "text":  "I think I understand — children aren\u0027t completing their homework, or they\u0027re not coming to school because of homework issues. Let me ask a clarifying question to make sure I have this right: **Are you saying that stud..."
+                       "text":  "I understand — as a computer science teacher, this is a critical gap for your subject. Let me ask a couple of quick questions to understand the scope better. Are there any computers at all in the school — even one or ..."
+                   },
+                   {
+                       "lang":  "Hindi",
+                       "text":  "I understand — the attempts so far haven\u0027t yielded results yet. Let me confirm the goal for your plan. Based on what you\u0027ve shared, here is your Goal for this plan: **Goal: Secure qualified teachers for Science \u0026 Math..."
                    },
                    {
                        "lang":  "Hindi",
@@ -447,19 +463,60 @@
                    {
                        "lang":  "Hindi",
                        "text":  "बहुत अच्छा! जब भी आपको मदद की जरूरत हो, मैं यहाँ हूँ। शुभकामनाएं आपके स्कूल के लिए! 🙏"
-                   },
-                   {
-                       "lang":  "Hindi",
-                       "text":  "बहुत अच्छा! क्या कोई और स्कूल की चुनौती है जिस पर आप काम करना चाहते हैं, या कोई सवाल पूछना है?"
                    }
                ],
     "themes":  [
                    {
                        "name":  "Classroom improvement",
-                       "count":  124,
-                       "pct":  38.4,
-                       "mip":  91,
+                       "count":  133,
+                       "pct":  37.6,
+                       "mip":  97,
                        "examples":  [
+                                        {
+                                            "text":  "मैं ऐसे बच्चों को मोटिवेशन के रूप पर देना चाहता हूं आप एक पोस्ट बता दीजिए",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Reading skills",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Shiksha ko behtar bnane ke liye tips bheje",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "समझने में कठिनाई हो रही है",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "नई सिलेबस होने के कारण इंग्लिश का जो पढ़ने का अस्तर शिक्षक रहता था थोड़ा बहुत ही कठिन सिलेबस है अब हम",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Multiclassroom",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "कक्षा दृष्टिकोण को संयोजित करें",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "I didn\u0027t understand your language",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "गहराई से समझें",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
                                         {
                                             "text":  "बच्चों की गुणवत्ता पूर्ण शिक्षा",
                                             "lang":  "Hindi",
@@ -474,117 +531,72 @@
                                             "text":  "विभिन्न कक्षाओं में कई",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "कक्षाएं बाधित हुईं",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Mujhe class 7 me ganit me samikaran padhana hai ekdum basic se kuchh idea do aur kuchh prasn v jise mai balack board par banwa saku",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "मेरी स्वयं की सीख",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "आपके द्वारा पढ़ाए जा रहे किसी पाठ या अध्याय के लिए",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "I am teaching two classes in one room",
-                                            "lang":  "English",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Lack of class room",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "All the students of class 6,7 and 8th sit all together in the same class how to deal with them",
-                                            "lang":  "English",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "सीखने का मार्ग",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "media classroom you can",
-                                            "lang":  "English",
-                                            "type":  "Knowledge"
                                         }
                                     ]
                    },
                    {
                        "name":  "School or classroom improvement challenge",
-                       "count":  81,
-                       "pct":  25.1,
-                       "mip":  66,
+                       "count":  93,
+                       "pct":  26.3,
+                       "mip":  76,
                        "examples":  [
                                         {
-                                            "text":  "teacher ka abhav",
+                                            "text":  "मैं अपने विद्यालय में बिहार सरकार की महत्वाकांक्षी योजना FLN और TaRL पर कार्य कर रहां हूँ किन्तु शिक्षकों की रूचि पढ़ाने में नहीं है वे बुनियादी साक्षरता कक्षा नहीं लेना कहते हैं क्या करूँ ?",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "स्कूल में टीचर की कमी है 800 बच्चे हैं मात्र 5 टीचर है",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "मेरे स्कूल में विद्यालय में विद्यालय में फ्री फायर में बना हुआ शौचालय है जो बाढ़ के कारण वस्तु हो चुका है है विभाग मेरी बात सुनता नहीं है मैं क्या करूं",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "माध्यमिक विद्यालय (कक्षा 6-8)",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Tips for better administration",
+                                            "text":  "Gramin ke dwara Vidyalay mein tang karna",
                                             "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "बाउंड्री बॉल नहीं होने से आए दिन आवारा पशुओं गांव के असामाजिक तत्वों द्वारा रात में विद्यालय में शराब पीना गंदगी मल मूत्र विसर्जन कर देना",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Abhi filhal school band hai",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "शौचालय की सुविधा का निर्माण करें",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "विद्यालय में सब कुछ ठीक है",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Connected to their parents",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Mera school mai achcha vatavaran h",
+                                            "lang":  "Hindi",
                                             "type":  "Knowledge"
                                         },
                                         {
-                                            "text":  "होमवर्क की वजह से स्कूल ना आना",
+                                            "text":  "Pr bs teachers ke mehant se hoga parents ke mehnat se hoga ki nhi",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "Boundary wall ki bahut jaruri",
+                                            "text":  "फिर भी बच्चे, अभी के समयानुसार दुसरे रास्ते को ज्यादा पसंद करते हैं उनको स्कूल या पढ़ाई में कोई रूचि नहीं हो रही है",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "पानी की असुविधा",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "पानी की कमी,शिक्षक की कमी",
+                                            "text":  "Teachers ko kaise motivate Karu unke kami ke liye",
                                             "lang":  "Hindi",
                                             "type":  "Knowledge"
                                         },
                                         {
-                                            "text":  "संसाधनों की कमी",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "वो स्कूल में हमेशा सोए ही रहते हैं उपस्थिति दर्ज करके",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Lake of books",
+                                            "text":  "जैसे कि आजकल के विद्यार्थी यानी जेनरेशन हम कर सकते हैं तो उनमें साफ सफाई को लेकर थोड़ी सी हिच किछहट चाहत है खासकर जब वह विद्यालय आते हैं तो वह अपने बेंच के नीचे किसी भी प्रकार के कागज को उठाना नहीं चाहते hai To hme ki...",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         }
@@ -592,10 +604,55 @@
                    },
                    {
                        "name":  "Teaching/learning resource request",
-                       "count":  70,
-                       "pct":  21.7,
-                       "mip":  28,
+                       "count":  79,
+                       "pct":  22.3,
+                       "mip":  32,
                        "examples":  [
+                                        {
+                                            "text":  "पढ़ाई और खेल में संतुलन बनाए रखें।",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Go deeper into strategies",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "AI upkaranon ka upyog Kar kaise Sikh sakte hain",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "I have a PBL challenge",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Chhote bache activity jyada pasand karte hain.",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Design the project plan of chapter light",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "छात्र अधिगम गतिविधि",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Activities se jyamiti kaise smjhanye",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "विस्तृत सामग्री तैयार करें",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
                                         {
                                             "text":  "शिक्षण सामग्री तैयार करें",
                                             "lang":  "Hindi",
@@ -610,58 +667,13 @@
                                             "text":  "रणनीतियों में और गहराई से उतरें",
                                             "lang":  "Hindi",
                                             "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Ai का उपयोग कैसे ज्यादा किया जाय",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Bio. Practical Kam resource mein lab. Mein kaiser karwaye",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Create study notes",
-                                            "lang":  "English",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "सामग्री बनाएं",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Quiz contest kaise aayojit karen",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Pariyojna karya ka nirdharan Kaise kiya jaye",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "शिक्षकों के लिए एआई उपकरण",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "पुस्तक का नाम खेल और योग है जिसका कार्यक्रम में एससीईआरटी पटना में पीएम विद्या के अंतर्गत कार्यक्रम भी बनाता हूं",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Can you tell me the difference between you and gemini ai",
-                                            "lang":  "English",
-                                            "type":  "MIP"
                                         }
                                     ]
                    },
                    {
                        "name":  "Subject knowledge question",
                        "count":  26,
-                       "pct":  8,
+                       "pct":  7.3,
                        "mip":  11,
                        "examples":  [
                                         {
@@ -729,7 +741,7 @@
                    {
                        "name":  "Lesson plan",
                        "count":  13,
-                       "pct":  4,
+                       "pct":  3.7,
                        "mip":  3,
                        "examples":  [
                                         {
@@ -791,10 +803,15 @@
                    },
                    {
                        "name":  "Classroom management",
-                       "count":  9,
+                       "count":  10,
                        "pct":  2.8,
                        "mip":  7,
                        "examples":  [
+                                        {
+                                            "text":  "बच्चों को पढ़ने मे ध्यान नहीं लगता, उसके लिए क्या किया जाय",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
                                         {
                                             "text":  "How can I manage multilevel students in a class",
                                             "lang":  "English",
@@ -844,21 +861,21 @@
                    }
                ],
     "knowledgeVsMip":  {
-                           "knowledge":  117,
-                           "mip":  206
+                           "knowledge":  128,
+                           "mip":  226
                        },
     "insights":  [
-                     "13.6% of users (126) started onboarding but did not finish it.",
-                     "50.4% of onboarded users (403) never asked a question - the biggest leak after login.",
-                     "In the MIP flow, the steepest drop is from objectives to plan: only 50.7% of conversations get past it.",
+                     "13.5% of users (139) started onboarding but did not finish it.",
+                     "50.7% of onboarded users (451) never asked a question - the biggest leak after login.",
+                     "In the MIP flow, the steepest drop is from objectives to plan: only 52.2% of conversations get past it.",
                      "Saathi asks a median of 6 clarifying questions (median 8 user replies, ~7 min) before a plan appears.",
-                     "Users who came back are 3.2x as likely to have a plan (22.4% vs 7% of one-visit users).",
-                     "Voice is 9% of all user messages; highest in Hindi (10.9%).",
-                     "Peak hour is 12 PM-1 PM: 19.3% of user messages.",
-                     "Most common query theme: Classroom improvement (38.4% of conversations).",
-                     "Plan rate by role: Teacher 8.8%, Head of school 14.3% of users reach an MIP.",
+                     "Users who came back are 3.5x as likely to have a plan (23.3% vs 6.7% of one-visit users).",
+                     "Voice is 9% of all user messages; highest in Hindi (10.8%).",
+                     "Peak hour is 12 PM-1 PM: 19.2% of user messages.",
+                     "Most common query theme: Classroom improvement (37.6% of conversations).",
+                     "Plan rate by role: Teacher 8.5%, Head of school 14.5% of users reach an MIP.",
                      "A conversation has a median of 6 user messages.",
-                     "Note: 535 users first came on the last 2 days of data, so they have had little time to return."
+                     "Note: 2 users first came on the last 2 days of data, so they have had little time to return."
                  ],
     "daily":  [
                   {
@@ -892,6 +909,38 @@
                   {
                       "date":  "2026-11-03",
                       "users":  171
+                  },
+                  {
+                      "date":  "2026-11-04",
+                      "users":  2
+                  },
+                  {
+                      "date":  "2026-11-05",
+                      "users":  6
+                  },
+                  {
+                      "date":  "2026-11-06",
+                      "users":  76
+                  },
+                  {
+                      "date":  "2026-11-07",
+                      "users":  11
+                  },
+                  {
+                      "date":  "2026-11-08",
+                      "users":  5
+                  },
+                  {
+                      "date":  "2026-11-09",
+                      "users":  12
+                  },
+                  {
+                      "date":  "2026-11-10",
+                      "users":  3
+                  },
+                  {
+                      "date":  "2026-11-11",
+                      "users":  1
                   }
               ]
 }
