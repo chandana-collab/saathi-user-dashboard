@@ -4,6 +4,10 @@ Usage dashboard for **Saathi**, built from the Saathi conversation data log (Goo
 
 Live dashboard (claude.ai; viewers need it shared with them): https://claude.ai/artifact/73fBDwkrxDqgsqgADWM9ce
 
+## Live dashboard page (index.html)
+
+Built from every tab, keeping messages from 25 Oct 2026 onward and removing duplicates (same message id, or same conversation, time, speaker and text). It shows: unique users (click for district and role), repeat visits, the drop-off and MIP funnels, language and voice use, time to onboard / answer / plan, tone and warmth examples, query themes with the exact queries, and insights. Names, emails and long numbers in quoted text are masked. Rebuilt hourly by `scripts/sync.ps1` (`dashboard.ps1` then `build-dashboard.ps1`); data in `data/dashboard-live.json`.
+
 ## What it shows
 
 - **Total unique users**: distinct `user_id`s across every tab of the log. Click it to open **district-wise** and **role-wise** tabs.

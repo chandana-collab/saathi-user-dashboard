@@ -1,0 +1,228 @@
+<title>Saathi Live Dashboard</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Hind:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm column of sections; summary (users, repeat) first, detail opens on demand. */
+:root {
+  --bg: #f6f7f5; --surface: #ffffff; --line: #dfe3df; --fg: #1b2420; --muted: #5e6b65;
+  --accent: #1f6f5c; --accent-soft: #d7ebe4; --track: #e9edea; --warn: #a3541b;
+  --display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --body: "Hind", "Nirmala UI", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121815; --surface: #1a221e; --line: #2c3631; --fg: #e6ece9; --muted: #9aa8a1;
+  --accent: #5cc0a2; --accent-soft: #1f3a31; --track: #26302b; --warn: #e39a62; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121815; --surface: #1a221e; --line: #2c3631; --fg: #e6ece9; --muted: #9aa8a1;
+  --accent: #5cc0a2; --accent-soft: #1f3a31; --track: #26302b; --warn: #e39a62; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+h1 { font-size: 1.7rem; font-weight: 700; }
+h2 { font-size: 1.15rem; font-weight: 600; }
+h3 { font-size: .95rem; font-weight: 600; }
+.sub { color: var(--muted); font-size: .9rem; margin: 4px 0 0; }
+.label { font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.num { font-variant-numeric: tabular-nums; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+section { display: grid; gap: 14px; }
+.hero { display: grid; gap: 4px; }
+.big { font-family: var(--display); font-size: 3.4rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.big small { font-size: 1.2rem; color: var(--muted); font-weight: 500; }
+button.link { all: unset; cursor: pointer; color: var(--accent); font-weight: 600; font-size: .9rem; }
+button.link:focus-visible, .tabs button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.bars { display: grid; gap: 9px; }
+.bar { display: grid; grid-template-columns: minmax(110px, 38%) 1fr auto; gap: 10px; align-items: center; font-size: .9rem; }
+.bar .name { min-width: 0; overflow-wrap: anywhere; }
+.track { height: 12px; background: var(--track); border-radius: 0 4px 4px 0; overflow: hidden; display: flex; gap: 2px; }
+.fill { height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; }
+.fill.alt { background: var(--muted); opacity: .55; }
+.val { font-variant-numeric: tabular-nums; text-align: right; min-width: 64px; }
+.val em { font-style: normal; color: var(--muted); font-size: .8rem; margin-left: 4px; }
+.step-drop { color: var(--warn); font-size: .78rem; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.tile { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 2px; }
+.tile b { font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.tile span { color: var(--muted); font-size: .82rem; }
+.legend { display: flex; gap: 16px; font-size: .82rem; color: var(--muted); flex-wrap: wrap; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; background: var(--accent); }
+.legend i.alt { background: var(--muted); opacity: .55; }
+.quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+blockquote { margin: 0; padding: 14px 16px; background: var(--accent-soft); border-radius: 8px; font-size: .92rem; display: grid; gap: 6px; }
+blockquote cite { font-style: normal; font-size: .75rem; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+details { border-top: 1px solid var(--line); padding-top: 10px; }
+details summary { cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary .bar .name::before { content: "+ "; color: var(--accent); font-weight: 700; }
+details[open] summary .bar .name::before { content: "\2212  "; }
+details ul { margin: 10px 0 4px; padding-left: 20px; display: grid; gap: 6px; font-size: .9rem; }
+.tag { font-size: .7rem; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); margin-left: 6px; white-space: nowrap; }
+.insights { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 75ch; }
+.tabs { display: flex; gap: 6px; }
+.tabs button { font: inherit; font-size: .85rem; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.tablewrap { overflow-x: auto; max-height: 420px; overflow-y: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; position: sticky; top: 0; background: var(--surface); }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.note { color: var(--muted); font-size: .82rem; margin: 0; }
+@media (max-width: 520px) { .big { font-size: 2.8rem; } .bar { grid-template-columns: 1fr auto; } .bar .track { grid-column: 1 / -1; grid-row: 2; } }
+@media (prefers-reduced-motion: no-preference) { .fill { transition: width .4s ease; } }
+</style>
+
+<div class="wrap" id="app">
+  <header>
+    <h1>Saathi live dashboard</h1>
+    <p class="sub" id="period"></p>
+  </header>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="hero">
+        <span class="label">Unique users</span>
+        <div class="big num" id="users"></div>
+        <span class="sub" id="usersSub"></span>
+      </div>
+      <button class="link" id="toggleBreakdown" aria-expanded="false" aria-controls="breakdown">See district-wise and role-wise users</button>
+      <div id="breakdown" hidden>
+        <div class="tabs" role="tablist">
+          <button role="tab" id="tabDistrict" aria-selected="true">District</button>
+          <button role="tab" id="tabRole" aria-selected="false">Role</button>
+        </div>
+        <div class="tablewrap"><table><thead><tr><th id="bdHead">District</th><th class="n">Users</th><th class="n">Got an answer</th><th class="n">Got an MIP</th></tr></thead><tbody id="bdBody"></tbody></table></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="hero">
+        <span class="label">Came back at least once</span>
+        <div class="big num" id="repeatPct"></div>
+        <span class="sub" id="repeatSub"></span>
+      </div>
+      <div class="bars" id="repeatBars"></div>
+      <p class="note" id="repeatNote"></p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h2>Drop-off funnel</h2><p class="note">Users at each step, with the share lost from the step before.</p><div class="bars" id="funnel"></div></div>
+    <div class="card"><h2>Micro-improvement plan (MIP) funnel</h2><p class="note">Users in conversations where Saathi chose the MIP flow.</p><div class="bars" id="mipFunnel"></div><p class="note" id="mipNote"></p></div>
+  </div>
+
+  <section>
+    <h2>Conversation analysis</h2>
+    <div class="grid2">
+      <div class="card"><h3>Language chosen (users)</h3><div class="bars" id="lang"></div>
+        <h3>Voice vs text (user messages)</h3><div class="legend"><span><i></i>Voice</span><span><i class="alt"></i>Text</span></div><div class="bars" id="voice"></div></div>
+      <div class="card"><h3>Time taken (median)</h3><div class="tiles" id="time"></div><p class="note">Times are from message timestamps, which are recorded to the minute.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tone and warmth</h2>
+    <p class="note">Examples of Saathi's replies that acknowledge the teacher before helping. Names are hidden.</p>
+    <div class="quotes" id="warmth"></div>
+  </section>
+
+  <section>
+    <h2>What users ask</h2>
+    <div class="grid2">
+      <div class="card"><h3>Knowledge query vs MIP</h3><div class="legend"><span><i></i>MIP flow</span><span><i class="alt"></i>Knowledge answer</span></div><div class="bars" id="kvm"></div>
+        <h3>Starter prompts tapped first</h3><div class="bars" id="starters"></div></div>
+      <div class="card"><h3>Query themes</h3><p class="note">First typed question in each conversation. Open a theme to see the exact queries, in the language they were asked.</p><div id="themes"></div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Insights from the logs</h2>
+    <ol class="insights" id="insights"></ol>
+  </section>
+</div>
+
+<script>
+const D = /*DATA*/null/*END*/;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmt = n => Number(n).toLocaleString('en-IN');
+const pct = (a, b) => b ? Math.round(1000 * a / b) / 10 : 0;
+const day = s => new Date(s + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+function bar(name, value, max, valHtml, title) {
+  const w = max ? Math.max(1, 100 * value / max) : 0;
+  return `<div class="bar" title="${esc(title || name + ': ' + value)}"><span class="name">${name}</span><div class="track"><div class="fill" style="width:${w}%"></div></div><span class="val">${valHtml}</span></div>`;
+}
+function split(name, a, b, title) {
+  const t = a + b, wa = t ? 100 * a / t : 0;
+  return `<div class="bar" title="${esc(title)}"><span class="name">${esc(name)}</span><div class="track"><div class="fill" style="width:${wa}%"></div><div class="fill alt" style="width:${100 - wa}%;border-radius:0"></div></div><span class="val">${pct(a, t)}%<em>${fmt(a)}/${fmt(t)}</em></span></div>`;
+}
+function funnel(el, steps) {
+  const max = steps[0][1];
+  $(el).innerHTML = steps.map(([n, v], i) => {
+    const drop = i ? pct(steps[i - 1][1] - v, steps[i - 1][1]) : null;
+    return bar(esc(n) + (drop !== null ? ` <span class="step-drop">&minus;${drop}%</span>` : ''), v, max, `${fmt(v)}<em>${pct(v, max)}%</em>`, `${n}: ${v} (${pct(v, max)}% of first step)`);
+  }).join('');
+}
+
+$('period').textContent = `${day(D.from)} to ${day(D.to)} · ${fmt(D.totals.conversations)} conversations · ${fmt(D.totals.messages)} messages (duplicates removed) · refreshed ${D.refreshed}`;
+$('users').textContent = fmt(D.totals.users);
+$('usersSub').textContent = `${fmt(D.funnel.receivedAnswer)} got an answer or plan`;
+
+// breakdown
+let bdKey = 'byDistrict';
+function renderBd() {
+  $('bdHead').textContent = bdKey === 'byDistrict' ? 'District' : 'Role';
+  $('bdBody').innerHTML = D[bdKey].map(r => `<tr><td>${esc(r.name)}</td><td class="n">${fmt(r.users)}</td><td class="n">${fmt(r.answered)}</td><td class="n">${fmt(r.mip)}</td></tr>`).join('');
+  $('tabDistrict').setAttribute('aria-selected', bdKey === 'byDistrict'); $('tabRole').setAttribute('aria-selected', bdKey === 'byRole');
+}
+$('toggleBreakdown').onclick = () => { const b = $('breakdown'); b.hidden = !b.hidden; $('toggleBreakdown').setAttribute('aria-expanded', !b.hidden); $('toggleBreakdown').textContent = b.hidden ? 'See district-wise and role-wise users' : 'Hide breakdown'; };
+$('tabDistrict').onclick = () => { bdKey = 'byDistrict'; renderBd(); };
+$('tabRole').onclick = () => { bdKey = 'byRole'; renderBd(); };
+renderBd();
+
+// repeat
+const R = D.repeat;
+$('repeatPct').innerHTML = `${R.returnedPct}<small>%</small>`;
+$('repeatSub').textContent = `${fmt(R.returned)} of ${fmt(D.totals.users)} users had a second visit`;
+const rb = R.buckets.filter(b => b.name !== 'Never came back'), never = R.buckets.find(b => b.name === 'Never came back');
+const rmax = Math.max(...rb.map(b => b.users), 1);
+$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${b.pct}%</em>`, `${b.name}: ${b.users} users`)).join('')
+  + `<div class="bar"><span class="name">Never came back</span><span></span><span class="val">${fmt(never.users)}<em>${never.pct}%</em></span></div>`;
+$('repeatNote').textContent = `A visit is a run of messages with no gap over 30 minutes; "after N days" is the gap between the first and second visit. Of the ${fmt(R.eligibleUsers)} users who started at least 3 days before the latest data, ${R.eligibleReturnedPct}% came back. ${fmt(R.multiDay)} users were active on 2 or more days.`;
+
+// funnels
+const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;
+funnel('funnel', [['Logged in', F.loggedIn], ['Started onboarding (profile found)', F.startedOnboarding], ['Completed onboarding', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Received an answer or MIP', F.receivedAnswer]]);
+funnel('mipFunnel', [['Asked a school or classroom challenge', M.chal], ['Reached goal', M.goal], ['Reached objectives', M.obj], ['Generated MIP', M.mip], ['MIP ready to download', M.dl]]);
+$('mipNote').textContent = `Conversations: ${MS.chal} → ${MS.goal} → ${MS.obj} → ${MS.mip} → ${MS.dl}. The logs record the download offer, not the tap, so the last step is an upper bound.`;
+
+// language and voice
+const L = D.language, lmax = Math.max(...L.users.map(x => x.users));
+$('lang').innerHTML = L.users.map(x => bar(esc(x.name), x.users, lmax, `${x.pct}%<em>${fmt(x.users)}</em>`)).join('');
+$('voice').innerHTML = L.voiceByLang.map(x => split(x.name, x.voice, x.text, `${x.name}: ${x.voice} voice, ${x.text} text`)).join('');
+
+// time
+const T = D.time, Q = D.questionsToPlan, mins = v => v === null || v === undefined ? '–' : (v < 1 ? '<1' : Math.round(v * 10) / 10);
+$('time').innerHTML = [
+  [mins(T.onboardingMedian) + ' min', `to complete onboarding (average ${T.onboardingAvg} min, ${fmt(T.onboardingN)} users)`],
+  [mins(T.answerMedian) + ' min', `from first question to first answer (average ${T.answerAvg} min)`],
+  [mins(T.planMedian) + ' min', `from first message to an MIP (average ${T.planAvg} min, ${T.planN} plans)`],
+  [Q.median ?? '–', `questions Saathi asks before an MIP (median; ${Q.userRepliesMedian} user replies)`]
+].map(([b, s]) => `<div class="tile"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
+
+// warmth
+$('warmth').innerHTML = D.warmth.map(w => `<blockquote><cite>${esc(w.lang)}</cite>${esc(w.text)}</blockquote>`).join('');
+
+// queries
+const K = D.knowledgeVsMip;
+$('kvm').innerHTML = split('Conversations', K.mip, K.knowledge, `${K.mip} MIP, ${K.knowledge} knowledge`);
+const st = D.starterPrompts || [], smax = Math.max(...st.map(s => s.conversations), 1);
+$('starters').innerHTML = st.length ? st.slice(0, 5).map(s => bar(esc(s.text), s.conversations, smax, fmt(s.conversations))).join('') + `<p class="note">${fmt(D.starterConversations)} conversations began with a tapped starter prompt.</p>` : '<p class="note">None detected.</p>';
+const tmax = Math.max(...D.themes.map(t => t.count));
+$('themes').innerHTML = D.themes.map(t => `<details><summary>${bar(esc(t.name), t.count, tmax, `${fmt(t.count)}<em>${t.pct}%</em>`, `${t.name}: ${t.count} conversations, ${t.mip} went into the MIP flow`)}</summary>
+  <ul>${t.examples.map(e => `<li>${esc(e.text)}<span class="tag">${esc(e.type)}</span></li>`).join('')}</ul></details>`).join('');
+
+// insights
+$('insights').innerHTML = D.insights.map(i => `<li>${esc(i)}</li>`).join('');
+</script>
