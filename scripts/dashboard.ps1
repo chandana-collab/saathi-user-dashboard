@@ -45,14 +45,16 @@ $onbQ = "your name|your role|which role|check-in|Which school or organi|Which st
 $greetRx = '^(hi+|hello|hey|ok+|okay|yes|no|haan|han|ha|ji|thanks|thank you|thank u|नमस्ते|नमस्कार|हाँ|हां|जी|ठीक है|धन्यवाद)\W*$'
 $isAnswer = { param($m) ($m.chunks -and $m.chunks -ne '[]') -or $m.msg.Length -ge 400 -or $m.msg -match 'Here is your Improvement Plan|\*\*Improvement Plan\*\*' }
 $themes = [ordered]@{
-  'Lesson plan' = 'lesson plan|lesson|path yojna|path yojana|paath yojana|पाठ योजना|पाठ्य योजना|पाठ-योजना|लेसन|teaching plan|पढ़ाने की योजना|plan bana'
-  'Teaching/learning resource request' = 'वर्कशीट|पीबीएल|रणनीति|strateg|pbl|pariyojna|एआई|\bai\b|computer|internet|tools|pdf|project|परियोजना|नोट्स|summary|सारांश|gatividhi|kahani|kavita|prashn|samagri|worksheet|activity|activities|गतिविधि|resource|video|वीडियो|tlm|टीएलएम|सामग्री|quiz|question paper|प्रश्न पत्र|प्रश्नपत्र|poem|कविता|story|कहानी|game|खेल|chart|चार्ट|material|example|उदाहरण|notes'
-  'Classroom management' = 'marpit|मारपीट|decipline|पलटकर|routine|रूटीन|shor|anushasan|dhyan nahi|baat nahi|ladai|jhagad|class manage|time management|discipline|अनुशासन|noise|शोर|हल्ला|manage|attention|ध्यान नहीं|ध्यान न|naughty|शरारत|बैठ नहीं|control|नियंत्रण|बात नहीं मान|मोबाइल|mobile|fight|झगड़'
-  'School or classroom improvement challenge' = 'play ?ground|खेल मैदान|kitab|किताब|book|guardian|boundary|wall|furniture|फर्नीचर|administration|प्रशासन|fund|कमी|kami|abhav|अभाव|upasthiti|nahi aate|namankan|abhibhavak|shauchalay|building|bhawan|भवन|kamra|कमरा|बेंच|bench|bijli|बिजली|पानी|vidyalay|attendance|उपस्थिति|absent|अनुपस्थित|नहीं आते|dropout|enrol|नामांकन|parent|अभिभावक|माता-पिता|community|समुदाय|infrastructure|toilet|शौचालय|mdm|mid.?day|मध्याह्न|बच्चे स्कूल|school|विद्यालय|स्कूल'
-  'Classroom improvement' = 'kamjor|padhai|padh|likh|sikh|seekh|samajh|गुणवत्ता|gunvatta|quality|sudhar|शिक्षा|shiksha|ganit|class|कक्षा|बच्च|bachch|weak|कमजोर|कमज़ोर|learning|सीख|पढ़ाई|reading|पढ़ना|पढ़ने|पढ़|लिखना|writing|math|गणित|english|अंग्रेजी|अंग्रेज़ी|हिंदी|understand|समझ|improve|सुधार|level|स्तर|fln|बुनियादी|पढ़ा'
+  'Lesson plan' = 'lesson plan|lession plan|lesson|path yojna|path yojana|paath yojana|पाठ योजना|पाठ्य योजना|पाठ-योजना|लेसन|teaching plan|पढ़ाने की योजना|padhai ka plan'
+  'Classroom management' = 'discipline|decipline|अनुशासन|anushasan|noise|शोर|shor|हल्ला|attention|ध्यान नहीं|ध्यान न|dhyan nahi|naughty|शरारत|बैठ नहीं|control|नियंत्रण|बात नहीं मान|baat nahi|मोबाइल|mobile|fight|झगड़|jhagad|ladai|marpit|मारपीट|पलटकर|routine|रूटीन|time management|class manage|homework|गृहकार्य|होमवर्क|साफ सफाई|safai|भागीदारी|participation|मन नहीं लग|man nahi lag|mann nahi|पढ़ने ही नहीं चाहते|interest|रुचि|engage'
+  'Teacher shortage and school facilities' = 'कमरे|ka bhav|repair|मरम्मत|painting|diwar|दीवार|teacher ki kami|teacher ka abhav|shikshak ki kami|शिक्षक की कमी|टीचर की कमी|शिक्षकों की कमी|\d+ shikshak|\d+ teachers?\b|abhav|अभाव|building|bhawan|भवन|kamra|कमरा|वर्ग कक्ष|बेंच|bench|furniture|फर्नीचर|toilet|शौचालय|shauchalay|boundary|wall|bijli|बिजली|पानी|pani|handpump|हैंडपंप|play ?ground|खेल मैदान|infrastructure|library|पुस्तकालय|\blab\b|प्रयोगशाला|जगह बहुत कम|space'
+  'Teaching/learning resource request' = 'worksheet|वर्कशीट|activity|activities|गतिविधि|gatividhi|tlm|टीएलएम|सामग्री|samagri|quiz|question paper|प्रश्न पत्र|प्रश्नपत्र|notes|नोट्स|video|वीडियो|poem|कविता|kavita|story|कहानी|kahani|games?\b|chart|चार्ट|material|project|परियोजना|pariyojna|pbl|पीबीएल|summary|सारांश|pdf|tools|एआई|\bai\b|computer|internet|strateg|रणनीति|tips|उपाय|upay|method|विधि|tarika|तरीका'
+  'School or classroom improvement' = 'kaise padhaye|कैसे पढ़ाए|कैसे पढ़ाएं|attendance|उपस्थिति|upasthiti|absent|अनुपस्थित|नहीं आते|nahi aate|dropout|enrol|नामांकन|namankan|parent|guardian|अभिभावक|abhibhavak|माता-पिता|community|समुदाय|weak|कमजोर|कमज़ोर|kamjor|learning outcome|अधिगम|quality|गुणवत्ता|गुणवता|gunvatta|improve|सुधार|sudhar|level|स्तर|अस्तर|fln|बुनियादी|समस्या|problem|challenge|चुनौती|look of my school|base बहुत|base kamjor'
+  'Subject knowledge question' = 'vigyan|विज्ञान|science|syllabus|व्याख्या|machine|battery|battry|दबाव|samyik|सामयिक|gravitation|thermometer|थर्मामीटर|ब्याज|chapter|अध्याय|prakar|parkar|प्रकार|what is|क्या है|kya hai|difference|अंतर|meaning|मतलब|अर्थ|formula|सूत्र|grammar|व्याकरण|physics|chemistry|chemical|biology|history|इतिहास|geography|भूगोल|samikaran|समीकरण|pribhasa|परिभाषा|topic|bal\b|बल'
 }
-$themes['Subject knowledge question'] = 'vigyan|syllabus|व्याख्या|machine|battery|battry|बल |दबाव|घटना|samyik|सामयिक|gravitation|science|विज्ञान|शब्द|thermometer|थर्मामीटर|ब्याज|chapter|अध्याय|prakar|parkar|प्रकार|what is|क्या है|kya hai|difference|अंतर|meaning|अर्थ|formula|सूत्र|grammar|व्याकरण|physics|chemistry|biology|history|इतिहास|geography|भूगोल'
-function Theme([string]$q) { foreach ($k in $themes.Keys) { if ($q -match $themes[$k]) { return $k } }; return 'Other / unclear (short or general replies)' }
+$eduRx = 'बच्च|bachch|bacch|छात्र|student|teacher|टीचर|शिक्षक|shikshak|class|कक्षा|वर्ग|school|विद्यालय|स्कूल|vidyalay|पढ़|padh|सीख|seekh|learn|teach|शिक्षण|shikshan|शिक्षा|shiksha|subject|विषय|exam|परीक्षा|पाठ|ncert|किताब|kitab|book'
+function Theme([string]$q) { foreach ($k in $themes.Keys) { if ($q -match $themes[$k]) { return $k } }; if ($q -match $eduRx -and $q -notmatch '\bapp\b|play ?store|log ?out|\bchat\b|hindi me|sathi|saathi|ask a question|आपका|aapka|apka') { return 'Other education asks' }; return $null }
+$openRx = "what's on your mind|challenge or question|anything else|another (school )?challenge|tell me a bit more about what's happening|help you with|How can I help|What would you like|कोई और|और कोई|किस चुनौती|क्या मदद|^\s*Understood\.?\s*$"
 
 # ---------- per user ----------
 $users = @{}
@@ -101,9 +103,8 @@ foreach ($s in ($rows | Group-Object sid)) {
       $isOnb = ($prev -match $onbQ) -or ($i -le 1 -and -not $prev)
       if ($cIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $t.Trim().Length -gt 2) { $cIdx = $i; $cTs = $m.ts; $st.query = $true }
       if ($qIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $btn.Contains($t.Trim().ToLower()) -and -not $sess.starter) { $sess.starter = $t.Trim(); $starterUse[$t.Trim()] = 1 + [int]$starterUse[$t.Trim()] }
-      if ($qIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $t.Trim().Length -ge 6 -and $t.Trim() -notmatch $greetRx -and $t.Trim() -notmatch $closerRx -and -not $btn.Contains($t.Trim().ToLower()) -and (Theme $t) -notlike 'Other*') {
-        $qIdx = $i; $qTs = $m.ts
-        $queries.Add([pscustomobject]@{ sid=$s.Name; lang=$m.lang; mode=$m.mode; text=(Mask $t $st.name); theme=(Theme $t); ts=$m.ts })
+      if ($qIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $t.Trim().Length -ge 6 -and $t.Trim() -notmatch $greetRx -and $t.Trim() -notmatch $closerRx -and -not $btn.Contains($t.Trim().ToLower()) -and ($t.Trim() -split '\s+').Count -ge 3 -and $t.Trim().Length -ge 12 -and (-not $prev -or $prev -match $openRx -or $prev -notmatch '\?')) {
+        if (Theme $t) { $qIdx = $i; $qTs = $m.ts; $queries.Add([pscustomobject]@{ sid=$s.Name; lang=$m.lang; mode=$m.mode; text=(Mask $t $st.name); theme=(Theme $t); ts=$m.ts }) }
       }
     }
   }
@@ -159,7 +160,7 @@ $voiceByLang = @($userMsgRows | Group-Object lang | Sort-Object Count -Descendin
 # ---------- queries ----------
 $Q = $queries.ToArray()
 if ($env:SAATHI_Q) { $Q | Export-Csv -NoTypeInformation -Encoding utf8 $env:SAATHI_Q }
-$themeOut = @($Q | Group-Object theme | Sort-Object Count -Descending | ForEach-Object {
+$themeOut = @($Q | Group-Object theme | Sort-Object { $_.Name -eq 'Other education asks' }, { -$_.Count } | ForEach-Object {
   $ex = @($_.Group | Where-Object { $_.text.Length -ge 12 } | Sort-Object ts -Descending | Group-Object text | Select-Object -First 12 | ForEach-Object { [ordered]@{ text=$_.Name; lang=$_.Group[0].lang; type=$_.Group[0].type } })
   [ordered]@{ name=$_.Name; count=$_.Count; pct=(Pct $_.Count $Q.Count); mip=@($_.Group | Where-Object type -eq 'MIP').Count; examples=$ex } })
 $kVsM = [ordered]@{ knowledge=@($Q | Where-Object type -eq 'Knowledge').Count; mip=@($Q | Where-Object type -eq 'MIP').Count }
@@ -168,26 +169,28 @@ $kVsM = [ordered]@{ knowledge=@($Q | Where-Object type -eq 'Knowledge').Count; m
 $warmOut = @(); foreach ($l in 'English','Hindi') { $warmOut += @($warm.ToArray() | Where-Object { $_.lang -eq $l -and $_.text.Length -le 220 -and $_.text -notmatch '\[name\]' } | Group-Object text | Sort-Object Count | Select-Object -First 3 | ForEach-Object { [ordered]@{ lang=$l; text=$_.Name } }) }
 
 # ---------- insights ----------
-$ins = New-Object System.Collections.Generic.List[string]
+$pos = New-Object System.Collections.Generic.List[string]; $neg = New-Object System.Collections.Generic.List[string]
 $f = Funnel $U; $mu = MipU $U
-$ins.Add("$(Pct ($f.startedOnboarding - $f.completedOnboarding) $f.startedOnboarding)% of users ($($f.startedOnboarding - $f.completedOnboarding)) started onboarding but did not finish it.")
-$ins.Add("$(Pct ($f.completedOnboarding - $f.startedConversation) $f.completedOnboarding)% of onboarded users ($($f.completedOnboarding - $f.startedConversation)) never asked a question - the biggest leak after login.")
+$retMip = Pct @($returned | Where-Object mip).Count $returned.Count; $oneMip = Pct @($U | Where-Object { -not $_.returned -and $_.mip }).Count ($U.Count - $returned.Count)
+if ($oneMip -and $retMip -gt $oneMip) { $pos.Add("Users who come back are $([Math]::Round($retMip / $oneMip, 1)) times as likely to leave with an improvement plan ($retMip% vs $oneMip%).") }
+$after = @($userMsgRows | Where-Object { $_.ts.Hour -ge 18 -or $_.ts.Hour -lt 7 }).Count
+$pos.Add("$(Pct $after $userMsgRows.Count)% of messages are sent after 6 PM or before 7 AM: teachers use Saathi from home, outside school hours.")
+$wk = @($userMsgRows | Where-Object { $_.ts.DayOfWeek -in 'Saturday','Sunday' }).Count; if ($wk) { $pos.Add("$(Pct $wk $userMsgRows.Count)% of messages come on weekends.") }
+$rl = @(Breakdown 'role' | Where-Object { $_.name -in 'Teacher','Head of school' })
+$hs = $rl | Where-Object name -eq 'Head of school'; $te = $rl | Where-Object name -eq 'Teacher'
+if ($hs -and $te -and (Pct $hs.mip $hs.users) -gt (Pct $te.mip $te.users)) { $pos.Add("School heads are the most plan-driven users: $(Pct $hs.mip $hs.users)% reach an improvement plan, against $(Pct $te.mip $te.users)% of teachers.") }
+$bihar = @($U | Where-Object { $_.district -notmatch '^(Not captured|Unrecognised|\(state only\)|Bengaluru|Mysuru|Tumakuru|Mangaluru|Bhubaneswar)' } | Select-Object -ExpandProperty district -Unique).Count
+$pos.Add("Saathi reached users in $bihar of Bihar's 38 districts.")
+$hiPct = ($langUsers | Where-Object name -eq 'Hindi').pct; if ($hiPct) { $pos.Add("$hiPct% of users chose Hindi, and voice use is highest in Hindi ($((($voiceByLang | Where-Object name -eq 'Hindi').voicePct))% of messages).") }
+$top = $themeOut | Where-Object { $_.name -notlike 'Other*' } | Select-Object -First 1; if ($top) { $pos.Add("The most common real ask is $($top.name.ToLower()) ($($top.pct)% of questions).") }
+if ($ansMins.Count) { $pos.Add("A typical user gets a first answer within $([Math]::Max(1,[Math]::Round((Med $ansMins),0))) minute of asking.") }
+$neg.Add("$(Pct ($f.completedOnboarding - $f.startedConversation) $f.completedOnboarding)% of users who finish sign-up never ask a question. This is the biggest drop.")
 $steps = @(@('challenge','goal',$mipSess.chal,$mipSess.goal), @('goal','objectives',$mipSess.goal,$mipSess.obj), @('objectives','plan',$mipSess.obj,$mipSess.mip))
 $worst = $steps | Sort-Object { if ($_[2]) { $_[3] / $_[2] } else { 1 } } | Select-Object -First 1
-$ins.Add("In the MIP flow, the steepest drop is from $($worst[0]) to $($worst[1]): only $(Pct $worst[3] $worst[2])% of conversations get past it.")
-if ($qToPlan.Count) { $ins.Add("Saathi asks a median of $(Med $qToPlan) clarifying questions (median $(Med $turnsToPlan) user replies, ~$([Math]::Round((Med $planMins),0)) min) before a plan appears.") }
-$retMip = Pct @($returned | Where-Object mip).Count $returned.Count; $oneMip = Pct @($U | Where-Object { -not $_.returned -and $_.mip }).Count ($U.Count - $returned.Count)
-$ins.Add("Users who came back are $(if ($oneMip) { [Math]::Round($retMip / $oneMip, 1) } else { 'many' })x as likely to have a plan ($retMip% vs $oneMip% of one-visit users).")
-$vt = $voiceByLang | Sort-Object { $_.voicePct } -Descending | Select-Object -First 1
-$ins.Add("Voice is $(Pct @($userMsgRows | Where-Object mode -eq 'Voice').Count $userMsgRows.Count)% of all user messages; highest in $($vt.name) ($($vt.voicePct)%).")
-$hour = $userMsgRows | Group-Object { $_.ts.Hour } | Sort-Object Count -Descending | Select-Object -First 1
-$h = [int]$hour.Name; $ins.Add("Peak hour is $(([datetime]::Today.AddHours($h)).ToString('h tt'))-$(([datetime]::Today.AddHours($h+1)).ToString('h tt')): $(Pct $hour.Count $userMsgRows.Count)% of user messages.")
-$top = $themeOut | Where-Object { $_.name -notlike 'Other*' } | Select-Object -First 1; $ins.Add("Most common query theme: $($top.name) ($($top.pct)% of conversations).")
-$rl = @(Breakdown 'role' | Where-Object { $_.name -in 'Teacher','Head of school' })
-if ($rl.Count -eq 2) { $ins.Add("Plan rate by role: " + (($rl | ForEach-Object { "$($_.name) $(Pct $_.mip $_.users)%" }) -join ', ') + " of users reach an MIP.") }
-$ins.Add("A conversation has a median of $(Med $msgsPerConv) user messages.")
-$late = @($U | Where-Object { ($_.times | Measure-Object -Minimum).Minimum.Date -ge $lastDay.AddDays(-1) }).Count
-$ins.Add("Note: $late users first came on the last 2 days of data, so they have had little time to return.")
+$neg.Add("In the plan flow, only $(Pct $worst[3] $worst[2])% of conversations get from $($worst[0]) to $($worst[1]).")
+if ($qToPlan.Count) { $neg.Add("Saathi asks about $(Med $qToPlan) questions before giving a plan, which takes around $([Math]::Round((Med $planMins),0)) minutes.") }
+$neg.Add("Only $(Pct $returned.Count $U.Count)% of users have come back so far.")
+$neg.Add("$(Pct ($f.startedOnboarding - $f.completedOnboarding) $f.startedOnboarding)% of users start sign-up but do not finish it.")
 
 # ---------- daily ----------
 $daily = @($rows | Group-Object { $_.ts.ToString('yyyy-MM-dd') } | Sort-Object Name | ForEach-Object { [ordered]@{ date=$_.Name; users=@($_.Group.uid | Sort-Object -Unique).Count } })
@@ -204,7 +207,7 @@ $result = [ordered]@{
   time = [ordered]@{ onboardingMedian=(Med $onbMins); onboardingAvg=(Avg $onbMins); onboardingN=$onbMins.Count
     answerMedian=(Med $ansMins); answerAvg=(Avg $ansMins); answerN=$ansMins.Count; planMedian=(Med $planMins); planAvg=(Avg $planMins); planN=$planMins.Count }
   questionsToPlan = [ordered]@{ median=(Med $qToPlan); avg=(Avg $qToPlan); userRepliesMedian=(Med $turnsToPlan) }
-  starterPrompts = @($starterUse.Keys | Sort-Object { -$starterUse[$_] } | Select-Object -First 8 | ForEach-Object { [ordered]@{ text=$_; conversations=$starterUse[$_] } }); starterConversations = ($starterUse.Values | Measure-Object -Sum).Sum; warmth = $warmOut; themes = $themeOut; knowledgeVsMip = $kVsM; insights = @($ins); daily = $daily
+  starterPrompts = @($starterUse.Keys | Sort-Object { -$starterUse[$_] } | Select-Object -First 8 | ForEach-Object { [ordered]@{ text=$_; conversations=$starterUse[$_] } }); starterConversations = ($starterUse.Values | Measure-Object -Sum).Sum; warmth = $warmOut; themes = $themeOut; knowledgeVsMip = $kVsM; insights = [ordered]@{ positive = @($pos); improve = @($neg) }; daily = $daily
 }
 $result | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 $Out
 "users=$($U.Count) conv=$($result.totals.conversations) msgs=$($rows.Count) dupes=$dupes"
