@@ -6,14 +6,14 @@ $ErrorActionPreference = 'Stop'
 $root = 'C:\Users\jeeva\ChandanaOS'
 $work = Join-Path $root 'data\saathi'; $tabsDir = Join-Path $work 'tabs'; $outDir = Join-Path $work 'out'
 New-Item -ItemType Directory -Force $tabsDir, $outDir | Out-Null
-Get-ChildItem $tabsDir -Filter *.csv | Remove-Item   # only tabs present in the source this run
 $log = Join-Path $work 'sync.log'
 function Log($m) { "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')  $m" | Add-Content -Encoding utf8 $log; $m }
 
 # 1. Discover tabs from the sheet's public view
-$html = (Invoke-WebRequest -UseBasicParsing "https://docs.google.com/spreadsheets/d/$SheetId/htmlview").Content
+try { $html = (Invoke-WebRequest -UseBasicParsing "https://docs.google.com/spreadsheets/d/$SheetId/htmlview").Content } catch { Log "SOURCE NOT READABLE ($($_.Exception.Message)) - share the sheet as Anyone with the link: Viewer. Nothing changed."; exit 0 }
 $tabs = [regex]::Matches($html, '\{name: "([^"]+)",[^}]*?gid: "(\d+)"') | ForEach-Object { [pscustomobject]@{ name = $_.Groups[1].Value; gid = $_.Groups[2].Value } } | Sort-Object gid -Unique
 if (-not $tabs) { throw 'No tabs found - is the sheet still shared by link?' }
+Get-ChildItem $tabsDir -Filter *.csv | Where-Object { $tabs.gid -notcontains $_.BaseName } | Remove-Item   # drop tabs no longer in the source
 Log ("Tabs: " + (($tabs | ForEach-Object { "$($_.name) [$($_.gid)]" }) -join '; '))
 
 # 2. Download each tab and keep rows with the expected columns

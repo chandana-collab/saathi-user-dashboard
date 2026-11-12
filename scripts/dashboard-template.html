@@ -138,7 +138,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
 
   <section class="card">
     <h2>Insights from the logs</h2>
-    <ol class="insights" id="insights"></ol>
+    <h3>What is working</h3><ul class="insights" id="insPos"></ul><h3>Where to improve</h3><ul class="insights" id="insNeg"></ul>
   </section>
 </div>
 
@@ -226,5 +226,6 @@ $('themes').innerHTML = D.themes.map(t => `<details><summary>${bar(esc(t.name), 
 
 $('themeNote').textContent = `${fmt(D.themes.reduce((a, t) => a + t.count, 0))} education questions or school challenges asked. Greetings and general replies are not counted. Tap a theme to see the questions.`;
 // insights
-$('insights').innerHTML = D.insights.map(i => `<li>${esc(i)}</li>`).join('');
+$('insPos').innerHTML = D.insights.positive.map(i => `<li>${esc(i)}</li>`).join('');
+$('insNeg').innerHTML = D.insights.improve.map(i => `<li>${esc(i)}</li>`).join('');
 </script>
