@@ -107,11 +107,6 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
     </div>
   </div>
 
-  <div class="grid2">
-    <div class="card"><h2>Drop-off funnel</h2><p class="note">How many users reached each step. The orange number is the drop from the step before.</p><div class="bars" id="funnel"></div></div>
-    <div class="card"><h2>Micro-improvement plan (MIP) funnel</h2><p class="note">Users who went through the step-by-step plan flow.</p><div class="bars" id="mipFunnel"></div><p class="note" id="mipNote"></p></div>
-  </div>
-
   <section>
     <h2>Conversation analysis</h2>
     <div class="grid2">
@@ -120,6 +115,11 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
       <div class="card"><h3>Time taken (typical user)</h3><div class="tiles" id="time"></div><p class="note">Times are rounded to the minute.</p></div>
     </div>
   </section>
+
+  <div class="grid2">
+    <div class="card"><h2>Drop-off funnel</h2><p class="note">How many users reached each step. The orange number is the drop from the step before.</p><div class="bars" id="funnel"></div></div>
+    <div class="card"><h2>Micro-improvement plan (MIP) funnel</h2><p class="note">Users who went through the step-by-step plan flow.</p><div class="bars" id="mipFunnel"></div><p class="note" id="mipNote"></p></div>
+  </div>
 
   <section>
     <h2>Tone and warmth</h2>
@@ -132,7 +132,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
     <div class="grid2">
       <div class="card"><h3>Knowledge query vs MIP</h3><div class="legend"><span><i></i>MIP flow</span><span><i class="alt"></i>Knowledge answer</span></div><div class="bars" id="kvm"></div>
         <h3>Suggested prompts tapped</h3><div class="bars" id="starters"></div></div>
-      <div class="card"><h3>Query themes</h3><p class="note">Based on the first question in each conversation. Tap a theme to see the questions.</p><div id="themes"></div></div>
+      <div class="card"><h3>Query themes</h3><p class="note" id="themeNote"></p><div id="themes"></div></div>
     </div>
   </section>
 
@@ -223,6 +223,7 @@ const tmax = Math.max(...D.themes.map(t => t.count));
 $('themes').innerHTML = D.themes.map(t => `<details><summary>${bar(esc(t.name), t.count, tmax, `${fmt(t.count)}<em>${t.pct}%</em>`, `${t.name}: ${t.count} conversations, ${t.mip} went into the MIP flow`)}</summary>
   <ul>${t.examples.map(e => `<li>${esc(e.text)}<span class="tag">${esc(e.type)}</span></li>`).join('')}</ul></details>`).join('');
 
+$('themeNote').textContent = `${fmt(D.themes.reduce((a, t) => a + t.count, 0))} education questions or school challenges asked. Greetings and general replies are not counted. Tap a theme to see the questions.`;
 // insights
 $('insights').innerHTML = D.insights.map(i => `<li>${esc(i)}</li>`).join('');
 </script>
