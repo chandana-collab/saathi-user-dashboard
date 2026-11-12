@@ -52,7 +52,6 @@ $themes = [ordered]@{
   'Classroom improvement' = 'kamjor|padhai|padh|likh|sikh|seekh|samajh|गुणवत्ता|gunvatta|quality|sudhar|शिक्षा|shiksha|ganit|class|कक्षा|बच्च|bachch|weak|कमजोर|कमज़ोर|learning|सीख|पढ़ाई|reading|पढ़ना|पढ़ने|पढ़|लिखना|writing|math|गणित|english|अंग्रेजी|अंग्रेज़ी|हिंदी|understand|समझ|improve|सुधार|level|स्तर|fln|बुनियादी|पढ़ा'
 }
 $themes['Subject knowledge question'] = 'vigyan|syllabus|व्याख्या|machine|battery|battry|बल |दबाव|घटना|samyik|सामयिक|gravitation|science|विज्ञान|शब्द|thermometer|थर्मामीटर|ब्याज|chapter|अध्याय|prakar|parkar|प्रकार|what is|क्या है|kya hai|difference|अंतर|meaning|अर्थ|formula|सूत्र|grammar|व्याकरण|physics|chemistry|biology|history|इतिहास|geography|भूगोल'
-$themes['Saathi / app help'] = 'in hindi|profile|posting|language|भाषा|form|app|login|password|download|डाउनलोड|change your|saathi kya|who are you|आप कौन'
 function Theme([string]$q) { foreach ($k in $themes.Keys) { if ($q -match $themes[$k]) { return $k } }; return 'Other / unclear (short or general replies)' }
 
 # ---------- per user ----------
@@ -102,7 +101,7 @@ foreach ($s in ($rows | Group-Object sid)) {
       $isOnb = ($prev -match $onbQ) -or ($i -le 1 -and -not $prev)
       if ($cIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $t.Trim().Length -gt 2) { $cIdx = $i; $cTs = $m.ts; $st.query = $true }
       if ($qIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $btn.Contains($t.Trim().ToLower()) -and -not $sess.starter) { $sess.starter = $t.Trim(); $starterUse[$t.Trim()] = 1 + [int]$starterUse[$t.Trim()] }
-      if ($qIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $t.Trim().Length -ge 6 -and $t.Trim() -notmatch $greetRx -and $t.Trim() -notmatch $closerRx -and -not $btn.Contains($t.Trim().ToLower())) {
+      if ($qIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $t.Trim().Length -ge 6 -and $t.Trim() -notmatch $greetRx -and $t.Trim() -notmatch $closerRx -and -not $btn.Contains($t.Trim().ToLower()) -and (Theme $t) -notlike 'Other*') {
         $qIdx = $i; $qTs = $m.ts
         $queries.Add([pscustomobject]@{ sid=$s.Name; lang=$m.lang; mode=$m.mode; text=(Mask $t $st.name); theme=(Theme $t); ts=$m.ts })
       }
