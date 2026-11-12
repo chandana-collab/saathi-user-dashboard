@@ -154,21 +154,22 @@ const D = {
     "start":  "2026-10-25",
     "from":  "2026-10-26",
     "to":  "2026-11-11",
-    "refreshed":  "2026-11-12 18:57",
+    "refreshed":  "2026-11-12 19:04",
     "totals":  {
                    "users":  1028,
                    "conversations":  1679,
                    "messages":  18356,
-                   "duplicatesRemoved":  76
+                   "duplicatesRemoved":  76,
+                   "perTabSum":  1039
                },
     "repeat":  {
-                   "returnedPct":  7.1,
-                   "returned":  73,
+                   "returnedPct":  5.5,
+                   "returned":  57,
                    "buckets":  [
                                    {
                                        "name":  "Same day",
-                                       "users":  45,
-                                       "pct":  4.4
+                                       "users":  29,
+                                       "pct":  2.8
                                    },
                                    {
                                        "name":  "After 1 day",
@@ -192,15 +193,15 @@ const D = {
                                    },
                                    {
                                        "name":  "Never came back",
-                                       "users":  955,
-                                       "pct":  92.9
+                                       "users":  971,
+                                       "pct":  94.5
                                    }
                                ],
-                   "returnedPctOfConversing":  12.6,
+                   "returnedPctOfConversing":  10.2,
                    "eligibleUsers":  1016,
-                   "eligibleReturnedPct":  7,
+                   "eligibleReturnedPct":  5.5,
                    "multiDay":  31,
-                   "threePlusVisits":  5
+                   "threePlusVisits":  4
                },
     "funnel":  {
                    "startedOnboarding":  1028,
@@ -1021,7 +1022,7 @@ const D = {
                      "50.7% of onboarded users (451) never asked a question - the biggest leak after login.",
                      "In the MIP flow, the steepest drop is from objectives to plan: only 52.2% of conversations get past it.",
                      "Saathi asks a median of 6 clarifying questions (median 8 user replies, ~7 min) before a plan appears.",
-                     "Users who came back are 3.5x as likely to have a plan (23.3% vs 6.7% of one-visit users).",
+                     "Users who came back are 3.9x as likely to have a plan (26.3% vs 6.8% of one-visit users).",
                      "Voice is 9% of all user messages; highest in Hindi (10.8%).",
                      "Peak hour is 12 PM-1 PM: 19.2% of user messages.",
                      "Most common query theme: Classroom improvement (37.6% of conversations).",
@@ -1119,7 +1120,7 @@ function funnel(el, steps) {
 
 $('period').textContent = `${day(D.start || D.from)} to ${day(D.to)} (latest data) · updated ${D.refreshed}`;
 $('users').textContent = fmt(D.totals.users);
-$('usersSub').textContent = `${fmt(D.funnel.receivedAnswer)} got an answer or plan`;
+$('usersSub').textContent = `Adding up each tab's user count gives ${fmt(D.totals.perTabSum)}, because ${fmt(D.totals.perTabSum - D.totals.users)} users appear in more than one tab.`;
 
 // breakdown
 let bdKey = 'byDistrict';
@@ -1141,7 +1142,7 @@ const rb = R.buckets.filter(b => b.name !== 'Never came back'), never = R.bucket
 const rmax = Math.max(...rb.map(b => b.users), 1);
 $('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${b.pct}%</em>`, `${b.name}: ${b.users} users`)).join('')
   + `<div class="bar"><span class="name">Never came back</span><span></span><span class="val">${fmt(never.users)}<em>${never.pct}%</em></span></div>`;
-$('repeatNote').textContent = `Many users joined in the last 2 days and have not had time to come back yet.`;
+$('repeatNote').textContent = `A user counts as coming back when there is a gap of 1 hour or more between messages.`;
 
 // funnels
 const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;

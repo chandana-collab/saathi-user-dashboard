@@ -23,7 +23,7 @@ foreach ($f in (Get-ChildItem $TabsDir -Filter *.csv)) {
     if (-not $seenTxt.Add("$($r.session_id)|$($r.created_at)|$($r.speaker)|$($r.message)")) { $dupes++; continue }
     $n = 0L; [void][long]::TryParse(($r.id -replace '[^\d]', ''), [ref]$n)
     $lang = switch -regex ($r.user_selected_language) { '^(hi|hindi)$' { 'Hindi' } '^(en|english)$' { 'English' } default { 'Other' } }
-    $rows.Add([pscustomobject]@{ uid=$r.user_id; name=$r.user_name; role=$r.role; district=$r.district_name; lang=$lang; sp=$r.speaker
+    $rows.Add([pscustomobject]@{ tab=$f.BaseName; uid=$r.user_id; name=$r.user_name; role=$r.role; district=$r.district_name; lang=$lang; sp=$r.speaker
       found=($r.mapping_status -eq 'Profile found'); sid=$r.session_id; n=$n; msg=$r.message; chunks=$r.chunks; ts=$ts; mode=$r.input_mode })
   }
 }
@@ -134,13 +134,13 @@ function Funnel($set) { $set = @($set); [ordered]@{
 function MipU($set) { $set = @($set); [ordered]@{ chal=@($set | Where-Object chal).Count; goal=@($set | Where-Object goal).Count; obj=@($set | Where-Object obj).Count; mip=@($set | Where-Object mip).Count; dl=@($set | Where-Object dl).Count } }
 function Breakdown($key) { @($U | Group-Object { $_.$key } | Sort-Object Count -Descending | ForEach-Object { [ordered]@{ name=$_.Name; users=$_.Count; answered=(Funnel $_.Group).receivedAnswer; mip=@($_.Group | Where-Object mip).Count } }) }
 
-# ---------- repeat usage (visit = messages with < 30 min gap) ----------
+# ---------- repeat usage (new visit = gap of 1 hour or more) ----------
 $lastDay = ($rows | Measure-Object ts -Maximum).Maximum.Date
 $rep = [ordered]@{ 'Same day' = 0; 'After 1 day' = 0; 'After 2 days' = 0; 'After 3 days' = 0; 'After 4+ days' = 0; 'Never came back' = 0 }
 $visitsPerUser = @{}
 foreach ($st in $users.Values) {
   $t = @($st.times | Sort-Object); $starts = @($t[0])
-  for ($i = 1; $i -lt $t.Count; $i++) { if (($t[$i] - $t[$i-1]).TotalMinutes -gt 30) { $starts += $t[$i] } }
+  for ($i = 1; $i -lt $t.Count; $i++) { if (($t[$i] - $t[$i-1]).TotalMinutes -ge 60) { $starts += $t[$i] } }
   $st.visits = $starts.Count; $st.activeDays = @($t | ForEach-Object { $_.Date } | Sort-Object -Unique).Count
   if ($starts.Count -lt 2) { $rep['Never came back']++; $st.returned = $false; continue }
   $st.returned = $true; $gap = ($starts[1].Date - $starts[0].Date).Days
@@ -195,7 +195,7 @@ $daily = @($rows | Group-Object { $_.ts.ToString('yyyy-MM-dd') } | Sort-Object N
 $result = [ordered]@{
   start = $From; from = ($rows | Measure-Object ts -Minimum).Minimum.ToString('yyyy-MM-dd'); to = $lastDay.ToString('yyyy-MM-dd')
   refreshed = (Get-Date).ToString('yyyy-MM-dd HH:mm')
-  totals = [ordered]@{ users=$U.Count; conversations=@($rows.sid | Sort-Object -Unique).Count; messages=$rows.Count; duplicatesRemoved=$dupes }
+  totals = [ordered]@{ users=$U.Count; conversations=@($rows.sid | Sort-Object -Unique).Count; messages=$rows.Count; duplicatesRemoved=$dupes; perTabSum=(($rows | Group-Object tab | ForEach-Object { @($_.Group.uid | Sort-Object -Unique).Count }) | Measure-Object -Sum).Sum }
   repeat = [ordered]@{ returnedPct=(Pct $returned.Count $U.Count); returned=$returned.Count; buckets=@($rep.Keys | ForEach-Object { [ordered]@{ name=$_; users=$rep[$_]; pct=(Pct $rep[$_] $U.Count) } })
     returnedPctOfConversing=(Pct @($conv | Where-Object returned).Count $conv.Count); eligibleUsers=$elig.Count; eligibleReturnedPct=(Pct @($elig | Where-Object returned).Count $elig.Count); multiDay=@($U | Where-Object { $_.activeDays -ge 2 }).Count; threePlusVisits=@($U | Where-Object { $_.visits -ge 3 }).Count }
   funnel = $f; mipSessions = $mipSess; mipUsers = $mu
