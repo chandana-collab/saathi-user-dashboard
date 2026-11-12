@@ -105,7 +105,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
     </div>
     <div class="card">
       <div class="hero">
-        <span class="label">Came back at least once</span>
+        <span class="label">Repeat users</span>
         <div class="big num" id="repeatPct"></div>
         <span class="sub" id="repeatSub"></span>
       </div>
@@ -115,8 +115,8 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
   </div>
 
   <div class="grid2">
-    <div class="card"><h2>Drop-off funnel</h2><p class="note">Users at each step, with the share lost from the step before.</p><div class="bars" id="funnel"></div></div>
-    <div class="card"><h2>Micro-improvement plan (MIP) funnel</h2><p class="note">Users in conversations where Saathi chose the MIP flow.</p><div class="bars" id="mipFunnel"></div><p class="note" id="mipNote"></p></div>
+    <div class="card"><h2>Drop-off funnel</h2><p class="note">How many users reached each step. The orange number is the drop from the step before.</p><div class="bars" id="funnel"></div></div>
+    <div class="card"><h2>Micro-improvement plan (MIP) funnel</h2><p class="note">Users who went through the step-by-step plan flow.</p><div class="bars" id="mipFunnel"></div><p class="note" id="mipNote"></p></div>
   </div>
 
   <section>
@@ -124,13 +124,13 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
     <div class="grid2">
       <div class="card"><h3>Language chosen (users)</h3><div class="bars" id="lang"></div>
         <h3>Voice vs text (user messages)</h3><div class="legend"><span><i></i>Voice</span><span><i class="alt"></i>Text</span></div><div class="bars" id="voice"></div></div>
-      <div class="card"><h3>Time taken (median)</h3><div class="tiles" id="time"></div><p class="note">Times are from message timestamps, which are recorded to the minute.</p></div>
+      <div class="card"><h3>Time taken (typical user)</h3><div class="tiles" id="time"></div><p class="note">Times are rounded to the minute.</p></div>
     </div>
   </section>
 
   <section>
     <h2>Tone and warmth</h2>
-    <p class="note">Examples of Saathi's replies that acknowledge the teacher before helping. Names are hidden.</p>
+    <p class="note">Real Saathi replies that show care before helping.</p>
     <div class="quotes" id="warmth"></div>
   </section>
 
@@ -138,8 +138,8 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
     <h2>What users ask</h2>
     <div class="grid2">
       <div class="card"><h3>Knowledge query vs MIP</h3><div class="legend"><span><i></i>MIP flow</span><span><i class="alt"></i>Knowledge answer</span></div><div class="bars" id="kvm"></div>
-        <h3>Starter prompts tapped first</h3><div class="bars" id="starters"></div></div>
-      <div class="card"><h3>Query themes</h3><p class="note">First typed question in each conversation. Open a theme to see the exact queries, in the language they were asked.</p><div id="themes"></div></div>
+        <h3>Suggested prompts tapped</h3><div class="bars" id="starters"></div></div>
+      <div class="card"><h3>Query themes</h3><p class="note">Based on the first question in each conversation. Tap a theme to see the questions.</p><div id="themes"></div></div>
     </div>
   </section>
 
@@ -151,9 +151,10 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
 
 <script>
 const D = {
+    "start":  "2026-10-25",
     "from":  "2026-10-26",
     "to":  "2026-11-03",
-    "refreshed":  "2026-11-12 17:24",
+    "refreshed":  "2026-11-12 17:29",
     "totals":  {
                    "users":  925,
                    "conversations":  1502,
@@ -1182,7 +1183,7 @@ function funnel(el, steps) {
   }).join('');
 }
 
-$('period').textContent = `${day(D.from)} to ${day(D.to)} · ${fmt(D.totals.conversations)} conversations · ${fmt(D.totals.messages)} messages (duplicates removed) · refreshed ${D.refreshed}`;
+$('period').textContent = `${day(D.start || D.from)} to ${day(D.to)} (latest data) · updated ${D.refreshed}`;
 $('users').textContent = fmt(D.totals.users);
 $('usersSub').textContent = `${fmt(D.funnel.receivedAnswer)} got an answer or plan`;
 
@@ -1201,18 +1202,18 @@ renderBd();
 // repeat
 const R = D.repeat;
 $('repeatPct').innerHTML = `${R.returnedPct}<small>%</small>`;
-$('repeatSub').textContent = `${fmt(R.returned)} of ${fmt(D.totals.users)} users had a second visit`;
+$('repeatSub').textContent = `${fmt(R.returned)} of ${fmt(D.totals.users)} users came back`;
 const rb = R.buckets.filter(b => b.name !== 'Never came back'), never = R.buckets.find(b => b.name === 'Never came back');
 const rmax = Math.max(...rb.map(b => b.users), 1);
 $('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${b.pct}%</em>`, `${b.name}: ${b.users} users`)).join('')
   + `<div class="bar"><span class="name">Never came back</span><span></span><span class="val">${fmt(never.users)}<em>${never.pct}%</em></span></div>`;
-$('repeatNote').textContent = `A visit is a run of messages with no gap over 30 minutes; "after N days" is the gap between the first and second visit. Of the ${fmt(R.eligibleUsers)} users who started at least 3 days before the latest data, ${R.eligibleReturnedPct}% came back. ${fmt(R.multiDay)} users were active on 2 or more days.`;
+$('repeatNote').textContent = `Many users joined in the last 2 days and have not had time to come back yet.`;
 
 // funnels
 const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;
 funnel('funnel', [['Logged in', F.loggedIn], ['Started onboarding (profile found)', F.startedOnboarding], ['Completed onboarding', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Received an answer or MIP', F.receivedAnswer]]);
 funnel('mipFunnel', [['Asked a school or classroom challenge', M.chal], ['Reached goal', M.goal], ['Reached objectives', M.obj], ['Generated MIP', M.mip], ['MIP ready to download', M.dl]]);
-$('mipNote').textContent = `Conversations: ${MS.chal} → ${MS.goal} → ${MS.obj} → ${MS.mip} → ${MS.dl}. The logs record the download offer, not the tap, so the last step is an upper bound.`;
+$('mipNote').textContent = `"Ready to download" means Saathi offered the download. We cannot see if the user tapped it.`;
 
 // language and voice
 const L = D.language, lmax = Math.max(...L.users.map(x => x.users));
@@ -1222,10 +1223,10 @@ $('voice').innerHTML = L.voiceByLang.map(x => split(x.name, x.voice, x.text, `${
 // time
 const T = D.time, Q = D.questionsToPlan, mins = v => v === null || v === undefined ? '–' : (v < 1 ? '<1' : Math.round(v * 10) / 10);
 $('time').innerHTML = [
-  [mins(T.onboardingMedian) + ' min', `to complete onboarding (average ${T.onboardingAvg} min, ${fmt(T.onboardingN)} users)`],
-  [mins(T.answerMedian) + ' min', `from first question to first answer (average ${T.answerAvg} min)`],
-  [mins(T.planMedian) + ' min', `from first message to an MIP (average ${T.planAvg} min, ${T.planN} plans)`],
-  [Q.median ?? '–', `questions Saathi asks before an MIP (median; ${Q.userRepliesMedian} user replies)`]
+  [mins(T.onboardingMedian) + ' min', 'to finish sign-up'],
+  [mins(T.answerMedian) + ' min', 'to get a first answer'],
+  [mins(T.planMedian) + ' min', 'to get an improvement plan'],
+  [Q.median ?? '–', 'questions Saathi asks before giving a plan']
 ].map(([b, s]) => `<div class="tile"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
 
 // warmth
@@ -1235,7 +1236,7 @@ $('warmth').innerHTML = D.warmth.map(w => `<blockquote><cite>${esc(w.lang)}</cit
 const K = D.knowledgeVsMip;
 $('kvm').innerHTML = split('Conversations', K.mip, K.knowledge, `${K.mip} MIP, ${K.knowledge} knowledge`);
 const st = D.starterPrompts || [], smax = Math.max(...st.map(s => s.conversations), 1);
-$('starters').innerHTML = st.length ? st.slice(0, 5).map(s => bar(esc(s.text), s.conversations, smax, fmt(s.conversations))).join('') + `<p class="note">${fmt(D.starterConversations)} conversations began with a tapped starter prompt.</p>` : '<p class="note">None detected.</p>';
+$('starters').innerHTML = st.length ? st.slice(0, 5).map(s => bar(esc(s.text), s.conversations, smax, fmt(s.conversations))).join('') + `<p class="note">${fmt(D.starterConversations)} conversations started with a tap on a suggested prompt.</p>` : '<p class="note">None detected.</p>';
 const tmax = Math.max(...D.themes.map(t => t.count));
 $('themes').innerHTML = D.themes.map(t => `<details><summary>${bar(esc(t.name), t.count, tmax, `${fmt(t.count)}<em>${t.pct}%</em>`, `${t.name}: ${t.count} conversations, ${t.mip} went into the MIP flow`)}</summary>
   <ul>${t.examples.map(e => `<li>${esc(e.text)}<span class="tag">${esc(e.type)}</span></li>`).join('')}</ul></details>`).join('');

@@ -195,7 +195,7 @@ $ins.Add("Note: $late users first came on the last 2 days of data, so they have 
 $daily = @($rows | Group-Object { $_.ts.ToString('yyyy-MM-dd') } | Sort-Object Name | ForEach-Object { [ordered]@{ date=$_.Name; users=@($_.Group.uid | Sort-Object -Unique).Count } })
 
 $result = [ordered]@{
-  from = ($rows | Measure-Object ts -Minimum).Minimum.ToString('yyyy-MM-dd'); to = $lastDay.ToString('yyyy-MM-dd')
+  start = $From; from = ($rows | Measure-Object ts -Minimum).Minimum.ToString('yyyy-MM-dd'); to = $lastDay.ToString('yyyy-MM-dd')
   refreshed = (Get-Date).ToString('yyyy-MM-dd HH:mm')
   totals = [ordered]@{ users=$U.Count; conversations=@($rows.sid | Sort-Object -Unique).Count; messages=$rows.Count; duplicatesRemoved=$dupes }
   repeat = [ordered]@{ returnedPct=(Pct $returned.Count $U.Count); returned=$returned.Count; buckets=@($rep.Keys | ForEach-Object { [ordered]@{ name=$_; users=$rep[$_]; pct=(Pct $rep[$_] $U.Count) } })
