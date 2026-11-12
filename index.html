@@ -1120,7 +1120,7 @@ function funnel(el, steps) {
 
 $('period').textContent = `${day(D.start || D.from)} to ${day(D.to)} (latest data) · updated ${D.refreshed}`;
 $('users').textContent = fmt(D.totals.users);
-$('usersSub').textContent = `Adding up each tab's user count gives ${fmt(D.totals.perTabSum)}, because ${fmt(D.totals.perTabSum - D.totals.users)} users appear in more than one tab.`;
+$('usersSub').textContent = `Adding up each tab's user count gives ${fmt(D.totals.perTabSum)}, because ${fmt(D.totals.perTabSum - D.totals.users)} users came back on a later day and appear in more than one tab. Each user is counted once here.`;
 
 // breakdown
 let bdKey = 'byDistrict';
