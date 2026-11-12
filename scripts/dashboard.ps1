@@ -174,7 +174,10 @@ $f = Funnel $U; $mu = MipU $U
 $retMip = Pct @($returned | Where-Object mip).Count $returned.Count; $oneMip = Pct @($U | Where-Object { -not $_.returned -and $_.mip }).Count ($U.Count - $returned.Count)
 if ($oneMip -and $retMip -gt $oneMip) { $pos.Add("Users who come back are $([Math]::Round($retMip / $oneMip, 1)) times as likely to leave with an improvement plan ($retMip% vs $oneMip%).") }
 $after = @($userMsgRows | Where-Object { $_.ts.Hour -ge 18 -or $_.ts.Hour -lt 7 }).Count
-$pos.Add("$(Pct $after $userMsgRows.Count)% of messages are sent after 6 PM or before 7 AM: teachers use Saathi from home, outside school hours.")
+$school = @($userMsgRows | Where-Object { $_.ts.Hour -ge 9 -and $_.ts.Hour -lt 17 }).Count
+$pk = $userMsgRows | Group-Object { $_.ts.Hour } | Sort-Object Count -Descending | Select-Object -First 1; $ph = [int]$pk.Name
+$pos.Add("During school hours (9 AM to 5 PM): $(Pct $school $userMsgRows.Count)% of messages. The busiest hour is $(([datetime]::Today.AddHours($ph)).ToString('h tt')) to $(([datetime]::Today.AddHours($ph+1)).ToString('h tt')), with $(Pct $pk.Count $userMsgRows.Count)% of all messages.")
+$pos.Add("After school hours (6 PM to 7 AM): $(Pct $after $userMsgRows.Count)% of messages. Teachers also use Saathi from home.")
 $wk = @($userMsgRows | Where-Object { $_.ts.DayOfWeek -in 'Saturday','Sunday' }).Count; if ($wk) { $pos.Add("$(Pct $wk $userMsgRows.Count)% of messages come on weekends.") }
 $rl = @(Breakdown 'role' | Where-Object { $_.name -in 'Teacher','Head of school' })
 $hs = $rl | Where-Object name -eq 'Head of school'; $te = $rl | Where-Object name -eq 'Teacher'
