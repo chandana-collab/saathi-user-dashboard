@@ -109,8 +109,11 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
         <div class="big num" id="repeatPct"></div>
         <span class="sub" id="repeatSub"></span>
       </div>
-      <div class="bars" id="repeatBars"></div>
       <p class="note" id="repeatNote"></p>
+      <h3>When they first came back</h3><div class="bars" id="repeatBars"></div>
+      <h3>How many times they came back</h3><div class="bars" id="repeatFreq"></div>
+      <h3>What they did when they came back</h3><div class="bars" id="repeatKinds"></div>
+      <div id="repeatQs"></div>
     </div>
   </div>
 
@@ -154,7 +157,7 @@ const D = {
     "start":  "2026-10-25",
     "from":  "2026-10-26",
     "to":  "2026-11-11",
-    "refreshed":  "2026-11-12 19:30",
+    "refreshed":  "2026-11-13 10:52",
     "totals":  {
                    "users":  1028,
                    "conversations":  1679,
@@ -201,7 +204,121 @@ const D = {
                    "eligibleUsers":  1016,
                    "eligibleReturnedPct":  5.5,
                    "multiDay":  31,
-                   "threePlusVisits":  4
+                   "threePlusVisits":  4,
+                   "frequency":  [
+                                     {
+                                         "name":  "Returned once",
+                                         "users":  53
+                                     },
+                                     {
+                                         "name":  "Returned twice",
+                                         "users":  3
+                                     },
+                                     {
+                                         "name":  "Returned 3 or more times",
+                                         "users":  1
+                                     }
+                                 ],
+                   "sameDay":  30,
+                   "kinds":  [
+                                 {
+                                     "name":  "Asked a new education question",
+                                     "visits":  40
+                                 },
+                                 {
+                                     "name":  "Continued an earlier plan",
+                                     "visits":  5
+                                 },
+                                 {
+                                     "name":  "Short reply or greeting",
+                                     "visits":  19
+                                 }
+                             ],
+                   "returnVisits":  64,
+                   "questions":  [
+                                     {
+                                         "theme":  "School or classroom improvement",
+                                         "count":  22,
+                                         "examples":  [
+                                                          "सबसे पहले तुम मेरे स्कूल में बच्चों का नामांकन लगभग 1000 है और शिक्षक छे हैं",
+                                                          "Challenge to manage students environment for education",
+                                                          "my name is [name] [name] sir I am a school teacher from Umesh pathar of class 6 to 8 my is Bihar and my Instagram is best Ali and I particularly do job in mirpur Pathak post of domain and the and it\u0027s for police stati...",
+                                                          "विद्यालय केशव कन्या मध्य विद्यालय सोनपुर सरण विषय गणित वर्ग 5 मापन की इकाइयां अभ्यास पुस्तिका बनाएं",
+                                                          "आप 10 पॉइंट बनाए बच्चों को कठिन में और शांति के साथ मैक्सिमम प्रयास 10 इंपॉर्टेंट पॉइंट बताइए",
+                                                          "School me sudhar",
+                                                          "School m subject ka ek abhaysh pustika honi chahiye",
+                                                          "स्कूल",
+                                                          "Level of learning of students is not equal.",
+                                                          "Teacher",
+                                                          "Work on a challenge",
+                                                          "वर्ग 2 के बच्चों को साधारण जोड़ कटाव का लर्निंग आउटकम लर्निंग आउट क्या होगा",
+                                                          "Aaj ke parivesh mein ladke padhaai ke prati nishkriy Hain kaise unhen sakriy kiya jaaye",
+                                                          "Class\u0027s six ke bachche maths me kum intrest lete hai",
+                                                          "Bacchon ke andar padhaai ki bharti Ruchi kaise jagrit karen",
+                                                          "Bacchon ko class mein kaise padhaayaa jata hai",
+                                                          "Rajkiya Buniyadi Vidyalaya Shobhnathpur",
+                                                          "Many students in our school are struggling with basic reading and mathematics skills, especially in Classes 3 to 5. While teachers are conducting their classes, there seems to be a gap in how they identify and address...",
+                                                          "मध्य विद्यालय कोरजी महम्मदपुर",
+                                                          "कायाकल्प योजना के तहत विद्यालय में रंग रोगन का कार्य करना है लेकिन पैसे उपलब्ध नहीं है।",
+                                                          "क्या विद्यालय शिक्षा समिति में लगातार 3 बार किसी एक ही व्यक्ति सचिव चुने जा सकते हैं",
+                                                          "Mere school k clss 5 me ek bchchi h jisko kitna v smjha le o na hi class work krti h na home work btaiaye kya kre"
+                                                      ]
+                                     },
+                                     {
+                                         "theme":  "Teaching/learning resource request",
+                                         "count":  6,
+                                         "examples":  [
+                                                          "क्या आप प्रश्न पत्र बना सकते हैं",
+                                                          "क्लास 7 गति और समय पर 5 एमसीक्यू क्वेश्चन 5 फिल इन द ब्लैंक्स क्वेश्चन 5 शॉर्ट आंसर क्वेश्चन और पांच लॉन्ग आंसर क्वेश्चन एक पेज पीडीएफ प्रिंट करने योग्य केवल टच करें और प्रिंट हो जाए",
+                                                          "Class me topic sikhane time agar students ko khud se group me activity krke sikhne den to iss tarah se topic complete hone me bahut jada samay lagta hai or time se syllabus complete krna mushkil hota hai Iska samadhan...",
+                                                          "AI saathi is a unique tools to enhance the quality of education system.",
+                                                          "Teaching tools in hindi",
+                                                          "तीसरा क्लास का बुक का क्वेश्चन आंसर"
+                                                      ]
+                                     },
+                                     {
+                                         "theme":  "Subject knowledge question",
+                                         "count":  6,
+                                         "examples":  [
+                                                          "अरुणिमा सिंहा की जीवनी ऑडियो और typing style me",
+                                                          "ऐ को समझाएं",
+                                                          "Class 8 science chapter bal tatha gati easily padhane ke liye kya kre",
+                                                          "Mujhe class 7 me ganit me samikaran padhana hai ekdum basic se kuchh idea do aur kuchh prasn v jise mai balack board par banwa saku",
+                                                          "Gharshan kise kahate Hain",
+                                                          "Machine system m ye insaan ki tarah sochta h"
+                                                      ]
+                                     },
+                                     {
+                                         "theme":  "Lesson plan",
+                                         "count":  3,
+                                         "examples":  [
+                                                          "Lesson plan. Class 7 ncert books sc motion in hindi",
+                                                          "पाठ योजना पर वापस जाएँ",
+                                                          "स्कूल में पाठ योजना के अनुसार कैसे प्रदान करें"
+                                                      ]
+                                     },
+                                     {
+                                         "theme":  "Classroom management",
+                                         "count":  1,
+                                         "examples":  [
+                                                          "Low student attendance and engagement “We have been noticing that student attendance, particularly in middle and upper primary classes, has been consistently low. Even when children come to school, many of them seem d..."
+                                                      ]
+                                     },
+                                     {
+                                         "theme":  "Teacher shortage and school facilities",
+                                         "count":  1,
+                                         "examples":  [
+                                                          "Mere vidyalaya mein library uplabdh nh h"
+                                                      ]
+                                     },
+                                     {
+                                         "theme":  "Other education asks",
+                                         "count":  1,
+                                         "examples":  [
+                                                          "शैक्षिक विषय"
+                                                      ]
+                                     }
+                                 ]
                },
     "funnel":  {
                    "startedOnboarding":  1028,
@@ -270,9 +387,9 @@ const D = {
                        },
                        {
                            "name":  "Begusarai",
-                           "users":  48,
-                           "answered":  18,
-                           "mip":  3
+                           "users":  49,
+                           "answered":  19,
+                           "mip":  4
                        },
                        {
                            "name":  "Muzaffarpur",
@@ -443,21 +560,21 @@ const D = {
                            "mip":  0
                        },
                        {
+                           "name":  "(state only)",
+                           "users":  1,
+                           "answered":  1,
+                           "mip":  0
+                       },
+                       {
                            "name":  "Unrecognised: Muzaffarnagar",
                            "users":  1,
                            "answered":  0,
                            "mip":  0
                        },
                        {
-                           "name":  "Unrecognised: बेगुसराई",
+                           "name":  "West Champaran",
                            "users":  1,
-                           "answered":  1,
-                           "mip":  1
-                       },
-                       {
-                           "name":  "(state only)",
-                           "users":  1,
-                           "answered":  1,
+                           "answered":  0,
                            "mip":  0
                        },
                        {
@@ -470,12 +587,6 @@ const D = {
                            "name":  "Madhepura",
                            "users":  1,
                            "answered":  1,
-                           "mip":  0
-                       },
-                       {
-                           "name":  "West Champaran",
-                           "users":  1,
-                           "answered":  0,
                            "mip":  0
                        }
                    ],
@@ -568,7 +679,7 @@ const D = {
                            },
                            {
                                "text":  "Yes, confirm goal",
-                               "conversations":  17
+                               "conversations":  16
                            },
                            {
                                "text":  "हां, हमने कोशिश की है",
@@ -591,7 +702,7 @@ const D = {
                                "conversations":  5
                            }
                        ],
-    "starterConversations":  189,
+    "starterConversations":  188,
     "warmth":  [
                    {
                        "lang":  "English",
@@ -621,15 +732,10 @@ const D = {
     "themes":  [
                    {
                        "name":  "School or classroom improvement",
-                       "count":  77,
-                       "pct":  47,
-                       "mip":  52,
+                       "count":  73,
+                       "pct":  42.9,
+                       "mip":  51,
                        "examples":  [
-                                        {
-                                            "text":  "मैं अपने विद्यालय में बिहार सरकार की महत्वाकांक्षी योजना FLN और TaRL पर कार्य कर रहां हूँ किन्तु शिक्षकों की रूचि पढ़ाने में नहीं है वे बुनियादी साक्षरता कक्षा नहीं लेना कहते हैं क्या करूँ ?",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
                                         {
                                             "text":  "Abhi filhal school band hai",
                                             "lang":  "Hindi",
@@ -684,18 +790,28 @@ const D = {
                                             "text":  "Bache padhaye hue chij ko nhi padh kar aate hai",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Yes I do have a challenge here",
+                                            "lang":  "English",
+                                            "type":  "MIP"
                                         }
                                     ]
                    },
                    {
                        "name":  "Teaching/learning resource request",
-                       "count":  34,
-                       "pct":  20.7,
-                       "mip":  15,
+                       "count":  43,
+                       "pct":  25.3,
+                       "mip":  17,
                        "examples":  [
                                         {
                                             "text":  "पोस्ट नहीं पोस्टर बना कर दीजिए",
                                             "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "जो जो हम डाउनलोड कर रहे हैं लेकिन उसे तीन चीज मंत्र लिख रहा है टोटल क्वेश्चन जैसा आप दिख रहे हो पर मैं वैसा नहीं आ रहा है",
+                                            "lang":  "English",
                                             "type":  "Knowledge"
                                         },
                                         {
@@ -729,6 +845,11 @@ const D = {
                                             "type":  "Knowledge"
                                         },
                                         {
+                                            "text":  "मुझे क्लास 5 में लघुत्तम समापवर्तक पढ़ना है उससे संबंधित 10 क्वेश्चन दो",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
                                             "text":  "Quiz contest kaise aayojit karen",
                                             "lang":  "Hindi",
                                             "type":  "Knowledge"
@@ -742,23 +863,13 @@ const D = {
                                             "text":  "परियोजनाओं का मूल्यांकन",
                                             "lang":  "Hindi",
                                             "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "शिक्षकों के लिए एआई उपकरण",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "शिक्षण में एआई",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
                                         }
                                     ]
                    },
                    {
                        "name":  "Teacher shortage and school facilities",
                        "count":  22,
-                       "pct":  13.4,
+                       "pct":  12.9,
                        "mip":  19,
                        "examples":  [
                                         {
@@ -824,9 +935,72 @@ const D = {
                                     ]
                    },
                    {
+                       "name":  "Subject knowledge question",
+                       "count":  11,
+                       "pct":  6.5,
+                       "mip":  6,
+                       "examples":  [
+                                        {
+                                            "text":  "मैं अपने विद्यालय में बिहार सरकार की महत्वाकांक्षी योजना FLN और TaRL पर कार्य कर रहां हूँ किन्तु शिक्षकों की रूचि पढ़ाने में नहीं है वे बुनियादी साक्षरता कक्षा नहीं लेना कहते हैं क्या करूँ ?",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Mujhe class 7 me ganit me samikaran padhana hai ekdum basic se kuchh idea do aur kuchh prasn v jise mai balack board par banwa saku",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "घटना का मतलब",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "खान-पान की गलती तस्वीर पाठ की व्याख्या",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Math and science",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Chemical and physical effect",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Mujhe kuch 7 class ke formula batao",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Aaj ki topic kya hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "कक्षा सिक्स का सामाजिक विज्ञान का चैप्टर की सभ्यताओं के बारे में बच्चों को मैं कैसे समझाऊं एक शिक्षक के नाते",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Science ka vichar",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Aaj maine vigyan ka ek topics gharshana bal padhaya bhut achche se krke samjhaya lekin unko puchha ke kya pribhasa hogi wo apne shabdon m bhi nhi bta paye",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
                        "name":  "Lesson plan",
                        "count":  10,
-                       "pct":  6.1,
+                       "pct":  5.9,
                        "mip":  3,
                        "examples":  [
                                         {
@@ -882,67 +1056,9 @@ const D = {
                                     ]
                    },
                    {
-                       "name":  "Subject knowledge question",
-                       "count":  10,
-                       "pct":  6.1,
-                       "mip":  5,
-                       "examples":  [
-                                        {
-                                            "text":  "Mujhe class 7 me ganit me samikaran padhana hai ekdum basic se kuchh idea do aur kuchh prasn v jise mai balack board par banwa saku",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "घटना का मतलब",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "खान-पान की गलती तस्वीर पाठ की व्याख्या",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Math and science",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Chemical and physical effect",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Mujhe kuch 7 class ke formula batao",
-                                            "lang":  "English",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Aaj ki topic kya hai",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "कक्षा सिक्स का सामाजिक विज्ञान का चैप्टर की सभ्यताओं के बारे में बच्चों को मैं कैसे समझाऊं एक शिक्षक के नाते",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Science ka vichar",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Aaj maine vigyan ka ek topics gharshana bal padhaya bhut achche se krke samjhaya lekin unko puchha ke kya pribhasa hogi wo apne shabdon m bhi nhi bta paye",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        }
-                                    ]
-                   },
-                   {
                        "name":  "Classroom management",
                        "count":  9,
-                       "pct":  5.5,
+                       "pct":  5.3,
                        "mip":  6,
                        "examples":  [
                                         {
@@ -1012,27 +1128,27 @@ const D = {
                    }
                ],
     "knowledgeVsMip":  {
-                           "knowledge":  62,
-                           "mip":  102
+                           "knowledge":  189,
+                           "mip":  270
                        },
     "insights":  {
                      "positive":  [
-                                      "Users who come back are 3.9 times as likely to leave with an improvement plan (26.3% vs 6.8%).",
+                                      "Of the 57 users who came back, 15 (26%) got an improvement plan. Of the 971 who came only once, 66 (7%) did. Returning users were about 4 times as likely to get a plan.",
                                       "During school hours (9 AM to 5 PM): 78.2% of messages. The busiest hour is 12 PM to 1 PM, with 19.2% of all messages.",
-                                      "After school hours (6 PM to 7 AM): 14.5% of messages. Teachers also use Saathi from home.",
-                                      "11% of messages come on weekends.",
-                                      "School heads are the most plan-driven users: 14.5% reach an improvement plan, against 8.5% of teachers.",
+                                      "Outside school hours: 14.5% of messages come between 6 PM and 7 AM, so teachers also use Saathi from home. The remaining 7.3% come just before or after school (7 to 9 AM, 5 to 6 PM).",
+                                      "School heads are the most plan-driven users: 21 of 145 school heads (14.5%) got an improvement plan, against 59 of 694 teachers (8.5%).",
                                       "Saathi reached users in 37 of Bihar\u0027s 38 districts.",
-                                      "70.9% of users chose Hindi, and voice use is highest in Hindi (10.8% of messages).",
-                                      "The most common real ask is school or classroom improvement (47% of questions).",
-                                      "A typical user gets a first answer within 1 minute of asking."
+                                      "70.9% of users chose Hindi, and 10.8% of messages in Hindi are voice, compared with 4.3% in English.",
+                                      "The most common real ask is school or classroom improvement: 73 of 170 education questions (42.9%).",
+                                      "In a typical conversation, the first answer comes within 1 minute of asking.",
+                                      "When users come back, most bring a new question: 40 of 64 return visits (62.5%), mostly about school or classroom improvement."
                                   ],
                      "improve":  [
-                                     "50.7% of users who finish sign-up never ask a question. This is the biggest drop.",
-                                     "In the plan flow, only 52.2% of conversations get from objectives to plan.",
+                                     "451 of 889 users who finish sign-up (50.7%) never ask a question. This is the biggest drop.",
+                                     "In the plan flow, only 52.3% of users who reach objectives go on to get a plan (81 of 155).",
                                      "Saathi asks about 6 questions before giving a plan, which takes around 7 minutes.",
-                                     "Only 5.5% of users have come back so far.",
-                                     "13.5% of users start sign-up but do not finish it."
+                                     "Only 57 of 1028 users (5.5%) have come back so far.",
+                                     "139 of 1028 users (13.5%) start sign-up but do not finish it."
                                  ]
                  },
     "daily":  [
@@ -1143,11 +1259,15 @@ renderBd();
 const R = D.repeat;
 $('repeatPct').innerHTML = `${R.returnedPct}<small>%</small>`;
 $('repeatSub').textContent = `${fmt(R.returned)} of ${fmt(D.totals.users)} users came back`;
-const rb = R.buckets.filter(b => b.name !== 'Never came back'), never = R.buckets.find(b => b.name === 'Never came back');
-const rmax = Math.max(...rb.map(b => b.users), 1);
-$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${b.pct}%</em>`, `${b.name}: ${b.users} users`)).join('')
-  + `<div class="bar"><span class="name">Never came back</span><span></span><span class="val">${fmt(never.users)}<em>${never.pct}%</em></span></div>`;
-$('repeatNote').textContent = `A user counts as coming back when there is a gap of 1 hour or more between messages.`;
+const rb = R.buckets.filter(b => b.name !== 'Never came back'), rmax = Math.max(...rb.map(b => b.users), 1);
+$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${pct(b.users, R.returned)}%</em>`, `${b.name}: ${b.users} of ${R.returned} returning users`)).join('');
+const rf = R.frequency || [], fmax = Math.max(...rf.map(b => b.users), 1);
+$('repeatFreq').innerHTML = rf.map(b => bar(esc(b.name), b.users, fmax, fmt(b.users), `${b.name}: ${b.users} users`)).join('') + `<p class="note">${fmt(R.sameDay)} users came back more than once on the same day.</p>`;
+const rk = R.kinds || [], kmax = Math.max(...rk.map(b => b.visits), 1);
+$('repeatKinds').innerHTML = rk.map(b => bar(esc(b.name), b.visits, kmax, `${fmt(b.visits)}<em>${pct(b.visits, R.returnVisits)}%</em>`, `${b.name}: ${b.visits} of ${R.returnVisits} return visits`)).join('');
+const rq = R.questions || [];
+$('repeatQs').innerHTML = rq.length ? `<p class="note">Questions asked on return visits. Tap a theme to read them.</p>` + rq.map(g => `<details><summary>${bar(esc(g.theme), g.count, rq[0].count, fmt(g.count))}</summary><ul>${g.examples.map(x => `<li>${esc(x)}</li>`).join('')}</ul></details>`).join('') : '';
+$('repeatNote').textContent = `A user counts as coming back when they return after a gap of 1 hour or more.`;
 
 // funnels
 const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;

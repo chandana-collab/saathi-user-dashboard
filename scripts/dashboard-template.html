@@ -102,8 +102,11 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
         <div class="big num" id="repeatPct"></div>
         <span class="sub" id="repeatSub"></span>
       </div>
-      <div class="bars" id="repeatBars"></div>
       <p class="note" id="repeatNote"></p>
+      <h3>When they first came back</h3><div class="bars" id="repeatBars"></div>
+      <h3>How many times they came back</h3><div class="bars" id="repeatFreq"></div>
+      <h3>What they did when they came back</h3><div class="bars" id="repeatKinds"></div>
+      <div id="repeatQs"></div>
     </div>
   </div>
 
@@ -185,11 +188,15 @@ renderBd();
 const R = D.repeat;
 $('repeatPct').innerHTML = `${R.returnedPct}<small>%</small>`;
 $('repeatSub').textContent = `${fmt(R.returned)} of ${fmt(D.totals.users)} users came back`;
-const rb = R.buckets.filter(b => b.name !== 'Never came back'), never = R.buckets.find(b => b.name === 'Never came back');
-const rmax = Math.max(...rb.map(b => b.users), 1);
-$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${b.pct}%</em>`, `${b.name}: ${b.users} users`)).join('')
-  + `<div class="bar"><span class="name">Never came back</span><span></span><span class="val">${fmt(never.users)}<em>${never.pct}%</em></span></div>`;
-$('repeatNote').textContent = `A user counts as coming back when there is a gap of 1 hour or more between messages.`;
+const rb = R.buckets.filter(b => b.name !== 'Never came back'), rmax = Math.max(...rb.map(b => b.users), 1);
+$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${pct(b.users, R.returned)}%</em>`, `${b.name}: ${b.users} of ${R.returned} returning users`)).join('');
+const rf = R.frequency || [], fmax = Math.max(...rf.map(b => b.users), 1);
+$('repeatFreq').innerHTML = rf.map(b => bar(esc(b.name), b.users, fmax, fmt(b.users), `${b.name}: ${b.users} users`)).join('') + `<p class="note">${fmt(R.sameDay)} users came back more than once on the same day.</p>`;
+const rk = R.kinds || [], kmax = Math.max(...rk.map(b => b.visits), 1);
+$('repeatKinds').innerHTML = rk.map(b => bar(esc(b.name), b.visits, kmax, `${fmt(b.visits)}<em>${pct(b.visits, R.returnVisits)}%</em>`, `${b.name}: ${b.visits} of ${R.returnVisits} return visits`)).join('');
+const rq = R.questions || [];
+$('repeatQs').innerHTML = rq.length ? `<p class="note">Questions asked on return visits. Tap a theme to read them.</p>` + rq.map(g => `<details><summary>${bar(esc(g.theme), g.count, rq[0].count, fmt(g.count))}</summary><ul>${g.examples.map(x => `<li>${esc(x)}</li>`).join('')}</ul></details>`).join('') : '';
+$('repeatNote').textContent = `A user counts as coming back when they return after a gap of 1 hour or more.`;
 
 // funnels
 const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;
