@@ -2,7 +2,7 @@
 # Canonical districts with English/Hindi aliases and common alternate names (Bihar's 38 + others seen in the logs).
 $districtAliases = [ordered]@{
  'Araria'='araria|अररिया'; 'Arwal'='arwal|अरवल'; 'Aurangabad'='aurangabad|औरंगाबाद'; 'Banka'='banka|बांका|बाँका';
- 'Begusarai'='begusarai|बेगूसराय|बेगुसराय'; 'Bhagalpur'='bhagalpur|भागलपुर'; 'Bhojpur'='bhojpur|arrah|भोजपुर|आरा'; 'Buxar'='buxar|बक्सर';
+ 'Begusarai'='begusarai|बेगूसराय|बेगुसराय|बेगुसराई|बेगूसराई'; 'Bhagalpur'='bhagalpur|भागलपुर'; 'Bhojpur'='bhojpur|arrah|भोजपुर|आरा'; 'Buxar'='buxar|बक्सर';
  'Darbhanga'='darbhanga|दरभंगा'; 'East Champaran'='east champaran|eastchamparan|purvi champaran|purbi champaran|e champaran|motihari|पूर्वी चंपारण|पूर्व चंपारण|पुर्वी चम्पारण|पूर्वी चम्पारण|मोतिहारी';
  'Gaya'='gaya|gayaji|gaya ji|गया|गयाजी|गया जी'; 'Gopalganj'='gopalganj|गोपालगंज'; 'Jamui'='jamui|जमुई'; 'Jehanabad'='jehanabad|jahanabad|जहानाबाद';
  'Kaimur'='kaimur|bhabua|कैमूर|भभुआ'; 'Katihar'='katihar|कटिहार'; 'Khagaria'='khagaria|खगड़िया|खगडिया'; 'Kishanganj'='kishanganj|किशनगंज';

@@ -48,8 +48,8 @@ $themes = [ordered]@{
   'Lesson plan' = 'पाठ टीका|lesson plan|lession plan|lesson|path yojna|path yojana|paath yojana|पाठ योजना|पाठ्य योजना|पाठ-योजना|लेसन|teaching plan|पढ़ाने की योजना|padhai ka plan'
   'Classroom management' = 'discipline|decipline|अनुशासन|anushasan|noise|शोर|shor|हल्ला|attention|ध्यान नहीं|ध्यान न|dhyan nahi|naughty|शरारत|बैठ नहीं|control|नियंत्रण|बात नहीं मान|baat nahi|मोबाइल|mobile|fight|झगड़|jhagad|ladai|marpit|मारपीट|पलटकर|routine|रूटीन|time management|class manage|homework|गृहकार्य|होमवर्क|साफ सफाई|safai|भागीदारी|participation|मन नहीं लग|man nahi lag|mann nahi|पढ़ने ही नहीं चाहते|interest|रुचि|engage'
   'Teacher shortage and school facilities' = 'कमरे|ka bhav|repair|मरम्मत|painting|diwar|दीवार|teacher ki kami|teacher ka abhav|shikshak ki kami|शिक्षक की कमी|टीचर की कमी|शिक्षकों की कमी|\d+ shikshak|\d+ teachers?\b|abhav|अभाव|building|bhawan|भवन|kamra|कमरा|वर्ग कक्ष|बेंच|bench|furniture|फर्नीचर|toilet|शौचालय|shauchalay|boundary|wall|bijli|बिजली|पानी|pani|handpump|हैंडपंप|play ?ground|खेल मैदान|infrastructure|library|पुस्तकालय|\blab\b|प्रयोगशाला|जगह बहुत कम|space'
-  'Teaching/learning resource request' = 'poster|पोस्टर|worksheet|वर्कशीट|activity|activities|गतिविधि|gatividhi|tlm|टीएलएम|सामग्री|samagri|quiz|question paper|प्रश्न पत्र|प्रश्नपत्र|notes|नोट्स|video|वीडियो|poem|कविता|kavita|story|कहानी|kahani|games?\b|chart|चार्ट|material|project|परियोजना|pariyojna|pbl|पीबीएल|summary|सारांश|pdf|tools|एआई|\bai\b|computer|internet|strateg|रणनीति|tips|उपाय|upay|method|विधि|tarika|तरीका'
-  'Subject knowledge question' = 'vigyan|विज्ञान|science|syllabus|व्याख्या|machine|battery|battry|दबाव|samyik|सामयिक|gravitation|thermometer|थर्मामीटर|ब्याज|chapter|अध्याय|what is|difference|अंतर|meaning|मतलब|अर्थ|formula|सूत्र|grammar|व्याकरण|physics|chemistry|chemical|biology|history|इतिहास|geography|भूगोल|samikaran|समीकरण|pribhasa|परिभाषा|topic|bal\b|बल'
+  'Teaching/learning resource request' = 'mcq|एमसीक्यू|क्वेश्चन|questions?\b|प्रश्न|poster|पोस्टर|worksheet|वर्कशीट|activity|activities|गतिविधि|gatividhi|tlm|टीएलएम|सामग्री|samagri|quiz|question paper|प्रश्न पत्र|प्रश्नपत्र|notes|नोट्स|video|वीडियो|poem|कविता|kavita|story|कहानी|kahani|games?\b|chart|चार्ट|material|project|परियोजना|pariyojna|pbl|पीबीएल|summary|सारांश|pdf|tools|एआई|\bai\b|computer|internet|strateg|रणनीति|tips|उपाय|upay|method|विधि|tarika|तरीका'
+  'Subject knowledge question' = 'kise kahate|किसे कहते|कहते हैं|समझाएं|samjhaye|जीवनी|jivani|vigyan|विज्ञान|science|syllabus|व्याख्या|machine|battery|battry|दबाव|samyik|सामयिक|gravitation|thermometer|थर्मामीटर|ब्याज|chapter|अध्याय|what is|difference|अंतर|meaning|मतलब|अर्थ|formula|सूत्र|grammar|व्याकरण|physics|chemistry|chemical|biology|history|इतिहास|geography|भूगोल|samikaran|समीकरण|pribhasa|परिभाषा|topic|bal\b|बल'
   'School or classroom improvement' = 'बच्च|bachch|bacch|bacho|छात्र|student|teacher|टीचर|शिक्षक|shikshak|class|कक्षा|वर्ग|school|विद्यालय|विधालय|स्कूल|vidyalay|वातावरण|environment|motivat|प्रेरित|books?\b|किताब|kitab|पुस्तक|पढ़|padh|सीख|seekh|learn|शिक्षा|shiksha|kaise padhaye|कैसे पढ़ाए|कैसे पढ़ाएं|attendance|उपस्थिति|upasthiti|absent|अनुपस्थित|नहीं आते|nahi aate|dropout|enrol|नामांकन|namankan|parent|guardian|अभिभावक|abhibhavak|माता-पिता|community|समुदाय|weak|कमजोर|कमज़ोर|kamjor|learning outcome|अधिगम|quality|गुणवत्ता|गुणवता|gunvatta|improve|सुधार|sudhar|level|स्तर|अस्तर|fln|बुनियादी|समस्या|problem|challenge|चुनौती|look of my school|base बहुत|base kamjor'
 }
 $eduRx = 'बच्च|bachch|bacch|छात्र|student|teacher|टीचर|शिक्षक|shikshak|class|कक्षा|वर्ग|school|विद्यालय|स्कूल|vidyalay|पढ़|padh|सीख|seekh|learn|teach|शिक्षण|shikshan|शिक्षा|shiksha|subject|विषय|exam|परीक्षा|पाठ|ncert|किताब|kitab|book'
@@ -73,7 +73,7 @@ $rows | Where-Object { $_.sp -ne 'Saathi' -and $_.msg.Trim().Length -ge 6 } | Gr
 $starterUse = @{}
 $closerRx = '^(ha\W*dhanywaad|dhanyabad|dhanywaad|dhanyavad|thik hai|सबकुछ ठीक है|no, i''m good|bilkul batayenge|no thanks|no thank you|ok thanks|ok thank you|abhi nahi|abhi nhi|avi nhi|अभी नहीं|koi problem nahi|nothing|nothing much|sab thik hai|aisa nhi h)\W*'
 # ---------- per session ----------
-$mipSess = [ordered]@{ chal=0; goal=0; obj=0; mip=0; dl=0 }
+$mipSess = [ordered]@{ chal=0; goal=0; obj=0; mip=0; dl=0 }; $convMip = 0; $convKnow = 0
 $onbMins = @(); $ansMins = @(); $planMins = @(); $qToPlan = @(); $turnsToPlan = @(); $msgsPerConv = @()
 $queries = New-Object System.Collections.Generic.List[object]
 $warm = New-Object System.Collections.Generic.List[object]
@@ -111,7 +111,7 @@ foreach ($s in ($rows | Group-Object sid)) {
   if ($sess.mip -and $sess.offer) { $sess.dl = $true }
   foreach ($k in 'chal','goal','obj','mip','dl') { if ($sess[$k]) { $mipSess[$k]++; $st[$k] = $true } }
   if ($qIdx -ge 0) { $queries[$queries.Count - 1] | Add-Member type $(if ($sess.chal) { 'MIP' } else { 'Knowledge' }) }
-  if ($cIdx -ge 0) {
+  if ($cIdx -ge 0) { if ($sess.chal) { $convMip++ } else { $convKnow++ }
     $msgsPerConv += $userMsgs
     if ($ansTs) { $ansMins += ($ansTs - $cTs).TotalMinutes }
     if ($planIdx -ge 0) {
@@ -142,12 +142,23 @@ $visitsPerUser = @{}
 foreach ($st in $users.Values) {
   $t = @($st.times | Sort-Object); $starts = @($t[0])
   for ($i = 1; $i -lt $t.Count; $i++) { if (($t[$i] - $t[$i-1]).TotalMinutes -ge 60) { $starts += $t[$i] } }
-  $st.visits = $starts.Count; $st.activeDays = @($t | ForEach-Object { $_.Date } | Sort-Object -Unique).Count
+  $st.starts = $starts; $st.visits = $starts.Count; $st.activeDays = @($t | ForEach-Object { $_.Date } | Sort-Object -Unique).Count
   if ($starts.Count -lt 2) { $rep['Never came back']++; $st.returned = $false; continue }
   $st.returned = $true; $gap = ($starts[1].Date - $starts[0].Date).Days
   $k = switch ($gap) { 0 { 'Same day' } 1 { 'After 1 day' } 2 { 'After 2 days' } 3 { 'After 3 days' } default { 'After 4+ days' } }; $rep[$k]++ }
 $U = @($users.Values | ForEach-Object { [pscustomobject]$_ })
 $returned = @($U | Where-Object returned)
+# what returning users ask: first real message of each return visit
+$retQ = New-Object System.Collections.Generic.List[object]; $retKinds = [ordered]@{ 'Asked a new education question' = 0; 'Continued an earlier plan' = 0; 'Short reply or greeting' = 0 }
+$byUser = @{}; foreach ($g in ($rows | Group-Object uid)) { $byUser[$g.Name] = @($g.Group | Sort-Object ts, n) }
+foreach ($ru in $returned) { $ms = $byUser[$ru.id]; $starts = @($ru.starts)
+  for ($k = 1; $k -lt $starts.Count; $k++) { $end = if ($k + 1 -lt $starts.Count) { $starts[$k+1] } else { [datetime]::MaxValue }
+    $prev = ''; $q = $null
+    foreach ($m in ($ms | Where-Object { $_.ts -ge $starts[$k] -and $_.ts -lt $end })) { if ($m.sp -eq 'Saathi') { $prev = [string]$m.msg; continue }
+      $t = ([string]$m.msg).Trim(); if ($prev -match $onbQ -or $t -match $greetRx -or $t.Length -lt 3) { continue }; $q = $t; break }
+    if ($q -and (Theme $q)) { $retKinds['Asked a new education question']++; $retQ.Add([ordered]@{ theme=(Theme $q); text=(Mask $q $ru.name) }) }
+    elseif ($q -and $q -match 'download|डाउनलोड|pdf|लक्ष्य की पुष्टि|प्रारूप|योजना|plan|मैं तैयार') { $retKinds['Continued an earlier plan']++ }
+    else { $retKinds['Short reply or greeting']++ } } }
 $conv = @($U | Where-Object { $_.found -and $_.onbDone -and $_.query })
 $elig = @($U | Where-Object { ($_.times | Measure-Object -Minimum).Minimum.Date -le $lastDay.AddDays(-3) })
 
@@ -163,7 +174,7 @@ if ($env:SAATHI_Q) { $Q | Export-Csv -NoTypeInformation -Encoding utf8 $env:SAAT
 $themeOut = @($Q | Group-Object theme | Sort-Object { $_.Name -eq 'Other education asks' }, { -$_.Count } | ForEach-Object {
   $ex = @($_.Group | Where-Object { $_.text.Length -ge 12 } | Sort-Object ts -Descending | Group-Object text | Select-Object -First 12 | ForEach-Object { [ordered]@{ text=$_.Name; lang=$_.Group[0].lang; type=$_.Group[0].type } })
   [ordered]@{ name=$_.Name; count=$_.Count; pct=(Pct $_.Count $Q.Count); mip=@($_.Group | Where-Object type -eq 'MIP').Count; examples=$ex } })
-$kVsM = [ordered]@{ knowledge=@($Q | Where-Object type -eq 'Knowledge').Count; mip=@($Q | Where-Object type -eq 'MIP').Count }
+$kVsM = [ordered]@{ knowledge=$convKnow; mip=$convMip }
 
 # ---------- tone & warmth examples (3 English, 3 Hindi, distinct) ----------
 $warmOut = @(); foreach ($l in 'English','Hindi') { $warmOut += @($warm.ToArray() | Where-Object { $_.lang -eq $l -and $_.text.Length -le 220 -and $_.text -notmatch '\[name\]' } | Group-Object text | Sort-Object Count | Select-Object -First 3 | ForEach-Object { [ordered]@{ lang=$l; text=$_.Name } }) }
@@ -172,28 +183,31 @@ $warmOut = @(); foreach ($l in 'English','Hindi') { $warmOut += @($warm.ToArray(
 $pos = New-Object System.Collections.Generic.List[string]; $neg = New-Object System.Collections.Generic.List[string]
 $f = Funnel $U; $mu = MipU $U
 $retMip = Pct @($returned | Where-Object mip).Count $returned.Count; $oneMip = Pct @($U | Where-Object { -not $_.returned -and $_.mip }).Count ($U.Count - $returned.Count)
-if ($oneMip -and $retMip -gt $oneMip) { $pos.Add("Users who come back are $([Math]::Round($retMip / $oneMip, 1)) times as likely to leave with an improvement plan ($retMip% vs $oneMip%).") }
+$retWith = @($returned | Where-Object mip).Count; $oneN = $U.Count - $returned.Count; $oneWith = @($U | Where-Object { -not $_.returned -and $_.mip }).Count
+if ($oneMip -and $retMip -gt $oneMip) { $pos.Add("Of the $($returned.Count) users who came back, $retWith ($([Math]::Round($retMip))%) got an improvement plan. Of the $oneN who came only once, $oneWith ($([Math]::Round($oneMip))%) did. Returning users were about $([Math]::Round($retMip / $oneMip)) times as likely to get a plan.") }
 $after = @($userMsgRows | Where-Object { $_.ts.Hour -ge 18 -or $_.ts.Hour -lt 7 }).Count
 $school = @($userMsgRows | Where-Object { $_.ts.Hour -ge 9 -and $_.ts.Hour -lt 17 }).Count
 $pk = $userMsgRows | Group-Object { $_.ts.Hour } | Sort-Object Count -Descending | Select-Object -First 1; $ph = [int]$pk.Name
 $pos.Add("During school hours (9 AM to 5 PM): $(Pct $school $userMsgRows.Count)% of messages. The busiest hour is $(([datetime]::Today.AddHours($ph)).ToString('h tt')) to $(([datetime]::Today.AddHours($ph+1)).ToString('h tt')), with $(Pct $pk.Count $userMsgRows.Count)% of all messages.")
-$pos.Add("After school hours (6 PM to 7 AM): $(Pct $after $userMsgRows.Count)% of messages. Teachers also use Saathi from home.")
-$wk = @($userMsgRows | Where-Object { $_.ts.DayOfWeek -in 'Saturday','Sunday' }).Count; if ($wk) { $pos.Add("$(Pct $wk $userMsgRows.Count)% of messages come on weekends.") }
+$edge = @($userMsgRows | Where-Object { $_.ts.Hour -in 7,8,17 }).Count
+$pos.Add("Outside school hours: $(Pct $after $userMsgRows.Count)% of messages come between 6 PM and 7 AM, so teachers also use Saathi from home. The remaining $(Pct $edge $userMsgRows.Count)% come just before or after school (7 to 9 AM, 5 to 6 PM).")
 $rl = @(Breakdown 'role' | Where-Object { $_.name -in 'Teacher','Head of school' })
 $hs = $rl | Where-Object name -eq 'Head of school'; $te = $rl | Where-Object name -eq 'Teacher'
-if ($hs -and $te -and (Pct $hs.mip $hs.users) -gt (Pct $te.mip $te.users)) { $pos.Add("School heads are the most plan-driven users: $(Pct $hs.mip $hs.users)% reach an improvement plan, against $(Pct $te.mip $te.users)% of teachers.") }
+if ($hs -and $te -and (Pct $hs.mip $hs.users) -gt (Pct $te.mip $te.users)) { $pos.Add("School heads are the most plan-driven users: $($hs.mip) of $($hs.users) school heads ($(Pct $hs.mip $hs.users)%) got an improvement plan, against $($te.mip) of $($te.users) teachers ($(Pct $te.mip $te.users)%).") }
 $bihar = @($U | Where-Object { $_.district -notmatch '^(Not captured|Unrecognised|\(state only\)|Bengaluru|Mysuru|Tumakuru|Mangaluru|Bhubaneswar)' } | Select-Object -ExpandProperty district -Unique).Count
 $pos.Add("Saathi reached users in $bihar of Bihar's 38 districts.")
-$hiPct = ($langUsers | Where-Object name -eq 'Hindi').pct; if ($hiPct) { $pos.Add("$hiPct% of users chose Hindi, and voice use is highest in Hindi ($((($voiceByLang | Where-Object name -eq 'Hindi').voicePct))% of messages).") }
-$top = $themeOut | Where-Object { $_.name -notlike 'Other*' } | Select-Object -First 1; if ($top) { $pos.Add("The most common real ask is $($top.name.ToLower()) ($($top.pct)% of questions).") }
-if ($ansMins.Count) { $pos.Add("A typical user gets a first answer within $([Math]::Max(1,[Math]::Round((Med $ansMins),0))) minute of asking.") }
-$neg.Add("$(Pct ($f.completedOnboarding - $f.startedConversation) $f.completedOnboarding)% of users who finish sign-up never ask a question. This is the biggest drop.")
-$steps = @(@('challenge','goal',$mipSess.chal,$mipSess.goal), @('goal','objectives',$mipSess.goal,$mipSess.obj), @('objectives','plan',$mipSess.obj,$mipSess.mip))
+$hiPct = ($langUsers | Where-Object name -eq 'Hindi').pct; if ($hiPct) { $pos.Add("$hiPct% of users chose Hindi, and $((($voiceByLang | Where-Object name -eq 'Hindi').voicePct))% of messages in Hindi are voice, compared with $((($voiceByLang | Where-Object name -eq 'English').voicePct))% in English.") }
+$top = $themeOut | Where-Object { $_.name -notlike 'Other*' } | Select-Object -First 1; if ($top) { $pos.Add("The most common real ask is $($top.name.ToLower()): $($top.count) of $($Q.Count) education questions ($($top.pct)%).") }
+if ($ansMins.Count) { $pos.Add("In a typical conversation, the first answer comes within $([Math]::Max(1,[Math]::Round((Med $ansMins),0))) minute of asking.") }
+if ($retKinds['Asked a new education question']) { $topR = ($retQ | Group-Object { $_.theme } | Sort-Object Count -Descending | Select-Object -First 1).Name
+  $pos.Add("When users come back, most bring a new question: $($retKinds['Asked a new education question']) of $(($retKinds.Values | Measure-Object -Sum).Sum) return visits ($(Pct $retKinds['Asked a new education question'] ($retKinds.Values | Measure-Object -Sum).Sum)%), mostly about $($topR.ToLower()).") }
+$neg.Add("$($f.completedOnboarding - $f.startedConversation) of $($f.completedOnboarding) users who finish sign-up ($(Pct ($f.completedOnboarding - $f.startedConversation) $f.completedOnboarding)%) never ask a question. This is the biggest drop.")
+$steps = @(@('challenge','goal',$mu.chal,$mu.goal), @('goal','objectives',$mu.goal,$mu.obj), @('objectives','plan',$mu.obj,$mu.mip))
 $worst = $steps | Sort-Object { if ($_[2]) { $_[3] / $_[2] } else { 1 } } | Select-Object -First 1
-$neg.Add("In the plan flow, only $(Pct $worst[3] $worst[2])% of conversations get from $($worst[0]) to $($worst[1]).")
+$neg.Add("In the plan flow, only $(Pct $worst[3] $worst[2])% of users who reach $($worst[0]) go on to get a $($worst[1]) ($($worst[3]) of $($worst[2])).")
 if ($qToPlan.Count) { $neg.Add("Saathi asks about $(Med $qToPlan) questions before giving a plan, which takes around $([Math]::Round((Med $planMins),0)) minutes.") }
-$neg.Add("Only $(Pct $returned.Count $U.Count)% of users have come back so far.")
-$neg.Add("$(Pct ($f.startedOnboarding - $f.completedOnboarding) $f.startedOnboarding)% of users start sign-up but do not finish it.")
+$neg.Add("Only $($returned.Count) of $($U.Count) users ($(Pct $returned.Count $U.Count)%) have come back so far.")
+$neg.Add("$($f.startedOnboarding - $f.completedOnboarding) of $($f.startedOnboarding) users ($(Pct ($f.startedOnboarding - $f.completedOnboarding) $f.startedOnboarding)%) start sign-up but do not finish it.")
 
 # ---------- daily ----------
 $daily = @($rows | Group-Object { $_.ts.ToString('yyyy-MM-dd') } | Sort-Object Name | ForEach-Object { [ordered]@{ date=$_.Name; users=@($_.Group.uid | Sort-Object -Unique).Count } })
@@ -203,7 +217,11 @@ $result = [ordered]@{
   refreshed = (Get-Date).ToString('yyyy-MM-dd HH:mm')
   totals = [ordered]@{ users=$U.Count; conversations=@($rows.sid | Sort-Object -Unique).Count; messages=$rows.Count; duplicatesRemoved=$dupes; perTabSum=(($rows | Group-Object tab | ForEach-Object { @($_.Group.uid | Sort-Object -Unique).Count }) | Measure-Object -Sum).Sum }
   repeat = [ordered]@{ returnedPct=(Pct $returned.Count $U.Count); returned=$returned.Count; buckets=@($rep.Keys | ForEach-Object { [ordered]@{ name=$_; users=$rep[$_]; pct=(Pct $rep[$_] $U.Count) } })
-    returnedPctOfConversing=(Pct @($conv | Where-Object returned).Count $conv.Count); eligibleUsers=$elig.Count; eligibleReturnedPct=(Pct @($elig | Where-Object returned).Count $elig.Count); multiDay=@($U | Where-Object { $_.activeDays -ge 2 }).Count; threePlusVisits=@($U | Where-Object { $_.visits -ge 3 }).Count }
+    returnedPctOfConversing=(Pct @($conv | Where-Object returned).Count $conv.Count); eligibleUsers=$elig.Count; eligibleReturnedPct=(Pct @($elig | Where-Object returned).Count $elig.Count); multiDay=@($U | Where-Object { $_.activeDays -ge 2 }).Count; threePlusVisits=@($U | Where-Object { $_.visits -ge 3 }).Count
+    frequency=@([ordered]@{ name='Returned once'; users=@($U | Where-Object visits -eq 2).Count }, [ordered]@{ name='Returned twice'; users=@($U | Where-Object visits -eq 3).Count }, [ordered]@{ name='Returned 3 or more times'; users=@($U | Where-Object visits -ge 4).Count })
+    sameDay=@($U | Where-Object { $_.returned -and (@($_.starts | ForEach-Object { $_.Date } | Group-Object | Where-Object Count -ge 2).Count) }).Count
+    kinds=@($retKinds.Keys | ForEach-Object { [ordered]@{ name=$_; visits=$retKinds[$_] } }); returnVisits=($retKinds.Values | Measure-Object -Sum).Sum
+    questions=@($retQ | Group-Object { $_.theme } | Sort-Object Count -Descending | ForEach-Object { [ordered]@{ theme=$_.Name; count=$_.Count; examples=@($_.Group | ForEach-Object { $_.text } | Select-Object -Unique) } }) }
   funnel = $f; mipSessions = $mipSess; mipUsers = $mu
   byDistrict = @(Breakdown 'district'); byRole = @(Breakdown 'role')
   language = [ordered]@{ users=$langUsers; voiceByLang=$voiceByLang }
