@@ -2,7 +2,7 @@
     "start":  "2026-10-25",
     "from":  "2026-10-26",
     "to":  "2026-11-11",
-    "refreshed":  "2026-11-13 10:52",
+    "refreshed":  "2026-11-13 17:32",
     "totals":  {
                    "users":  1028,
                    "conversations":  1679,
@@ -11,159 +11,206 @@
                    "perTabSum":  1039
                },
     "repeat":  {
-                   "returnedPct":  5.5,
-                   "returned":  57,
+                   "returnedPct":  2.2,
+                   "returned":  23,
+                   "users":  1028,
                    "buckets":  [
                                    {
-                                       "name":  "Same day",
-                                       "users":  29,
-                                       "pct":  2.8
+                                       "name":  "Next day",
+                                       "users":  13
                                    },
                                    {
-                                       "name":  "After 1 day",
-                                       "users":  15,
-                                       "pct":  1.5
+                                       "name":  "2 days later",
+                                       "users":  3
                                    },
                                    {
-                                       "name":  "After 2 days",
-                                       "users":  4,
-                                       "pct":  0.4
+                                       "name":  "3 days later",
+                                       "users":  1
                                    },
                                    {
-                                       "name":  "After 3 days",
-                                       "users":  3,
-                                       "pct":  0.3
-                                   },
-                                   {
-                                       "name":  "After 4+ days",
-                                       "users":  6,
-                                       "pct":  0.6
-                                   },
-                                   {
-                                       "name":  "Never came back",
-                                       "users":  971,
-                                       "pct":  94.5
+                                       "name":  "4 or more days later",
+                                       "users":  6
                                    }
                                ],
-                   "returnedPctOfConversing":  10.2,
-                   "eligibleUsers":  1016,
-                   "eligibleReturnedPct":  5.5,
-                   "multiDay":  31,
-                   "threePlusVisits":  4,
-                   "frequency":  [
-                                     {
-                                         "name":  "Returned once",
-                                         "users":  53
-                                     },
-                                     {
-                                         "name":  "Returned twice",
-                                         "users":  3
-                                     },
-                                     {
-                                         "name":  "Returned 3 or more times",
-                                         "users":  1
-                                     }
-                                 ],
-                   "sameDay":  30,
                    "kinds":  [
                                  {
-                                     "name":  "Asked a new education question",
-                                     "visits":  40
+                                     "name":  "New question",
+                                     "users":  14
                                  },
                                  {
-                                     "name":  "Continued an earlier plan",
-                                     "visits":  5
+                                     "name":  "First question after sign-up",
+                                     "users":  6
                                  },
                                  {
-                                     "name":  "Short reply or greeting",
-                                     "visits":  19
+                                     "name":  "Continued earlier work",
+                                     "users":  3
                                  }
                              ],
-                   "returnVisits":  64,
-                   "questions":  [
+                   "frequency":  [
                                      {
-                                         "theme":  "School or classroom improvement",
-                                         "count":  22,
-                                         "examples":  [
-                                                          "सबसे पहले तुम मेरे स्कूल में बच्चों का नामांकन लगभग 1000 है और शिक्षक छे हैं",
-                                                          "Challenge to manage students environment for education",
-                                                          "my name is [name] [name] sir I am a school teacher from Umesh pathar of class 6 to 8 my is Bihar and my Instagram is best Ali and I particularly do job in mirpur Pathak post of domain and the and it\u0027s for police stati...",
-                                                          "विद्यालय केशव कन्या मध्य विद्यालय सोनपुर सरण विषय गणित वर्ग 5 मापन की इकाइयां अभ्यास पुस्तिका बनाएं",
-                                                          "आप 10 पॉइंट बनाए बच्चों को कठिन में और शांति के साथ मैक्सिमम प्रयास 10 इंपॉर्टेंट पॉइंट बताइए",
-                                                          "School me sudhar",
-                                                          "School m subject ka ek abhaysh pustika honi chahiye",
-                                                          "स्कूल",
-                                                          "Level of learning of students is not equal.",
-                                                          "Teacher",
-                                                          "Work on a challenge",
-                                                          "वर्ग 2 के बच्चों को साधारण जोड़ कटाव का लर्निंग आउटकम लर्निंग आउट क्या होगा",
-                                                          "Aaj ke parivesh mein ladke padhaai ke prati nishkriy Hain kaise unhen sakriy kiya jaaye",
-                                                          "Class\u0027s six ke bachche maths me kum intrest lete hai",
-                                                          "Bacchon ke andar padhaai ki bharti Ruchi kaise jagrit karen",
-                                                          "Bacchon ko class mein kaise padhaayaa jata hai",
-                                                          "Rajkiya Buniyadi Vidyalaya Shobhnathpur",
-                                                          "Many students in our school are struggling with basic reading and mathematics skills, especially in Classes 3 to 5. While teachers are conducting their classes, there seems to be a gap in how they identify and address...",
-                                                          "मध्य विद्यालय कोरजी महम्मदपुर",
-                                                          "कायाकल्प योजना के तहत विद्यालय में रंग रोगन का कार्य करना है लेकिन पैसे उपलब्ध नहीं है।",
-                                                          "क्या विद्यालय शिक्षा समिति में लगातार 3 बार किसी एक ही व्यक्ति सचिव चुने जा सकते हैं",
-                                                          "Mere school k clss 5 me ek bchchi h jisko kitna v smjha le o na hi class work krti h na home work btaiaye kya kre"
-                                                      ]
+                                         "name":  "On 1 other day",
+                                         "users":  22
                                      },
                                      {
-                                         "theme":  "Teaching/learning resource request",
-                                         "count":  6,
-                                         "examples":  [
-                                                          "क्या आप प्रश्न पत्र बना सकते हैं",
-                                                          "क्लास 7 गति और समय पर 5 एमसीक्यू क्वेश्चन 5 फिल इन द ब्लैंक्स क्वेश्चन 5 शॉर्ट आंसर क्वेश्चन और पांच लॉन्ग आंसर क्वेश्चन एक पेज पीडीएफ प्रिंट करने योग्य केवल टच करें और प्रिंट हो जाए",
-                                                          "Class me topic sikhane time agar students ko khud se group me activity krke sikhne den to iss tarah se topic complete hone me bahut jada samay lagta hai or time se syllabus complete krna mushkil hota hai Iska samadhan...",
-                                                          "AI saathi is a unique tools to enhance the quality of education system.",
-                                                          "Teaching tools in hindi",
-                                                          "तीसरा क्लास का बुक का क्वेश्चन आंसर"
-                                                      ]
+                                         "name":  "On 2 other days",
+                                         "users":  1
                                      },
                                      {
-                                         "theme":  "Subject knowledge question",
-                                         "count":  6,
-                                         "examples":  [
-                                                          "अरुणिमा सिंहा की जीवनी ऑडियो और typing style me",
-                                                          "ऐ को समझाएं",
-                                                          "Class 8 science chapter bal tatha gati easily padhane ke liye kya kre",
-                                                          "Mujhe class 7 me ganit me samikaran padhana hai ekdum basic se kuchh idea do aur kuchh prasn v jise mai balack board par banwa saku",
-                                                          "Gharshan kise kahate Hain",
-                                                          "Machine system m ye insaan ki tarah sochta h"
-                                                      ]
-                                     },
-                                     {
-                                         "theme":  "Lesson plan",
-                                         "count":  3,
-                                         "examples":  [
-                                                          "Lesson plan. Class 7 ncert books sc motion in hindi",
-                                                          "पाठ योजना पर वापस जाएँ",
-                                                          "स्कूल में पाठ योजना के अनुसार कैसे प्रदान करें"
-                                                      ]
-                                     },
-                                     {
-                                         "theme":  "Classroom management",
-                                         "count":  1,
-                                         "examples":  [
-                                                          "Low student attendance and engagement “We have been noticing that student attendance, particularly in middle and upper primary classes, has been consistently low. Even when children come to school, many of them seem d..."
-                                                      ]
-                                     },
-                                     {
-                                         "theme":  "Teacher shortage and school facilities",
-                                         "count":  1,
-                                         "examples":  [
-                                                          "Mere vidyalaya mein library uplabdh nh h"
-                                                      ]
-                                     },
-                                     {
-                                         "theme":  "Other education asks",
-                                         "count":  1,
-                                         "examples":  [
-                                                          "शैक्षिक विषय"
-                                                      ]
+                                         "name":  "On 3 or more other days",
+                                         "users":  0
                                      }
-                                 ]
+                                 ],
+                   "notCounted":  {
+                                      "sameDay":  26,
+                                      "noAsk":  8
+                                  },
+                   "returnVisits":  24,
+                   "visits":  [
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "Continued earlier work",
+                                      "text":  "प्रारूप समायोजित करें",
+                                      "text2":  "Generate pdf"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "New question",
+                                      "text":  "Many students in our school are struggling with basic reading and mathematics skills, especially in Classes 3 to 5. While teachers are conducting their classes, there seems to be a gap in how they identify and address...",
+                                      "text2":  "Identifying struggling students"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "First question after sign-up",
+                                      "text":  "Class 8 science chapter bal tatha gati easily padhane ke liye kya kre",
+                                      "text2":  "Class 8th science bal and gati ko easily padhane ke liye kya karnataka chahiye"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "New question",
+                                      "text":  "Bacchon ko class mein kaise padhaayaa jata hai",
+                                      "text2":  "मेरे स्कूल में एक चुनौती"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "Continued earlier work",
+                                      "text":  "हाँ, लक्ष्य की पुष्टि करें",
+                                      "text2":  "उद्देश्य 1"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "New question",
+                                      "text":  "When how much time",
+                                      "text2":  "How much time to finish this cite"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "New question",
+                                      "text":  "Mera school ST kshetra me he parents jagruk nahi he school bachhe ko regular nahi bhejte kiya kare",
+                                      "text2":  "Sabhi class"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "New question",
+                                      "text":  "क्लास 7 गति और समय पर 5 एमसीक्यू क्वेश्चन 5 फिल इन द ब्लैंक्स क्वेश्चन 5 शॉर्ट आंसर क्वेश्चन और पांच लॉन्ग आंसर क्वेश्चन एक पेज पीडीएफ प्रिंट करने योग्य केवल टच करें और प्रिंट हो जाए",
+                                      "text2":  "सिंगल पेज पीडीएफ में"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "Continued earlier work",
+                                      "text":  "शैक्षिक विषय",
+                                      "text2":  "Maths and science"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "New question",
+                                      "text":  "सबसे पहले तुम मेरे स्कूल में बच्चों का नामांकन लगभग 1000 है और शिक्षक छे हैं",
+                                      "text2":  "सबसे बड़ी समस्या और चुनौती यही है इतने सारे अगर बच्चे को संभव चला पाना मुश्किल होता है जब तक शिक्षक नहीं रहेगा बच्चे पढ़ाई ठीक से नहीं हो पाएगी"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "New question",
+                                      "text":  "Machine system m ye insaan ki tarah sochta h",
+                                      "text2":  "Bache ko Ai padhaane ki suruaat kaha se kare"
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "First question after sign-up",
+                                      "text":  "ऐ को समझाएं",
+                                      "text2":  ""
+                                  },
+                                  {
+                                      "when":  "Next day",
+                                      "kind":  "New question",
+                                      "text":  "क्या विद्यालय शिक्षा समिति में लगातार 3 बार किसी एक ही व्यक्ति सचिव चुने जा सकते हैं",
+                                      "text2":  "अगर विद्यालय शिक्षा समिति के सचिव mdm बाउचर par हस्ताक्षर करने के बदले रुपया मांगे तो क्या करें"
+                                  },
+                                  {
+                                      "when":  "2 days later",
+                                      "kind":  "First question after sign-up",
+                                      "text":  "Mere vidyalaya mein library uplabdh nh h",
+                                      "text2":  "निश्चित नहीं"
+                                  },
+                                  {
+                                      "when":  "2 days later",
+                                      "kind":  "New question",
+                                      "text":  "Bacchon ke andar padhaai ki bharti Ruchi kaise jagrit karen",
+                                      "text2":  ""
+                                  },
+                                  {
+                                      "when":  "2 days later",
+                                      "kind":  "New question",
+                                      "text":  "Koi matter Excel mein likha hua uska print out kaise nikalenge",
+                                      "text2":  ""
+                                  },
+                                  {
+                                      "when":  "3 days later",
+                                      "kind":  "First question after sign-up",
+                                      "text":  "तीसरा क्लास का बुक का क्वेश्चन आंसर",
+                                      "text2":  ""
+                                  },
+                                  {
+                                      "when":  "4 or more days later",
+                                      "kind":  "First question after sign-up",
+                                      "text":  "Mere school k clss 5 me ek bchchi h jisko kitna v smjha le o na hi class work krti h na home work btaiaye kya kre",
+                                      "text2":  "Not interested or distracted"
+                                  },
+                                  {
+                                      "when":  "4 or more days later",
+                                      "kind":  "New question",
+                                      "text":  "Teaching tools in hindi",
+                                      "text2":  "What\u0027s kinds of meterial in hindi teaching"
+                                  },
+                                  {
+                                      "when":  "4 or more days later",
+                                      "kind":  "New question",
+                                      "text":  "अरुणिमा सिंहा की जीवनी ऑडियो और typing style me",
+                                      "text2":  "Kya play store पर आपका aap hai"
+                                  },
+                                  {
+                                      "when":  "4 or more days later",
+                                      "kind":  "New question",
+                                      "text":  "आप 10 पॉइंट बनाए बच्चों को कठिन में और शांति के साथ मैक्सिमम प्रयास 10 इंपॉर्टेंट पॉइंट बताइए",
+                                      "text2":  "मैं ऐसे बच्चों को मोटिवेशन के रूप पर देना चाहता हूं आप एक पोस्ट बता दीजिए"
+                                  },
+                                  {
+                                      "when":  "4 or more days later",
+                                      "kind":  "New question",
+                                      "text":  "विषय वार शिक्षक क्या भाव में आप क्या सहयोग कर सकते हैं",
+                                      "text2":  ""
+                                  },
+                                  {
+                                      "when":  "4 or more days later",
+                                      "kind":  "First question after sign-up",
+                                      "text":  "School me sudhar",
+                                      "text2":  "Gramin ke dwara Vidyalay mein tang karna"
+                                  },
+                                  {
+                                      "when":  "4 or more days later",
+                                      "kind":  "New question",
+                                      "text":  "Parts of speech batao",
+                                      "text2":  ""
+                                  }
+                              ]
                },
     "funnel":  {
                    "startedOnboarding":  1028,
@@ -978,7 +1025,7 @@
                        },
     "insights":  {
                      "positive":  [
-                                      "Of the 57 users who came back, 15 (26%) got an improvement plan. Of the 971 who came only once, 66 (7%) did. Returning users were about 4 times as likely to get a plan.",
+                                      "Of the 23 users who came back, 7 (30%) got an improvement plan. Of the 1005 who came only once, 74 (7%) did. Returning users were about 4 times as likely to get a plan.",
                                       "During school hours (9 AM to 5 PM): 78.2% of messages. The busiest hour is 12 PM to 1 PM, with 19.2% of all messages.",
                                       "Outside school hours: 14.5% of messages come between 6 PM and 7 AM, so teachers also use Saathi from home. The remaining 7.3% come just before or after school (7 to 9 AM, 5 to 6 PM).",
                                       "School heads are the most plan-driven users: 21 of 145 school heads (14.5%) got an improvement plan, against 59 of 694 teachers (8.5%).",
@@ -986,13 +1033,13 @@
                                       "70.9% of users chose Hindi, and 10.8% of messages in Hindi are voice, compared with 4.3% in English.",
                                       "The most common real ask is school or classroom improvement: 73 of 170 education questions (42.9%).",
                                       "In a typical conversation, the first answer comes within 1 minute of asking.",
-                                      "When users come back, most bring a new question: 40 of 64 return visits (62.5%), mostly about school or classroom improvement."
+                                      "When users come back on another day, most bring a new question: 20 of 23 returning users (87%). The rest continue earlier work, such as downloading a plan."
                                   ],
                      "improve":  [
                                      "451 of 889 users who finish sign-up (50.7%) never ask a question. This is the biggest drop.",
                                      "In the plan flow, only 52.3% of users who reach objectives go on to get a plan (81 of 155).",
                                      "Saathi asks about 6 questions before giving a plan, which takes around 7 minutes.",
-                                     "Only 57 of 1028 users (5.5%) have come back so far.",
+                                     "Only 23 of 1028 users (2.2%) have come back so far.",
                                      "139 of 1028 users (13.5%) start sign-up but do not finish it."
                                  ]
                  },
