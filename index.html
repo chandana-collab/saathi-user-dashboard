@@ -33,7 +33,7 @@ h3 { font-size: .95rem; font-weight: 600; }
 .sub { color: var(--muted); font-size: .9rem; margin: 4px 0 0; }
 .label { font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 .num { font-variant-numeric: tabular-nums; }
-.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px; } .grid2 > * { min-width: 0; } .cellwrap td:first-child, .cellwrap th:first-child { white-space: normal; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 14px; align-content: start; min-width: 0; }
 section { display: grid; gap: 14px; }
 .hero { display: grid; gap: 4px; }
@@ -95,29 +95,21 @@ details.more { margin-top: 12px; border-top: 1px solid var(--line, #ddd); paddin
         <div class="big num" id="users"></div>
         <span class="sub" id="usersSub"></span>
       </div>
-      <button class="link" id="toggleBreakdown" aria-expanded="false" aria-controls="breakdown">See district-wise and role-wise users</button>
-      <div id="breakdown" hidden>
-        <div class="tabs" role="tablist">
-          <button role="tab" id="tabDistrict" aria-selected="true">District</button>
-          <button role="tab" id="tabRole" aria-selected="false">Role</button>
-        </div>
-        <div class="tablewrap"><table><thead><tr><th id="bdHead">District</th><th class="n">Users</th><th class="n">Got an answer</th><th class="n">Got an MIP</th></tr></thead><tbody id="bdBody"></tbody></table></div>
-      </div>
+      <p class="note">Each person is counted once, even if they used Saathi on several days. Tap below to see where they are from, their roles and daily use.</p>
+      <details class="more"><summary>Users by district</summary><div class="tablewrap"><table><thead><tr><th>District</th><th class="n">Users</th><th class="n">Got an answer</th><th class="n">Got an MIP</th></tr></thead><tbody id="bdDistrict"></tbody></table></div></details>
+      <details class="more"><summary>Users by role</summary><div class="tablewrap"><table><thead><tr><th>Role</th><th class="n">Users</th><th class="n">Got an answer</th><th class="n">Got an MIP</th></tr></thead><tbody id="bdRole"></tbody></table></div></details>
+      <details class="more"><summary>Users by day</summary><div class="bars" id="bdDaily"></div><p class="note">Users who sent at least one message that day.</p></details>
     </div>
     <div class="card">
       <div class="hero">
-        <span class="label">Returning users</span>
-        <div class="big num" id="repeatPct"></div>
+        <span class="label">Users who came back</span>
+        <div class="big num" id="repeatN"></div>
         <span class="sub" id="repeatSub"></span>
       </div>
       <p class="note" id="repeatNote"></p>
-      <div class="grid2">
-        <div><h3>When they came back</h3><div class="bars" id="repeatBars"></div></div>
-        <div><h3>What they came back for</h3><div class="bars" id="repeatKinds"></div></div>
-      </div>
-      <details class="more"><summary>How we count a returning user</summary><div id="repeatHow"></div></details>
-      <details class="more"><summary>How often they came back</summary><div class="bars" id="repeatFreq"></div></details>
-      <details class="more"><summary id="repeatQsHead">What they asked when they came back</summary><div id="repeatQs"></div></details>
+      <details class="more"><summary>What they did when they came back</summary><div class="tablewrap cellwrap"><table><thead><tr><th>On their first return</th><th class="n">Same day</th><th class="n">1+ days later</th><th class="n">Total</th></tr></thead><tbody id="repeatTable"></tbody></table></div></details>
+      <details class="more"><summary>When and how often they came back</summary><h3>When they first came back</h3><div class="bars" id="repeatBars"></div><h3>How many times they came back</h3><div class="bars" id="repeatFreq"></div></details>
+      <details class="more"><summary>What they asked when they came back</summary><div id="repeatQs"></div></details>
     </div>
   </div>
 
@@ -161,7 +153,7 @@ const D = {
     "start":  "2026-10-25",
     "from":  "2026-10-26",
     "to":  "2026-11-11",
-    "refreshed":  "2026-11-13 17:32",
+    "refreshed":  "2026-11-13 18:35",
     "totals":  {
                    "users":  1028,
                    "conversations":  1679,
@@ -170,206 +162,335 @@ const D = {
                    "perTabSum":  1039
                },
     "repeat":  {
-                   "returnedPct":  2.2,
-                   "returned":  23,
+                   "returned":  57,
                    "users":  1028,
+                   "sameDayUsers":  29,
+                   "laterUsers":  28,
+                   "table":  [
+                                 {
+                                     "name":  "Started a new conversation",
+                                     "sameDay":  4,
+                                     "later":  8,
+                                     "total":  12
+                                 },
+                                 {
+                                     "name":  "Asked their first question (sign-up done earlier)",
+                                     "sameDay":  8,
+                                     "later":  4,
+                                     "total":  12
+                                 },
+                                 {
+                                     "name":  "Continued the same conversation or plan",
+                                     "sameDay":  10,
+                                     "later":  5,
+                                     "total":  15
+                                 },
+                                 {
+                                     "name":  "Finished a sign-up left halfway",
+                                     "sameDay":  6,
+                                     "later":  6,
+                                     "total":  12
+                                 },
+                                 {
+                                     "name":  "Greeting only",
+                                     "sameDay":  1,
+                                     "later":  5,
+                                     "total":  6
+                                 }
+                             ],
                    "buckets":  [
                                    {
+                                       "name":  "Same day",
+                                       "users":  29
+                                   },
+                                   {
                                        "name":  "Next day",
-                                       "users":  13
+                                       "users":  15
                                    },
                                    {
                                        "name":  "2 days later",
-                                       "users":  3
+                                       "users":  4
                                    },
                                    {
                                        "name":  "3 days later",
-                                       "users":  1
+                                       "users":  3
                                    },
                                    {
                                        "name":  "4 or more days later",
                                        "users":  6
                                    }
                                ],
-                   "kinds":  [
-                                 {
-                                     "name":  "New question",
-                                     "users":  14
-                                 },
-                                 {
-                                     "name":  "First question after sign-up",
-                                     "users":  6
-                                 },
-                                 {
-                                     "name":  "Continued earlier work",
-                                     "users":  3
-                                 }
-                             ],
                    "frequency":  [
                                      {
-                                         "name":  "On 1 other day",
-                                         "users":  22
+                                         "name":  "Came back once",
+                                         "users":  53
                                      },
                                      {
-                                         "name":  "On 2 other days",
+                                         "name":  "Came back twice",
+                                         "users":  3
+                                     },
+                                     {
+                                         "name":  "Came back 3 or more times",
                                          "users":  1
-                                     },
-                                     {
-                                         "name":  "On 3 or more other days",
-                                         "users":  0
                                      }
                                  ],
-                   "notCounted":  {
-                                      "sameDay":  26,
-                                      "noAsk":  8
-                                  },
-                   "returnVisits":  24,
-                   "visits":  [
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "Continued earlier work",
-                                      "text":  "प्रारूप समायोजित करें",
-                                      "text2":  "Generate pdf"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "New question",
-                                      "text":  "Many students in our school are struggling with basic reading and mathematics skills, especially in Classes 3 to 5. While teachers are conducting their classes, there seems to be a gap in how they identify and address...",
-                                      "text2":  "Identifying struggling students"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "First question after sign-up",
-                                      "text":  "Class 8 science chapter bal tatha gati easily padhane ke liye kya kre",
-                                      "text2":  "Class 8th science bal and gati ko easily padhane ke liye kya karnataka chahiye"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "New question",
-                                      "text":  "Bacchon ko class mein kaise padhaayaa jata hai",
-                                      "text2":  "मेरे स्कूल में एक चुनौती"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "Continued earlier work",
-                                      "text":  "हाँ, लक्ष्य की पुष्टि करें",
-                                      "text2":  "उद्देश्य 1"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "New question",
-                                      "text":  "When how much time",
-                                      "text2":  "How much time to finish this cite"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "New question",
-                                      "text":  "Mera school ST kshetra me he parents jagruk nahi he school bachhe ko regular nahi bhejte kiya kare",
-                                      "text2":  "Sabhi class"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "New question",
-                                      "text":  "क्लास 7 गति और समय पर 5 एमसीक्यू क्वेश्चन 5 फिल इन द ब्लैंक्स क्वेश्चन 5 शॉर्ट आंसर क्वेश्चन और पांच लॉन्ग आंसर क्वेश्चन एक पेज पीडीएफ प्रिंट करने योग्य केवल टच करें और प्रिंट हो जाए",
-                                      "text2":  "सिंगल पेज पीडीएफ में"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "Continued earlier work",
-                                      "text":  "शैक्षिक विषय",
-                                      "text2":  "Maths and science"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "New question",
-                                      "text":  "सबसे पहले तुम मेरे स्कूल में बच्चों का नामांकन लगभग 1000 है और शिक्षक छे हैं",
-                                      "text2":  "सबसे बड़ी समस्या और चुनौती यही है इतने सारे अगर बच्चे को संभव चला पाना मुश्किल होता है जब तक शिक्षक नहीं रहेगा बच्चे पढ़ाई ठीक से नहीं हो पाएगी"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "New question",
-                                      "text":  "Machine system m ye insaan ki tarah sochta h",
-                                      "text2":  "Bache ko Ai padhaane ki suruaat kaha se kare"
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "First question after sign-up",
-                                      "text":  "ऐ को समझाएं",
-                                      "text2":  ""
-                                  },
-                                  {
-                                      "when":  "Next day",
-                                      "kind":  "New question",
-                                      "text":  "क्या विद्यालय शिक्षा समिति में लगातार 3 बार किसी एक ही व्यक्ति सचिव चुने जा सकते हैं",
-                                      "text2":  "अगर विद्यालय शिक्षा समिति के सचिव mdm बाउचर par हस्ताक्षर करने के बदले रुपया मांगे तो क्या करें"
-                                  },
-                                  {
-                                      "when":  "2 days later",
-                                      "kind":  "First question after sign-up",
-                                      "text":  "Mere vidyalaya mein library uplabdh nh h",
-                                      "text2":  "निश्चित नहीं"
-                                  },
-                                  {
-                                      "when":  "2 days later",
-                                      "kind":  "New question",
-                                      "text":  "Bacchon ke andar padhaai ki bharti Ruchi kaise jagrit karen",
-                                      "text2":  ""
-                                  },
-                                  {
-                                      "when":  "2 days later",
-                                      "kind":  "New question",
-                                      "text":  "Koi matter Excel mein likha hua uska print out kaise nikalenge",
-                                      "text2":  ""
-                                  },
-                                  {
-                                      "when":  "3 days later",
-                                      "kind":  "First question after sign-up",
-                                      "text":  "तीसरा क्लास का बुक का क्वेश्चन आंसर",
-                                      "text2":  ""
-                                  },
-                                  {
-                                      "when":  "4 or more days later",
-                                      "kind":  "First question after sign-up",
-                                      "text":  "Mere school k clss 5 me ek bchchi h jisko kitna v smjha le o na hi class work krti h na home work btaiaye kya kre",
-                                      "text2":  "Not interested or distracted"
-                                  },
-                                  {
-                                      "when":  "4 or more days later",
-                                      "kind":  "New question",
-                                      "text":  "Teaching tools in hindi",
-                                      "text2":  "What\u0027s kinds of meterial in hindi teaching"
-                                  },
-                                  {
-                                      "when":  "4 or more days later",
-                                      "kind":  "New question",
-                                      "text":  "अरुणिमा सिंहा की जीवनी ऑडियो और typing style me",
-                                      "text2":  "Kya play store पर आपका aap hai"
-                                  },
-                                  {
-                                      "when":  "4 or more days later",
-                                      "kind":  "New question",
-                                      "text":  "आप 10 पॉइंट बनाए बच्चों को कठिन में और शांति के साथ मैक्सिमम प्रयास 10 इंपॉर्टेंट पॉइंट बताइए",
-                                      "text2":  "मैं ऐसे बच्चों को मोटिवेशन के रूप पर देना चाहता हूं आप एक पोस्ट बता दीजिए"
-                                  },
-                                  {
-                                      "when":  "4 or more days later",
-                                      "kind":  "New question",
-                                      "text":  "विषय वार शिक्षक क्या भाव में आप क्या सहयोग कर सकते हैं",
-                                      "text2":  ""
-                                  },
-                                  {
-                                      "when":  "4 or more days later",
-                                      "kind":  "First question after sign-up",
-                                      "text":  "School me sudhar",
-                                      "text2":  "Gramin ke dwara Vidyalay mein tang karna"
-                                  },
-                                  {
-                                      "when":  "4 or more days later",
-                                      "kind":  "New question",
-                                      "text":  "Parts of speech batao",
-                                      "text2":  ""
-                                  }
-                              ]
+                   "asks":  [
+                                {
+                                    "name":  "Started a new conversation",
+                                    "items":  [
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Lesson plan. Class 7 ncert books sc motion in hindi",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Mujhe class 7 me ganit me samikaran padhana hai ekdum basic se kuchh idea do aur kuchh prasn v jise mai balack board par banwa saku",
+                                                      "text2":  "एक वर्कशीट बनाएं"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Work on a challenge",
+                                                      "text2":  "Can a school teacher prepare for bssc cgl and assistant professor at the same time"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "वर्ग 2 के बच्चों को साधारण जोड़ कटाव का लर्निंग आउटकम लर्निंग आउट क्या होगा",
+                                                      "text2":  "इस पर और गहराई से विचार करें"
+                                                  },
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "सबसे पहले तुम मेरे स्कूल में बच्चों का नामांकन लगभग 1000 है और शिक्षक छे हैं",
+                                                      "text2":  "सबसे बड़ी समस्या और चुनौती यही है इतने सारे अगर बच्चे को संभव चला पाना मुश्किल होता है जब तक शिक्षक नहीं रहेगा बच्चे पढ़ाई ठीक से नहीं हो पाएगी"
+                                                  },
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "Class 8 science chapter bal tatha gati easily padhane ke liye kya kre",
+                                                      "text2":  "Class 8th science bal and gati ko easily padhane ke liye kya karnataka chahiye"
+                                                  },
+                                                  {
+                                                      "when":  "2 days later",
+                                                      "text":  "Koi matter Excel mein likha hua uska print out kaise nikalenge",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "2 days later",
+                                                      "text":  "Bacchon ke andar padhaai ki bharti Ruchi kaise jagrit karen",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "2 days later",
+                                                      "text":  "Mere vidyalaya mein library uplabdh nh h",
+                                                      "text2":  "निश्चित नहीं"
+                                                  },
+                                                  {
+                                                      "when":  "4 or more days later",
+                                                      "text":  "Teaching tools in hindi",
+                                                      "text2":  "What\u0027s kinds of meterial in hindi teaching"
+                                                  },
+                                                  {
+                                                      "when":  "4 or more days later",
+                                                      "text":  "अरुणिमा सिंहा की जीवनी ऑडियो और typing style me",
+                                                      "text2":  "Kya play store पर आपका aap hai"
+                                                  },
+                                                  {
+                                                      "when":  "4 or more days later",
+                                                      "text":  "Parts of speech batao",
+                                                      "text2":  ""
+                                                  }
+                                              ]
+                                },
+                                {
+                                    "name":  "Asked their first question (sign-up done earlier)",
+                                    "items":  [
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "मैं तैयार हूँ",
+                                                      "text2":  "बच्चों की गुणवत्ता पूर्ण शिक्षा"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Aaj ke parivesh mein ladke padhaai ke prati nishkriy Hain kaise unhen sakriy kiya jaaye",
+                                                      "text2":  "Aaj vartman paristhiti mein gatividhi aadharit shikshan mein ladkon ki sahbhagita 10% rahti hai ise kaise badhaya jaaye"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Rajkiya Buniyadi Vidyalaya Shobhnathpur",
+                                                      "text2":  "Is there any SAATHI app also"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "कायाकल्प योजना के तहत विद्यालय में रंग रोगन का कार्य करना है लेकिन पैसे उपलब्ध नहीं है।",
+                                                      "text2":  "पूरे स्कूल"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Low student attendance and engagement “We have been noticing that student attendance, particularly in middle and upper primary classes, has been consistently low. Even when children come to school, many of them seem d...",
+                                                      "text2":  "Worse in specific grades"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Challenge to manage students environment for education",
+                                                      "text2":  "Students guardian not interested about the education"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "School m subject ka ek abhaysh pustika honi chahiye",
+                                                      "text2":  "पूरी तरह से गायब"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Class me topic sikhane time agar students ko khud se group me activity krke sikhne den to iss tarah se topic complete hone me bahut jada samay lagta hai or time se syllabus complete krna mushkil hota hai Iska samadhan...",
+                                                      "text2":  "Class 6-8"
+                                                  },
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "ऐ को समझाएं",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "3 days later",
+                                                      "text":  "तीसरा क्लास का बुक का क्वेश्चन आंसर",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "4 or more days later",
+                                                      "text":  "Mere school k clss 5 me ek bchchi h jisko kitna v smjha le o na hi class work krti h na home work btaiaye kya kre",
+                                                      "text2":  "Not interested or distracted"
+                                                  },
+                                                  {
+                                                      "when":  "4 or more days later",
+                                                      "text":  "School me sudhar",
+                                                      "text2":  "Gramin ke dwara Vidyalay mein tang karna"
+                                                  }
+                                              ]
+                                },
+                                {
+                                    "name":  "Continued the same conversation or plan",
+                                    "items":  [
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "डाउनलोड करना",
+                                                      "text2":  "Ye end kab hoga"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "पाठ योजना पर वापस जाएँ",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Class\u0027s six ke bachche maths me kum intrest lete hai",
+                                                      "text2":  "कक्षा में ध्यान न देना"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "स्कूल में पाठ योजना के अनुसार कैसे प्रदान करें",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "मै 1-5 का शिक्षक हूं",
+                                                      "text2":  "मुझे class 2का हिंदी चार्ट फ़ोटो के साथ पोस्टर चाहिए"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Gharshan kise kahate Hain",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "आप इसी प्रकार गति चाल दूरी के संबंध में बनाया",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "हाँ, लक्ष्य की पुष्टि करें",
+                                                      "text2":  "कृपया हिंदी में ऑप्शन का"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Ask for alternatives",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "Level of learning of students is not equal.",
+                                                      "text2":  "सभी कक्षाएं"
+                                                  },
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "Bacchon ko class mein kaise padhaayaa jata hai",
+                                                      "text2":  "मेरे स्कूल में एक चुनौती"
+                                                  },
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "Machine system m ye insaan ki tarah sochta h",
+                                                      "text2":  "Bache ko Ai padhaane ki suruaat kaha se kare"
+                                                  },
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "प्रारूप समायोजित करें",
+                                                      "text2":  "Generate pdf"
+                                                  },
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "शैक्षिक विषय",
+                                                      "text2":  "Maths and science"
+                                                  },
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "हाँ, लक्ष्य की पुष्टि करें",
+                                                      "text2":  "उद्देश्य 1"
+                                                  }
+                                              ]
+                                },
+                                {
+                                    "name":  "Finished a sign-up left halfway",
+                                    "items":  [
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "बच्चे प्रतिदिन विद्यालय आयें इसके लिए क्या करना चाहिए",
+                                                      "text2":  "किसी चुनौती पर काम करें"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "पादप जनन को कैसे वर्ग 7 के बच्चों को बताए",
+                                                      "text2":  "एक गतिविधि तैयार करें"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "साइंस को बेहतर कैसेपटाया जाए",
+                                                      "text2":  "मेरे छात्रों के लिए"
+                                                  },
+                                                  {
+                                                      "when":  "Same day",
+                                                      "text":  "What type of help do you provide.?",
+                                                      "text2":  ""
+                                                  },
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "Mera school ST kshetra me he parents jagruk nahi he school bachhe ko regular nahi bhejte kiya kare",
+                                                      "text2":  "Sabhi class"
+                                                  },
+                                                  {
+                                                      "when":  "4 or more days later",
+                                                      "text":  "विषय वार शिक्षक क्या भाव में आप क्या सहयोग कर सकते हैं",
+                                                      "text2":  ""
+                                                  }
+                                              ]
+                                },
+                                {
+                                    "name":  "Greeting only",
+                                    "items":  [
+                                                  {
+                                                      "when":  "Next day",
+                                                      "text":  "When how much time",
+                                                      "text2":  "How much time to finish this cite"
+                                                  }
+                                              ]
+                                }
+                            ]
                },
     "funnel":  {
                    "startedOnboarding":  1028,
@@ -1184,7 +1305,6 @@ const D = {
                        },
     "insights":  {
                      "positive":  [
-                                      "Of the 23 users who came back, 7 (30%) got an improvement plan. Of the 1005 who came only once, 74 (7%) did. Returning users were about 4 times as likely to get a plan.",
                                       "During school hours (9 AM to 5 PM): 78.2% of messages. The busiest hour is 12 PM to 1 PM, with 19.2% of all messages.",
                                       "Outside school hours: 14.5% of messages come between 6 PM and 7 AM, so teachers also use Saathi from home. The remaining 7.3% come just before or after school (7 to 9 AM, 5 to 6 PM).",
                                       "School heads are the most plan-driven users: 21 of 145 school heads (14.5%) got an improvement plan, against 59 of 694 teachers (8.5%).",
@@ -1192,13 +1312,12 @@ const D = {
                                       "70.9% of users chose Hindi, and 10.8% of messages in Hindi are voice, compared with 4.3% in English.",
                                       "The most common real ask is school or classroom improvement: 73 of 170 education questions (42.9%).",
                                       "In a typical conversation, the first answer comes within 1 minute of asking.",
-                                      "When users come back on another day, most bring a new question: 20 of 23 returning users (87%). The rest continue earlier work, such as downloading a plan."
+                                      "57 users have come back after a gap of an hour or more. On their first return, 12 started a new conversation and 12 asked their first question."
                                   ],
                      "improve":  [
                                      "451 of 889 users who finish sign-up (50.7%) never ask a question. This is the biggest drop.",
                                      "In the plan flow, only 52.3% of users who reach objectives go on to get a plan (81 of 155).",
                                      "Saathi asks about 6 questions before giving a plan, which takes around 7 minutes.",
-                                     "Only 23 of 1028 users (2.2%) have come back so far.",
                                      "139 of 1028 users (13.5%) start sign-up but do not finish it."
                                  ]
                  },
@@ -1295,34 +1414,23 @@ $('users').textContent = fmt(D.totals.users);
 $('usersSub').textContent = 'Teachers, school heads and officials who used Saathi in this period';
 
 // breakdown
-let bdKey = 'byDistrict';
-function renderBd() {
-  $('bdHead').textContent = bdKey === 'byDistrict' ? 'District' : 'Role';
-  $('bdBody').innerHTML = D[bdKey].map(r => `<tr><td>${esc(r.name)}</td><td class="n">${fmt(r.users)}</td><td class="n">${fmt(r.answered)}</td><td class="n">${fmt(r.mip)}</td></tr>`).join('');
-  $('tabDistrict').setAttribute('aria-selected', bdKey === 'byDistrict'); $('tabRole').setAttribute('aria-selected', bdKey === 'byRole');
-}
-$('toggleBreakdown').onclick = () => { const b = $('breakdown'); b.hidden = !b.hidden; $('toggleBreakdown').setAttribute('aria-expanded', !b.hidden); $('toggleBreakdown').textContent = b.hidden ? 'See district-wise and role-wise users' : 'Hide breakdown'; };
-$('tabDistrict').onclick = () => { bdKey = 'byDistrict'; renderBd(); };
-$('tabRole').onclick = () => { bdKey = 'byRole'; renderBd(); };
-renderBd();
+const bdRow = r => `<tr><td>${esc(r.name)}</td><td class="n">${fmt(r.users)}</td><td class="n">${fmt(r.answered)}</td><td class="n">${fmt(r.mip)}</td></tr>`;
+$('bdDistrict').innerHTML = D.byDistrict.map(bdRow).join('');
+$('bdRole').innerHTML = D.byRole.map(bdRow).join('');
+const dmax = Math.max(...D.daily.map(d => d.users), 1);
+$('bdDaily').innerHTML = D.daily.map(d => bar(esc(day(d.date)), d.users, dmax, fmt(d.users), `:  users`)).join('');
 
 // repeat
 const R = D.repeat;
-$('repeatPct').innerHTML = `${R.returnedPct}<small>%</small>`;
-$('repeatSub').textContent = `${fmt(R.returned)} of ${fmt(R.users)} users came back on another day with a question or request`;
-$('repeatNote').textContent = 'Counted once per user, by their first return.';
+$('repeatN').textContent = fmt(R.returned);
+$('repeatSub').textContent = `users came back to Saathi after a gap of 1 hour or more`;
+$('repeatNote').textContent = `Some came back with a new question. Others came back to finish sign-up or continue the same conversation. We are still agreeing which of these count as a true return, so this is shown as a number, not a rate. Tap below for details.`;
+$('repeatTable').innerHTML = R.table.map(r => `<tr><td>${esc(r.name)}</td><td class="n">${fmt(r.sameDay)}</td><td class="n">${fmt(r.later)}</td><td class="n"><b>${fmt(r.total)}</b></td></tr>`).join('') + `<tr><td><b>Total</b></td><td class="n"><b>${fmt(R.sameDayUsers)}</b></td><td class="n"><b>${fmt(R.laterUsers)}</b></td><td class="n"><b>${fmt(R.returned)}</b></td></tr>`;
 const rb = R.buckets, rmax = Math.max(...rb.map(b => b.users), 1);
-$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${pct(b.users, R.returned)}%</em>`, `${b.name}: ${b.users} of ${R.returned} returning users`)).join('');
-const rk = R.kinds, kmax = Math.max(...rk.map(b => b.users), 1);
-$('repeatKinds').innerHTML = rk.map(b => bar(esc(b.name), b.users, kmax, `${fmt(b.users)}<em>${pct(b.users, R.returned)}%</em>`, `${b.name}: ${b.users} of ${R.returned} returning users`)).join('');
-$('repeatHow').innerHTML = `<p class="note">A user is counted as returning when they come back on a later day and ask Saathi something: a new question, their first question after signing up, or a follow-up on earlier work such as a plan.</p>
-<p class="note">Not counted: ${fmt(R.notCounted.sameDay)} users who came back only later on the same day. This is usually one conversation with a break, such as finishing sign-up or downloading a plan. Also not counted: ${fmt(R.notCounted.noAsk)} users who came back on another day but only said hello or answered sign-up questions.</p>`;
+$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, fmt(b.users), `${b.name}: ${b.users} users`)).join('') + `<p class="note">Days between a user's first visit and their first return. Each user is counted once.</p>`;
 const rf = R.frequency, fmax = Math.max(...rf.map(b => b.users), 1);
-$('repeatFreq').innerHTML = rf.map(b => bar(esc(b.name), b.users, fmax, fmt(b.users), `${b.name}: ${b.users} users`)).join('') + `<p class="note">Number of different later days each returning user came back with a question.</p>`;
-const rv = R.visits || [];
-$('repeatQsHead').textContent = `What they asked when they came back (${fmt(rv.length)} return visits)`;
-const groups = [...new Set(rv.map(v => v.when))];
-$('repeatQs').innerHTML = groups.map(g => `<h3>${esc(g)}</h3><ul class="asks">${rv.filter(v => v.when === g).map(v => `<li><span class="tag">${esc(v.kind)}</span> ${esc(v.text)}${v.text2 ? `<br><span class="then">Then: ${esc(v.text2)}</span>` : ''}</li>`).join('')}</ul>`).join('');
+$('repeatFreq').innerHTML = rf.map(b => bar(esc(b.name), b.users, fmax, fmt(b.users), `${b.name}: ${b.users} users`)).join('');
+$('repeatQs').innerHTML = `<p class="note">What each user asked on their first return, grouped by what they did.</p>` + R.asks.filter(g => g.items.length).map(g => `<h3>${esc(g.name)} (${g.items.length})</h3><ul class="asks">${g.items.map(v => `<li><span class="tag">${esc(v.when)}</span> ${esc(v.text)}${v.text2 ? `<br><span class="then">Then: ${esc(v.text2)}</span>` : ''}</li>`).join('')}</ul>`).join('');
 // funnels
 const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;
 funnel('funnel', [['Started onboarding', F.startedOnboarding], ['Completed onboarding', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Received an answer or MIP', F.receivedAnswer]]);
