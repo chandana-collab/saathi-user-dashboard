@@ -2,7 +2,7 @@
     "start":  "2026-10-25",
     "from":  "2026-10-26",
     "to":  "2026-11-11",
-    "refreshed":  "2026-11-13 18:35",
+    "refreshed":  "2026-11-17 18:20",
     "totals":  {
                    "users":  1028,
                    "conversations":  1679,
@@ -345,19 +345,21 @@
                    "startedOnboarding":  1028,
                    "profileFound":  851,
                    "profileNotFound":  177,
-                   "completedOnboarding":  889,
-                   "startedConversation":  438,
-                   "receivedAnswer":  354
+                   "completedOnboarding":  890,
+                   "startedConversation":  565,
+                   "receivedAnswer":  503,
+                   "noAnswerSaathiReplied":  61,
+                   "noAnswerNoReply":  1
                },
     "mipSessions":  {
-                        "chal":  270,
+                        "chal":  333,
                         "goal":  180,
                         "obj":  159,
                         "mip":  83,
                         "dl":  71
                     },
     "mipUsers":  {
-                     "chal":  262,
+                     "chal":  322,
                      "goal":  176,
                      "obj":  155,
                      "mip":  81,
@@ -367,163 +369,163 @@
                        {
                            "name":  "Not captured",
                            "users":  178,
-                           "answered":  13,
+                           "answered":  19,
                            "mip":  1
                        },
                        {
                            "name":  "Patna",
                            "users":  75,
-                           "answered":  32,
+                           "answered":  39,
                            "mip":  12
                        },
                        {
                            "name":  "Katihar",
                            "users":  75,
-                           "answered":  25,
+                           "answered":  32,
                            "mip":  11
                        },
                        {
                            "name":  "Saran",
                            "users":  68,
-                           "answered":  29,
+                           "answered":  44,
                            "mip":  4
                        },
                        {
                            "name":  "Munger",
                            "users":  68,
-                           "answered":  30,
+                           "answered":  41,
                            "mip":  10
                        },
                        {
                            "name":  "Vaishali",
                            "users":  61,
-                           "answered":  22,
+                           "answered":  37,
                            "mip":  3
                        },
                        {
                            "name":  "Gopalganj",
                            "users":  54,
-                           "answered":  29,
+                           "answered":  33,
                            "mip":  8
                        },
                        {
                            "name":  "Begusarai",
                            "users":  49,
-                           "answered":  19,
+                           "answered":  25,
                            "mip":  4
                        },
                        {
                            "name":  "Muzaffarpur",
                            "users":  42,
-                           "answered":  11,
+                           "answered":  20,
                            "mip":  2
                        },
                        {
                            "name":  "Nalanda",
                            "users":  38,
-                           "answered":  16,
+                           "answered":  21,
                            "mip":  5
                        },
                        {
                            "name":  "Sheikhpura",
                            "users":  35,
-                           "answered":  13,
+                           "answered":  20,
                            "mip":  1
                        },
                        {
                            "name":  "Jamui",
                            "users":  34,
-                           "answered":  15,
+                           "answered":  20,
                            "mip":  2
                        },
                        {
                            "name":  "Gaya",
                            "users":  33,
-                           "answered":  6,
+                           "answered":  16,
                            "mip":  2
                        },
                        {
                            "name":  "Kaimur",
                            "users":  25,
-                           "answered":  13,
+                           "answered":  19,
                            "mip":  2
                        },
                        {
                            "name":  "Bhagalpur",
                            "users":  21,
-                           "answered":  12,
+                           "answered":  16,
                            "mip":  3
                        },
                        {
                            "name":  "Sitamarhi",
                            "users":  19,
-                           "answered":  6,
+                           "answered":  11,
                            "mip":  1
                        },
                        {
                            "name":  "Rohtas",
                            "users":  17,
-                           "answered":  8,
+                           "answered":  9,
                            "mip":  1
                        },
                        {
                            "name":  "East Champaran",
                            "users":  14,
-                           "answered":  4,
+                           "answered":  7,
                            "mip":  0
                        },
                        {
                            "name":  "Jehanabad",
                            "users":  12,
-                           "answered":  6,
+                           "answered":  7,
                            "mip":  2
                        },
                        {
                            "name":  "Siwan",
                            "users":  11,
-                           "answered":  4,
+                           "answered":  7,
                            "mip":  0
                        },
                        {
                            "name":  "Lakhisarai",
                            "users":  10,
-                           "answered":  5,
+                           "answered":  6,
                            "mip":  1
                        },
                        {
                            "name":  "Samastipur",
                            "users":  10,
-                           "answered":  3,
+                           "answered":  7,
                            "mip":  1
                        },
                        {
                            "name":  "Aurangabad",
                            "users":  9,
-                           "answered":  2,
+                           "answered":  5,
                            "mip":  0
                        },
                        {
                            "name":  "Bhojpur",
                            "users":  7,
-                           "answered":  4,
+                           "answered":  5,
                            "mip":  0
                        },
                        {
                            "name":  "Madhubani",
                            "users":  7,
-                           "answered":  2,
+                           "answered":  4,
                            "mip":  0
                        },
                        {
                            "name":  "Banka",
                            "users":  7,
-                           "answered":  3,
+                           "answered":  4,
                            "mip":  0
                        },
                        {
                            "name":  "Buxar",
                            "users":  6,
-                           "answered":  1,
+                           "answered":  2,
                            "mip":  0
                        },
                        {
@@ -541,25 +543,25 @@
                        {
                            "name":  "Kishanganj",
                            "users":  6,
-                           "answered":  2,
+                           "answered":  3,
                            "mip":  0
                        },
                        {
                            "name":  "Darbhanga",
                            "users":  6,
-                           "answered":  2,
+                           "answered":  4,
                            "mip":  1
                        },
                        {
                            "name":  "Saharsa",
                            "users":  5,
-                           "answered":  1,
+                           "answered":  3,
                            "mip":  1
                        },
                        {
                            "name":  "Supaul",
                            "users":  3,
-                           "answered":  2,
+                           "answered":  3,
                            "mip":  0
                        },
                        {
@@ -615,19 +617,19 @@
                    {
                        "name":  "Teacher",
                        "users":  694,
-                       "answered":  273,
+                       "answered":  388,
                        "mip":  59
                    },
                    {
                        "name":  "Not captured",
                        "users":  181,
-                       "answered":  13,
+                       "answered":  21,
                        "mip":  1
                    },
                    {
                        "name":  "Head of school",
                        "users":  145,
-                       "answered":  64,
+                       "answered":  89,
                        "mip":  21
                    },
                    {
@@ -639,7 +641,7 @@
                    {
                        "name":  "Program / system staff",
                        "users":  3,
-                       "answered":  1,
+                       "answered":  2,
                        "mip":  0
                    }
                ],
@@ -677,65 +679,69 @@
                  "onboardingMedian":  1,
                  "onboardingAvg":  1.8,
                  "onboardingN":  837,
-                 "answerMedian":  1,
-                 "answerAvg":  2,
-                 "answerN":  371,
-                 "planMedian":  7,
-                 "planAvg":  15.2,
+                 "answerMedian":  0,
+                 "answerAvg":  1.8,
+                 "answerN":  482,
+                 "planMedian":  8,
+                 "planAvg":  16.4,
                  "planN":  83
              },
     "questionsToPlan":  {
-                            "median":  6,
-                            "avg":  6.9,
-                            "userRepliesMedian":  8
+                            "median":  7,
+                            "avg":  7.7,
+                            "userRepliesMedian":  9
                         },
     "starterPrompts":  [
                            {
                                "text":  "हाँ, लक्ष्य की पुष्टि करें",
-                               "conversations":  37
+                               "conversations":  11
                            },
                            {
-                               "text":  "किसी चुनौती पर काम करें",
-                               "conversations":  19
+                               "text":  "Thank you",
+                               "conversations":  6
                            },
                            {
-                               "text":  "Yes, confirm goal",
-                               "conversations":  16
+                               "text":  "thanks",
+                               "conversations":  5
+                           },
+                           {
+                               "text":  "PBL kya hai",
+                               "conversations":  5
                            },
                            {
                                "text":  "हां, हमने कोशिश की है",
-                               "conversations":  9
+                               "conversations":  4
                            },
                            {
-                               "text":  "हां, हमने कुछ चीजें आजमाई हैं",
-                               "conversations":  7
-                           },
-                           {
-                               "text":  "गहरे जाना",
-                               "conversations":  6
-                           },
-                           {
-                               "text":  "कक्षा 6-8",
-                               "conversations":  6
+                               "text":  "Nothing",
+                               "conversations":  3
                            },
                            {
                                "text":  "Science",
-                               "conversations":  5
+                               "conversations":  3
+                           },
+                           {
+                               "text":  "किसी चुनौती पर काम करें",
+                               "conversations":  3
                            }
                        ],
-    "starterConversations":  188,
+    "starterConversations":  64,
     "warmth":  [
                    {
                        "lang":  "English",
-                       "text":  "Ah, I understand now! You\u0027re asking about **\"Hamare Atit-2\"** (Our Past-2), which is the **History textbook for Class 7** in the NCERT curriculum. **Chapter 6: \"Bhakti aur Sufi Parampara\" (Bhakti and Sufi Traditions)*..."
+                       "text":  "I understand this is frustrating. Let me ask you one more time, and I\u0027ll listen carefully to your answer. **Right now, which one is the bigger problem for you:** 1. **Too many students in each classroom** — the classe..."
                    },
                    {
                        "lang":  "English",
-                       "text":  "I want to make sure I understand — when you say you don\u0027t see any benefit, do you mean: - You\u0027re not sure how to make Sanskrit feel relevant or useful to the students, or - You\u0027re questioning whether Sanskrit itself h..."
+                       "text":  "I understand — so the school is already working on managing student numbers within the available rooms. Let me ask: **Are you looking to improve how this is being done right now, or is there a specific part of the ove..."
                    },
                    {
                        "lang":  "English",
-                       "text":  "I understand — as a computer science teacher, this is a critical gap for your subject. Let me ask a couple of quick questions to understand the scope better. Are there any computers at all in the school — even one or ..."
+                       "text":  "I understand — you\u0027re not sure yet. That\u0027s okay. Let me ask it differently: right now, when students sit in your Sanskrit class, what\u0027s the biggest problem you see? Are they sleeping, talking to each other, not doing ..."
+                   },
+                   {
+                       "lang":  "Hindi",
+                       "text":  "Now I have good grounding on the topic. Let me create a comprehensive lesson plan for you. --- ## Lesson Plan: Diversity in the Living World — Class 6 Science **Grade:** Class 6 **Subject:** Science (NCERT Curiosity) ..."
                    },
                    {
                        "lang":  "Hindi",
@@ -744,230 +750,202 @@
                    {
                        "lang":  "Hindi",
                        "text":  "I understand you\u0027re asking for a summary of Class 5 Hindi Chapter 1. Let me give you that in simple English: --- **Chapter 1 \"किरन\" (Kiran) — Summary** This is a poem about a ray of light (किरन). **Main idea:** - A ra..."
-                   },
-                   {
-                       "lang":  "Hindi",
-                       "text":  "बहुत अच्छा! जब भी आपको मदद की जरूरत हो, मैं यहाँ हूँ। शुभकामनाएं आपके स्कूल के लिए! 🙏"
                    }
                ],
     "themes":  [
                    {
                        "name":  "School or classroom improvement",
-                       "count":  73,
-                       "pct":  42.9,
-                       "mip":  51,
+                       "count":  348,
+                       "users":  261,
+                       "pct":  45.6,
+                       "mip":  286,
+                       "subs":  [
+                                    {
+                                        "name":  "Other school or classroom improvement",
+                                        "count":  222
+                                    },
+                                    {
+                                        "name":  "Student learning outcomes",
+                                        "count":  126
+                                    }
+                                ],
                        "examples":  [
                                         {
-                                            "text":  "Abhi filhal school band hai",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "विद्यालय में सब कुछ ठीक है",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "नई सिलेबस होने के कारण इंग्लिश का जो पढ़ने का अस्तर शिक्षक रहता था थोड़ा बहुत ही कठिन सिलेबस है अब हम",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Mera school mai achcha vatavaran h",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "One more problem is there in school system",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Teachers ko kaise motivate Karu unke kami ke liye",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "छेड़छाड़ की समस्या",
-                                            "lang":  "English",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "स्कूल की चुनौती",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "8 class se uper ye sabhi padhna nahi chahta",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Kaise class ko improvement me laye",
+                                            "text":  "Many students in our school are struggling with basic reading and mathematics skills, especially in Classes 3 to 5. While teachers are conducting their classes, there seems to be a gap in how they identify and address...",
                                             "lang":  "English",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "Bache padhaye hue chij ko nhi padh kar aate hai",
+                                            "text":  "पढ़ाई और खेल में संतुलन बनाए रखें।",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "Yes I do have a challenge here",
-                                            "lang":  "English",
-                                            "type":  "MIP"
-                                        }
-                                    ]
-                   },
-                   {
-                       "name":  "Teaching/learning resource request",
-                       "count":  43,
-                       "pct":  25.3,
-                       "mip":  17,
-                       "examples":  [
-                                        {
-                                            "text":  "पोस्ट नहीं पोस्टर बना कर दीजिए",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "जो जो हम डाउनलोड कर रहे हैं लेकिन उसे तीन चीज मंत्र लिख रहा है टोटल क्वेश्चन जैसा आप दिख रहे हो पर मैं वैसा नहीं आ रहा है",
-                                            "lang":  "English",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Chhote bache activity jyada pasand karte hain.",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "छात्र अधिगम गतिविधि",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "और विस्तृत सामग्री तैयार करिए",
-                                            "lang":  "English",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Ai का उपयोग कैसे ज्यादा किया जाय",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "मैं अपने स्कूल के हिसाब से उद्देश्य दूर चुनकर गतिविधि अच्छी है",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Pdf ke andar questions show nahi ho raha hai",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "मुझे क्लास 5 में लघुत्तम समापवर्तक पढ़ना है उससे संबंधित 10 क्वेश्चन दो",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Quiz contest kaise aayojit karen",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "विद्यालय का स्थान बहुत छोटा है तो इसमें क्या-क्या उपाय किया जा सकता है",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "परियोजनाओं का मूल्यांकन",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        }
-                                    ]
-                   },
-                   {
-                       "name":  "Teacher shortage and school facilities",
-                       "count":  22,
-                       "pct":  12.9,
-                       "mip":  19,
-                       "examples":  [
-                                        {
-                                            "text":  "Bio. Practical Kam resource mein lab. Mein kaiser karwaye",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "1से 8 तक की कक्षाएं 4 वर्ग कक्ष में ही संचालित हैं",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Boundary wall ki bahut jaruri",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "पानी की कमी,शिक्षक की कमी",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "My school is a middle school up to class 8. Only 3 active Teacher is neither boundary wall not any washroom here even for hirls",
+                                            "text":  "Low student attendance and engagement “We have been noticing that student attendance, particularly in middle and upper primary classes, has been consistently low. Even when children come to school, many of them seem d...",
                                             "lang":  "English",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "School ki diwaron per kya painting अच्छे-अच्छे Chitra Banakar use bhav dikha Ja sakta hai",
+                                            "text":  "विषय वार शिक्षक क्या भाव में आप क्या सहयोग कर सकते हैं",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Hamare Vidyalay mein bacchon ki upsthiti kam hoti ja rahi hai kripya badhane ka koi upay bataen",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "3 shikshak 5 class",
+                                            "text":  "Kuch subject ka chut jana",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "विद्यालय में टूटे पर छात्र शौचालय एवं यह उपकरण के मरम्मत ही करवाने",
+                                            "text":  "Sanskrit padane me kathinai",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "मेरे विधालय में शिक्षक की कमी है अभी हमारे विधालय में कुल 5शिक्षक है जबकि 1सें 8 तक पढाई होती है कैसे करे",
+                                            "text":  "अरे अरे मैं विद्यालय में पढ़ने में आती कमजोर बच्चों के लिए किस प्रकार की शिक्षण कार्य कर सकती मुझे कृपया यह बताएं",
                                             "lang":  "Hindi",
-                                            "type":  "MIP"
+                                            "type":  "Knowledge"
                                         },
-                                        {
-                                            "text":  "Teacher ki kami",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "कमरे की संख्या कम है और बच्चे ज्यादा है",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "I want to repair my school",
-                                            "lang":  "English",
-                                            "type":  "MIP"
-                                        }
-                                    ]
-                   },
-                   {
-                       "name":  "Subject knowledge question",
-                       "count":  11,
-                       "pct":  6.5,
-                       "mip":  6,
-                       "examples":  [
                                         {
                                             "text":  "मैं अपने विद्यालय में बिहार सरकार की महत्वाकांक्षी योजना FLN और TaRL पर कार्य कर रहां हूँ किन्तु शिक्षकों की रूचि पढ़ाने में नहीं है वे बुनियादी साक्षरता कक्षा नहीं लेना कहते हैं क्या करूँ ?",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "Mujhe class 7 me ganit me samikaran padhana hai ekdum basic se kuchh idea do aur kuchh prasn v jise mai balack board par banwa saku",
+                                            "text":  "मैं अपने विद्यालय को निपुण विद्यालय बनाना चाहता हूँ. इसके लिए मुझे कौन कौन कार्य करना चाहिए",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Gramin ke dwara Vidyalay mein tang karna",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "School me sudhar",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Teaching tips or learning resources",
+                       "count":  147,
+                       "users":  113,
+                       "pct":  19.3,
+                       "mip":  63,
+                       "subs":  [
+
+                                ],
+                       "examples":  [
+                                        {
+                                            "text":  "Shiksha ko behar bnane ke liye kuch tips bheje",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Class 8 science notes bana ke do",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "विद्यालय केशव कन्या मध्य विद्यालय सोनपुर सरण विषय गणित वर्ग 5 मापन की इकाइयां अभ्यास पुस्तिका बनाएं",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "क्लास 7 गति और समय पर 5 एमसीक्यू क्वेश्चन 5 फिल इन द ब्लैंक्स क्वेश्चन 5 शॉर्ट आंसर क्वेश्चन और पांच लॉन्ग आंसर क्वेश्चन एक पेज पीडीएफ प्रिंट करने योग्य केवल टच करें और प्रिंट हो जाए",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "How to teach students in a best way , how can it is more effective",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "AI Se kaise padhaayaa jaaye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "प्रश्न को एक पेज पर पीएफ और उत्तर को एक पेज पर पीडीएफ जिसको सीधा हम प्रिंट कर सकते हैं वैसा पीडीएफ",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "क्या आप प्रश्न पत्र बना सकते हैं",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "मैं स्कूल के बच्चों के लिए अपनी इच्छा अनुसार एक क्योंकि एनीमेशन वीडियो बनाना चाहता हूं जिससे बच्चों को नैतिक शिक्षा भी मिले और बच्चा स्कूल खाने के लिए प्रेरित भी हो बताइए कैसे किया जाए",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Baccho me natik shiksha kaise padhau",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Create a image of a project of chapter Light of class 7",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "छात्र अधिगम गतिविधि",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Subject knowledge question",
+                       "count":  76,
+                       "users":  55,
+                       "pct":  10,
+                       "mip":  20,
+                       "subs":  [
+
+                                ],
+                       "examples":  [
+                                        {
+                                            "text":  "तीसरा क्लास का बुक का क्वेश्चन आंसर",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Shiksha hota kya hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Class 7 lession 3 sanskrit anubad kare",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "TaRL के संबंध में बतायें",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "अरुणिमा सिंहा की जीवनी ऑडियो और typing style me",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Parts of speech batao",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Mahatma Gandhi ke bare me bataye",
                                             "lang":  "Hindi",
                                             "type":  "Knowledge"
                                         },
@@ -977,100 +955,22 @@
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "खान-पान की गलती तस्वीर पाठ की व्याख्या",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Math and science",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Chemical and physical effect",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Mujhe kuch 7 class ke formula batao",
+                                            "text":  "can you explain in chapter if I asked you to do of class takes ncert",
                                             "lang":  "English",
                                             "type":  "Knowledge"
                                         },
                                         {
-                                            "text":  "Aaj ki topic kya hai",
+                                            "text":  "सामाजिक विज्ञान विषय में कजैसे जल चक्र विषय को किस प्रकार से उपयोगी तरीके से और आसान भाषा समझ सकता है",
                                             "lang":  "Hindi",
                                             "type":  "Knowledge"
                                         },
                                         {
-                                            "text":  "कक्षा सिक्स का सामाजिक विज्ञान का चैप्टर की सभ्यताओं के बारे में बच्चों को मैं कैसे समझाऊं एक शिक्षक के नाते",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Science ka vichar",
+                                            "text":  "पाठ्यक्रम विवरण",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "Aaj maine vigyan ka ek topics gharshana bal padhaya bhut achche se krke samjhaya lekin unko puchha ke kya pribhasa hogi wo apne shabdon m bhi nhi bta paye",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        }
-                                    ]
-                   },
-                   {
-                       "name":  "Lesson plan",
-                       "count":  10,
-                       "pct":  5.9,
-                       "mip":  3,
-                       "examples":  [
-                                        {
-                                            "text":  "पाठ टीका तैयार कर सकते हैं",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "One class ke english chapter 2 ke liye lession plan prepare kar sakate hai",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Kya mere liye lesson plan taiyar kro",
-                                            "lang":  "English",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "about lesson plan",
-                                            "lang":  "English",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "I want the lesson plan of class 8 science with the chapter name friction",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "स्कूल में पाठ योजना के अनुसार कैसे प्रदान करें",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Padhai ka plan banana",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Lesson plan. Class 7 ncert books sc motion in hindi",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "नई पाठ योजना बनाएं",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "Create a lesson plan for Ch-13 class 5 water for a week",
+                                            "text":  "Computer science syllabus",
                                             "lang":  "English",
                                             "type":  "Knowledge"
                                         }
@@ -1078,9 +978,13 @@
                    },
                    {
                        "name":  "Classroom management",
-                       "count":  9,
-                       "pct":  5.3,
-                       "mip":  6,
+                       "count":  61,
+                       "users":  57,
+                       "pct":  8,
+                       "mip":  46,
+                       "subs":  [
+
+                                ],
                        "examples":  [
                                         {
                                             "text":  "बच्चों को पढ़ने मे ध्यान नहीं लगता, उसके लिए क्या किया जाय",
@@ -1088,9 +992,44 @@
                                             "type":  "Knowledge"
                                         },
                                         {
+                                            "text":  "Mukticlassroom",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Multiclassroom",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "मल्टीपल क्लास के कारण शिक्षण कार्य में परेशानी का आना।",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Mere school k clss 5 me ek bchchi h jisko kitna v smjha le o na hi class work krti h na home work btaiaye kya kre",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
                                             "text":  "जैसे कि आजकल के विद्यार्थी यानी जेनरेशन हम कर सकते हैं तो उनमें साफ सफाई को लेकर थोड़ी सी हिच किछहट चाहत है खासकर जब वह विद्यालय आते हैं तो वह अपने बेंच के नीचे किसी भी प्रकार के कागज को उठाना नहीं चाहते hai To hme ki...",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "बच्चे स्कूल से भाग जाते हैं बोलने के बाद पढ़ाई पर ध्यान नहीं देते बहुत कोशिश करने के बाद ही कैसे रोका जाए",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "छेड़छाड़ की समस्या",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "कक्षा में लैंगिक संवेदनशील व्यवहार की समझ के लिए शिक्षक को क्या क्या करना चाहिए",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
                                         },
                                         {
                                             "text":  "कक्षा में सक्रिय भागीदारी मे समस्या है",
@@ -1098,59 +1037,252 @@
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "Students guardian not interested about the education",
+                                            "text":  "Class me topic sikhane time agar students ko khud se group me activity krke sikhne den to iss tarah se topic complete hone me bahut jada samay lagta hai or time se syllabus complete krna mushkil hota hai Iska samadhan...",
                                             "lang":  "English",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "Children are not interested I study",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "विज्ञान में बच्चों की अभिरुचि जागृत करने के लिए क्या-क्या सहायक",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "बच्चों में गृह कार्य में रुचि कैसे बनाएं",
-                                            "lang":  "Hindi",
-                                            "type":  "Knowledge"
-                                        },
-                                        {
-                                            "text":  "मैं गणित और विज्ञान का शिक्षक हूं वर्ग 6 से 8 मेरे यहां से यह होती है कि मैं बच्चों को पढ़ाता हूं जब तक पढ़ाऊंगा कुछ बच्चों का मन लगता है और कुछ बच्चे पढ़ने ही नहीं चाहते क्योंकि उनका base बहुत कमजोर है मतलब उन्होंने ...",
-                                            "lang":  "Hindi",
-                                            "type":  "MIP"
-                                        },
-                                        {
-                                            "text":  "Bacchon mein anushasan ka",
-                                            "lang":  "Hindi",
+                                            "text":  "Students not replying me as I want",
+                                            "lang":  "English",
                                             "type":  "MIP"
                                         }
                                     ]
                    },
                    {
-                       "name":  "Other education asks",
-                       "count":  2,
-                       "pct":  1.2,
-                       "mip":  2,
+                       "name":  "PBL queries (not lesson plans)",
+                       "count":  56,
+                       "users":  44,
+                       "pct":  7.3,
+                       "mip":  26,
+                       "subs":  [
+
+                                ],
                        "examples":  [
                                         {
-                                            "text":  "Kuch subject ka chut jana",
+                                            "text":  "Help in PBL mip",
                                             "lang":  "Hindi",
                                             "type":  "MIP"
                                         },
                                         {
-                                            "text":  "How do you help me in my teaching",
+                                            "text":  "Sometimes we have less time",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Are you helping about pbl",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "I have a PBL challenge",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Pbl 4.7 की मदद चाहिए",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "PBL project bnane me real vastuo se",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "PBL ko hकैसे संचालित किया जा सकता",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "परियोजनाओं का मूल्यांकन",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Pariyojna karya ka nirdharan Kaise kiya jaye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Mujhe project banae m madad kero",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Pbl kaise karayen",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "How to implement 100% PBL project in each school in my district",
                                             "lang":  "English",
                                             "type":  "MIP"
                                         }
                                     ]
+                   },
+                   {
+                       "name":  "Teacher\u0027s own needs",
+                       "count":  45,
+                       "users":  33,
+                       "pct":  5.9,
+                       "mip":  21,
+                       "subs":  [
+
+                                ],
+                       "examples":  [
+                                        {
+                                            "text":  "AI upkaranon ka upyog Kar kaise Sikh sakte hain",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "अगर एक शिक्षक जिला का कार्यालय द्वारा समय और उसके मेडिकल बिल का भुगतान नहीं आ जाए तो वो क्या करें",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Mai padha hua chij bar bar bhul jata hun",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "दिवाली या छठ के बाद दो दिनों का आकस्मिक अवकाश ले सकते हैं जबकि कुल आकस्मिक अवकाशों की संख्या 12",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "aichhik Hai na",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "kya bihar me Jo transfer Niti hai o aichhik Hai ya jabaran",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Tell me the role of an ideal In-Charge Headmaster.",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Puarnae teacher ko hatya jaaya or local teacher ko saath hi siksha sevak jo local hai usko kisi or jagah shift kiya jaay, anganwari kendra ko mukt kiya jaay school se",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Give me full notes of ugc net paper 1 research aptitude in very easy and lucid language",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Can a school teacher prepare for bssc cgl and assistant professor at the same time",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Middle section ke liye teacher ki posting kaise hoga.",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "मुझे स्कूल आने में बड़ी कठिनाई हो रही है",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        }
+                                    ]
+                   },
+                   {
+                       "name":  "Lesson plan",
+                       "count":  30,
+                       "users":  25,
+                       "pct":  3.9,
+                       "mip":  9,
+                       "subs":  [
+                                    {
+                                        "name":  "General lesson plan",
+                                        "count":  28
+                                    },
+                                    {
+                                        "name":  "PBL lesson plan",
+                                        "count":  2
+                                    }
+                                ],
+                       "examples":  [
+                                        {
+                                            "text":  "Design the project plan of chapter light",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Mujhe class viii science topic friction ke upar ek Learning Design banaiye",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "पाठ टीका तैयार कर सकते हैं",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Path thika taiyar kar sakte hai",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Path yojna kaise tayir kre",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "बिहार सिलेबस के बिहार सरकार के सिलेबस योग का बताना है वर्ग तीसरा का कैसे-कैसे बच्चों को पढ़ना है",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "One class ke english chapter 2 ke liye lession plan prepare kar sakate hai",
+                                            "lang":  "Hindi",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Bihar board class 5 hindi any chapt",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Can u make lession plan",
+                                            "lang":  "English",
+                                            "type":  "MIP"
+                                        },
+                                        {
+                                            "text":  "Class 8 math lesson 11",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "वर्ग 6 विज्ञान विषय सजीव जगत में विविधता पाठ का पाठ योजना बनाये",
+                                            "lang":  "Hindi",
+                                            "type":  "Knowledge"
+                                        },
+                                        {
+                                            "text":  "Make a lesson plan on states of water",
+                                            "lang":  "English",
+                                            "type":  "Knowledge"
+                                        }
+                                    ]
                    }
                ],
+    "categorySummary":  {
+                            "questions":  763,
+                            "users":  500,
+                            "notQuestion":  357,
+                            "uncategorised":  0
+                        },
     "knowledgeVsMip":  {
-                           "knowledge":  189,
-                           "mip":  270
+                           "mip":  322,
+                           "knowledge":  243,
+                           "convMip":  333,
+                           "convKnowledge":  259
                        },
     "insights":  {
                      "positive":  [
@@ -1159,15 +1291,15 @@
                                       "School heads are the most plan-driven users: 21 of 145 school heads (14.5%) got an improvement plan, against 59 of 694 teachers (8.5%).",
                                       "Saathi reached users in 37 of Bihar\u0027s 38 districts.",
                                       "70.9% of users chose Hindi, and 10.8% of messages in Hindi are voice, compared with 4.3% in English.",
-                                      "The most common real ask is school or classroom improvement: 73 of 170 education questions (42.9%).",
+                                      "The most common real ask is school or classroom improvement: 348 of 763 education questions (45.6%).",
                                       "In a typical conversation, the first answer comes within 1 minute of asking.",
                                       "57 users have come back after a gap of an hour or more. On their first return, 12 started a new conversation and 12 asked their first question."
                                   ],
                      "improve":  [
-                                     "451 of 889 users who finish sign-up (50.7%) never ask a question. This is the biggest drop.",
+                                     "325 of 890 users who finish sign-up (36.5%) never ask a question. This is the biggest drop.",
                                      "In the plan flow, only 52.3% of users who reach objectives go on to get a plan (81 of 155).",
-                                     "Saathi asks about 6 questions before giving a plan, which takes around 7 minutes.",
-                                     "139 of 1028 users (13.5%) start sign-up but do not finish it."
+                                     "Saathi asks about 7 questions before giving a plan, which takes around 8 minutes.",
+                                     "138 of 1028 users (13.4%) start sign-up but do not finish it."
                                  ]
                  },
     "daily":  [
