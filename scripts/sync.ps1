@@ -1,9 +1,11 @@
 ﻿# Saathi dashboard sync: find every tab in the data-log sheet, download, de-duplicate, analyse.
 # Writes data\saathi\out\{saathi-users,saathi-mip-sessions,saathi-coverage}.csv and sets
 # data\saathi\out\CHANGED (exists only when the dashboard files differ from the last upload).
-param([string]$SheetId = '<sheet-id-hidden>')
+param([string]$SheetId = $env:SAATHI_SHEET_ID)   # sheet id is kept out of the public repo (GitHub secret / local env var)
 $ErrorActionPreference = 'Stop'
-$root = 'C:\Users\jeeva\ChandanaOS'
+$root = if ($env:CHANDANAOS_ROOT) { $env:CHANDANAOS_ROOT } else { 'C:\Users\jeeva\ChandanaOS' }
+if (-not $SheetId) { $idFile = Join-Path $root 'data\saathi\SHEET_ID'; if (Test-Path $idFile) { $SheetId = (Get-Content $idFile -Raw).Trim() } }
+if (-not $SheetId) { throw 'No sheet id: set SAATHI_SHEET_ID' }
 $work = Join-Path $root 'data\saathi'; $tabsDir = Join-Path $work 'tabs'; $outDir = Join-Path $work 'out'
 New-Item -ItemType Directory -Force $tabsDir, $outDir | Out-Null
 $log = Join-Path $work 'sync.log'
@@ -57,17 +59,19 @@ else { Remove-Item $changedFlag -ErrorAction SilentlyContinue; Log 'No change' }
 $repo = Join-Path $root 'repos\saathi-user-dashboard'
 $repoHashFile = Join-Path $outDir 'LAST_PUSHED_HASH'
 $pushed = if (Test-Path $repoHashFile) { (Get-Content $repoHashFile -Raw).Trim() } else { '' }
-if ((Test-Path $repo) -and $pushed -ne $hash) {
+if ((Test-Path $repo) -and $pushed -ne $hash -and -not $env:SAATHI_NO_PUSH) {
   try {
     foreach ($n in 'saathi-users.csv','saathi-mip-sessions.csv','saathi-coverage.csv') { Copy-Item -Force (Join-Path $outDir $n) (Join-Path $repo "data\$n") }
     $cov = Import-Csv (Join-Path $outDir 'saathi-coverage.csv')
     $msg = "Data sync: $($cov.from) to $($cov.to), $($cov.users) users, $($cov.messages) messages`n`nAutomated hourly sync of all tabs in the Saathi data log."
-    git -C $repo pull --quiet --rebase 2>&1 | Out-Null
+    $ErrorActionPreference = 'Continue'   # git writes warnings to stderr; don't treat them as failures
     git -C $repo add data index.html 2>&1 | Out-Null
     git -C $repo commit --quiet -m $msg 2>&1 | Out-Null
+    git -C $repo pull --quiet --rebase --autostash 2>&1 | Out-Null
     $out = git -C $repo push --quiet 2>&1
     if ($LASTEXITCODE -ne 0) { throw ($out | Out-String) }
     Set-Content -Encoding ascii $repoHashFile $hash
     Log "Pushed data to GitHub ($($cov.users) users)"
   } catch { Log "GITHUB PUSH FAILED: $($_.Exception.Message)" }
+  $ErrorActionPreference = 'Stop'
 }

@@ -26,7 +26,7 @@ h3 { font-size: .95rem; font-weight: 600; }
 .sub { color: var(--muted); font-size: .9rem; margin: 4px 0 0; }
 .label { font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 .num { font-variant-numeric: tabular-nums; }
-.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px; } .grid2 > * { min-width: 0; } .cellwrap td:first-child, .cellwrap th:first-child { white-space: normal; }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 14px; align-content: start; min-width: 0; }
 section { display: grid; gap: 14px; }
 .hero { display: grid; gap: 4px; }
@@ -72,6 +72,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
 .note { color: var(--muted); font-size: .82rem; margin: 0; }
 @media (max-width: 520px) { .big { font-size: 2.8rem; } .bar { grid-template-columns: 1fr auto; } .bar .track { grid-column: 1 / -1; grid-row: 2; } }
 @media (prefers-reduced-motion: no-preference) { .fill { transition: width .4s ease; } }
+details.more { margin-top: 12px; border-top: 1px solid var(--line, #ddd); padding-top: 10px; } details.more > summary { cursor: pointer; font-weight: 600; list-style: none; } details.more > summary::before { content: "+ "; color: var(--muted); } details.more[open] > summary::before { content: "− "; } ul.asks { padding-left: 18px; } ul.asks li { margin: 8px 0; line-height: 1.45; } .tag { font-size: 12px; padding: 1px 6px; border-radius: 6px; background: var(--chip, rgba(127,127,127,.15)); white-space: nowrap; } .then { opacity: .75; font-size: 14px; }
 </style>
 
 <div class="wrap" id="app">
@@ -87,26 +88,21 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
         <div class="big num" id="users"></div>
         <span class="sub" id="usersSub"></span>
       </div>
-      <button class="link" id="toggleBreakdown" aria-expanded="false" aria-controls="breakdown">See district-wise and role-wise users</button>
-      <div id="breakdown" hidden>
-        <div class="tabs" role="tablist">
-          <button role="tab" id="tabDistrict" aria-selected="true">District</button>
-          <button role="tab" id="tabRole" aria-selected="false">Role</button>
-        </div>
-        <div class="tablewrap"><table><thead><tr><th id="bdHead">District</th><th class="n">Users</th><th class="n">Got an answer</th><th class="n">Got an MIP</th></tr></thead><tbody id="bdBody"></tbody></table></div>
-      </div>
+      <p class="note">Each person is counted once, even if they used Saathi on several days. Tap below to see where they are from, their roles and daily use.</p>
+      <details class="more"><summary>Users by district</summary><div class="tablewrap"><table><thead><tr><th>District</th><th class="n">Users</th><th class="n">Got an answer</th><th class="n">Got an MIP</th></tr></thead><tbody id="bdDistrict"></tbody></table></div></details>
+      <details class="more"><summary>Users by role</summary><div class="tablewrap"><table><thead><tr><th>Role</th><th class="n">Users</th><th class="n">Got an answer</th><th class="n">Got an MIP</th></tr></thead><tbody id="bdRole"></tbody></table></div></details>
+      <details class="more"><summary>Users by day</summary><div class="bars" id="bdDaily"></div><p class="note">Users who sent at least one message that day.</p></details>
     </div>
     <div class="card">
       <div class="hero">
-        <span class="label">Repeat users</span>
-        <div class="big num" id="repeatPct"></div>
+        <span class="label">Users who came back</span>
+        <div class="big num" id="repeatN"></div>
         <span class="sub" id="repeatSub"></span>
       </div>
       <p class="note" id="repeatNote"></p>
-      <h3>When they first came back</h3><div class="bars" id="repeatBars"></div>
-      <h3>How many times they came back</h3><div class="bars" id="repeatFreq"></div>
-      <h3>What they did when they came back</h3><div class="bars" id="repeatKinds"></div>
-      <div id="repeatQs"></div>
+      <details class="more"><summary>What they did when they came back</summary><div class="tablewrap cellwrap"><table><thead><tr><th>On their first return</th><th class="n">Same day</th><th class="n">1+ days later</th><th class="n">Total</th></tr></thead><tbody id="repeatTable"></tbody></table></div></details>
+      <details class="more"><summary>When and how often they came back</summary><h3>When they first came back</h3><div class="bars" id="repeatBars"></div><h3>How many times they came back</h3><div class="bars" id="repeatFreq"></div></details>
+      <details class="more"><summary>What they asked when they came back</summary><div id="repeatQs"></div></details>
     </div>
   </div>
 
@@ -120,7 +116,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
   </section>
 
   <div class="grid2">
-    <div class="card"><h2>Drop-off funnel</h2><p class="note">How many users reached each step. The orange number is the drop from the step before.</p><div class="bars" id="funnel"></div><p class="note" id="profileNote"></p></div>
+    <div class="card"><h2>Drop-off funnel</h2><p class="note">How many users reached each step. The orange number is the drop from the step before.</p><div class="bars" id="funnel"></div><p class="note" id="noAnsNote"></p><p class="note" id="profileNote"></p></div>
     <div class="card"><h2>Micro-improvement plan (MIP) funnel</h2><p class="note">Users who went through the step-by-step plan flow.</p><div class="bars" id="mipFunnel"></div><p class="note" id="mipNote"></p></div>
   </div>
 
@@ -133,7 +129,8 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
   <section>
     <h2>What users ask</h2>
     <div class="grid2">
-      <div class="card"><h3>Knowledge query vs MIP</h3><div class="legend"><span><i></i>MIP flow</span><span><i class="alt"></i>Knowledge answer</span></div><div class="bars" id="kvm"></div>
+      <div class="card"><h3>Knowledge query vs MIP</h3><div class="legend"><span><i></i>MIP flow</span><span><i class="alt"></i>Knowledge answer</span></div><div class="bars" id="kvm"></div><p class="note">Users who started a conversation. A user who had both kinds is counted under MIP.</p>
+        <details class="more"><summary>By conversation</summary><div class="bars" id="kvmConv"></div></details>
         <h3>Suggested prompts tapped</h3><div class="bars" id="starters"></div></div>
       <div class="card"><h3>Query themes</h3><p class="note" id="themeNote"></p><div id="themes"></div></div>
     </div>
@@ -173,34 +170,27 @@ $('users').textContent = fmt(D.totals.users);
 $('usersSub').textContent = 'Teachers, school heads and officials who used Saathi in this period';
 
 // breakdown
-let bdKey = 'byDistrict';
-function renderBd() {
-  $('bdHead').textContent = bdKey === 'byDistrict' ? 'District' : 'Role';
-  $('bdBody').innerHTML = D[bdKey].map(r => `<tr><td>${esc(r.name)}</td><td class="n">${fmt(r.users)}</td><td class="n">${fmt(r.answered)}</td><td class="n">${fmt(r.mip)}</td></tr>`).join('');
-  $('tabDistrict').setAttribute('aria-selected', bdKey === 'byDistrict'); $('tabRole').setAttribute('aria-selected', bdKey === 'byRole');
-}
-$('toggleBreakdown').onclick = () => { const b = $('breakdown'); b.hidden = !b.hidden; $('toggleBreakdown').setAttribute('aria-expanded', !b.hidden); $('toggleBreakdown').textContent = b.hidden ? 'See district-wise and role-wise users' : 'Hide breakdown'; };
-$('tabDistrict').onclick = () => { bdKey = 'byDistrict'; renderBd(); };
-$('tabRole').onclick = () => { bdKey = 'byRole'; renderBd(); };
-renderBd();
+const bdRow = r => `<tr><td>${esc(r.name)}</td><td class="n">${fmt(r.users)}</td><td class="n">${fmt(r.answered)}</td><td class="n">${fmt(r.mip)}</td></tr>`;
+$('bdDistrict').innerHTML = D.byDistrict.map(bdRow).join('');
+$('bdRole').innerHTML = D.byRole.map(bdRow).join('');
+const dmax = Math.max(...D.daily.map(d => d.users), 1);
+$('bdDaily').innerHTML = D.daily.map(d => bar(esc(day(d.date)), d.users, dmax, fmt(d.users), `:  users`)).join('');
 
 // repeat
 const R = D.repeat;
-$('repeatPct').innerHTML = `${R.returnedPct}<small>%</small>`;
-$('repeatSub').textContent = `${fmt(R.returned)} of ${fmt(D.totals.users)} users came back`;
-const rb = R.buckets.filter(b => b.name !== 'Never came back'), rmax = Math.max(...rb.map(b => b.users), 1);
-$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, `${fmt(b.users)}<em>${pct(b.users, R.returned)}%</em>`, `${b.name}: ${b.users} of ${R.returned} returning users`)).join('');
-const rf = R.frequency || [], fmax = Math.max(...rf.map(b => b.users), 1);
-$('repeatFreq').innerHTML = rf.map(b => bar(esc(b.name), b.users, fmax, fmt(b.users), `${b.name}: ${b.users} users`)).join('') + `<p class="note">${fmt(R.sameDay)} users came back more than once on the same day.</p>`;
-const rk = R.kinds || [], kmax = Math.max(...rk.map(b => b.visits), 1);
-$('repeatKinds').innerHTML = rk.map(b => bar(esc(b.name), b.visits, kmax, `${fmt(b.visits)}<em>${pct(b.visits, R.returnVisits)}%</em>`, `${b.name}: ${b.visits} of ${R.returnVisits} return visits`)).join('');
-const rq = R.questions || [];
-$('repeatQs').innerHTML = rq.length ? `<p class="note">Questions asked on return visits. Tap a theme to read them.</p>` + rq.map(g => `<details><summary>${bar(esc(g.theme), g.count, rq[0].count, fmt(g.count))}</summary><ul>${g.examples.map(x => `<li>${esc(x)}</li>`).join('')}</ul></details>`).join('') : '';
-$('repeatNote').textContent = `A user counts as coming back when they return after a gap of 1 hour or more.`;
-
+$('repeatN').textContent = fmt(R.returned);
+$('repeatSub').textContent = `users came back to Saathi after a gap of 1 hour or more`;
+$('repeatNote').textContent = `Some came back with a new question. Others came back to finish sign-up or continue the same conversation. We are still agreeing which of these count as a true return, so this is shown as a number, not a rate. Tap below for details.`;
+$('repeatTable').innerHTML = R.table.map(r => `<tr><td>${esc(r.name)}</td><td class="n">${fmt(r.sameDay)}</td><td class="n">${fmt(r.later)}</td><td class="n"><b>${fmt(r.total)}</b></td></tr>`).join('') + `<tr><td><b>Total</b></td><td class="n"><b>${fmt(R.sameDayUsers)}</b></td><td class="n"><b>${fmt(R.laterUsers)}</b></td><td class="n"><b>${fmt(R.returned)}</b></td></tr>`;
+const rb = R.buckets, rmax = Math.max(...rb.map(b => b.users), 1);
+$('repeatBars').innerHTML = rb.map(b => bar(esc(b.name), b.users, rmax, fmt(b.users), `${b.name}: ${b.users} users`)).join('') + `<p class="note">Days between a user's first visit and their first return. Each user is counted once.</p>`;
+const rf = R.frequency, fmax = Math.max(...rf.map(b => b.users), 1);
+$('repeatFreq').innerHTML = rf.map(b => bar(esc(b.name), b.users, fmax, fmt(b.users), `${b.name}: ${b.users} users`)).join('');
+$('repeatQs').innerHTML = `<p class="note">What each user asked on their first return, grouped by what they did.</p>` + R.asks.filter(g => g.items.length).map(g => `<h3>${esc(g.name)} (${g.items.length})</h3><ul class="asks">${g.items.map(v => `<li><span class="tag">${esc(v.when)}</span> ${esc(v.text)}${v.text2 ? `<br><span class="then">Then: ${esc(v.text2)}</span>` : ''}</li>`).join('')}</ul>`).join('');
 // funnels
 const F = D.funnel, M = D.mipUsers, MS = D.mipSessions;
-funnel('funnel', [['Started onboarding', F.startedOnboarding], ['Completed onboarding', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Received an answer or MIP', F.receivedAnswer]]);
+funnel('funnel', [['Started sign-up', F.startedOnboarding], ['Completed sign-up', F.completedOnboarding], ['Started a conversation', F.startedConversation], ['Got an answer or started a plan', F.receivedAnswer]]);
+$('noAnsNote').textContent = `A conversation starts with a real question or a tapped prompt, not a greeting. ${fmt(F.startedConversation - F.receivedAnswer)} users started one but did not get to an answer or a plan. Saathi had replied to ${fmt(F.noAnswerSaathiReplied)} of them, usually with a follow-up question, and they did not continue. ${fmt(F.noAnswerNoReply)} got no reply from Saathi.`;
 $('profileNote').textContent = `${fmt(F.profileFound)} users already had profile details; ${fmt(F.profileNotFound)} did not.`;
 funnel('mipFunnel', [['Asked a school or classroom challenge', M.chal], ['Reached goal', M.goal], ['Reached objectives', M.obj], ['Generated MIP', M.mip], ['MIP ready to download', M.dl]]);
 $('mipNote').textContent = `"Ready to download" means Saathi offered the download. We cannot see if the user tapped it.`;
@@ -224,14 +214,16 @@ $('warmth').innerHTML = D.warmth.map(w => `<blockquote><cite>${esc(w.lang)}</cit
 
 // queries
 const K = D.knowledgeVsMip;
-$('kvm').innerHTML = split('Conversations', K.mip, K.knowledge, `${K.mip} MIP, ${K.knowledge} knowledge`);
+$('kvm').innerHTML = split('Users', K.mip, K.knowledge, `${K.mip} MIP, ${K.knowledge} knowledge only`);
+$('kvmConv').innerHTML = split('Conversations', K.convMip, K.convKnowledge, `${K.convMip} MIP, ${K.convKnowledge} knowledge`);
 const st = D.starterPrompts || [], smax = Math.max(...st.map(s => s.conversations), 1);
 $('starters').innerHTML = st.length ? st.slice(0, 5).map(s => bar(esc(s.text), s.conversations, smax, fmt(s.conversations))).join('') + `<p class="note">${fmt(D.starterConversations)} conversations started with a tap on a suggested prompt.</p>` : '<p class="note">None detected.</p>';
 const tmax = Math.max(...D.themes.map(t => t.count));
-$('themes').innerHTML = D.themes.map(t => `<details><summary>${bar(esc(t.name), t.count, tmax, `${fmt(t.count)}<em>${t.pct}%</em>`, `${t.name}: ${t.count} conversations, ${t.mip} went into the MIP flow`)}</summary>
-  <ul>${t.examples.map(e => `<li>${esc(e.text)}<span class="tag">${esc(e.type)}</span></li>`).join('')}</ul></details>`).join('');
+$('themes').innerHTML = D.themes.map(t => `<details><summary>${bar(esc(t.name), t.count, tmax, `${fmt(t.count)}<em>${t.pct}%</em>`, `${t.name}: ${t.count} questions from ${t.users} users, ${t.mip} in conversations that went into the MIP flow`)}</summary>
+  ${(t.subs || []).length ? `<p class="note">${t.subs.map(s => `${esc(s.name)}: ${fmt(s.count)}`).join(' · ')}</p>` : ''}<ul>${t.examples.map(e => `<li>${esc(e.text)}<span class="tag">${esc(e.type)}</span></li>`).join('')}</ul></details>`).join('');
 
-$('themeNote').textContent = `${fmt(D.themes.reduce((a, t) => a + t.count, 0))} education questions or school challenges asked. Greetings and general replies are not counted. Tap a theme to see the questions.`;
+const CS = D.categorySummary || {};
+$('themeNote').textContent = `${fmt(CS.questions)} questions from ${fmt(CS.users)} users. This includes opening questions and challenges users named later in the conversation, often after Saathi asked follow-up questions. Each question is sorted into one category. Replies that only add detail to the same question are not counted again. Greetings, sign-up answers, questions about Saathi itself and unclear messages are not counted. Tap a category to see examples.`;
 // insights
 $('insPos').innerHTML = D.insights.positive.map(i => `<li>${esc(i)}</li>`).join('');
 $('insNeg').innerHTML = D.insights.improve.map(i => `<li>${esc(i)}</li>`).join('');

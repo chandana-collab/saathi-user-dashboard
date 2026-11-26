@@ -1,0 +1,26 @@
+name: Daily dashboard sync
+
+on:
+  schedule:
+    - cron: '17 17 * * *'   # 10:47 pm India time, every day
+  workflow_dispatch: {}      # "Run workflow" button for an update on demand
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+      - name: Rebuild dashboard from the Google Sheet
+        shell: powershell
+        env:
+          SAATHI_SHEET_ID: ${{ secrets.SAATHI_SHEET_ID }}
+        run: ./scripts/ci-sync.ps1

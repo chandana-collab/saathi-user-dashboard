@@ -1,11 +1,12 @@
 ﻿# Saathi live dashboard - builds data\saathi\out\dashboard-live.json from every downloaded tab.
 # Keeps messages on/after -From, de-duplicates (message id + session, then same session/time/speaker/text),
 # masks names and long digit runs in any quoted text. Spec: Drive doc "Saathi Live dashboard".
-param([string]$TabsDir = 'C:\Users\jeeva\ChandanaOS\data\saathi\tabs',
-      [string]$Out = 'C:\Users\jeeva\ChandanaOS\data\saathi\out\dashboard-live.json',
+param([string]$TabsDir = (Join-Path $(if ($env:CHANDANAOS_ROOT) { $env:CHANDANAOS_ROOT } else { 'C:\Users\jeeva\ChandanaOS' }) 'data\saathi\tabs'),
+      [string]$Out = (Join-Path $(if ($env:CHANDANAOS_ROOT) { $env:CHANDANAOS_ROOT } else { 'C:\Users\jeeva\ChandanaOS' }) 'data\saathi\out\dashboard-live.json'),
       [string]$From = '2026-10-25')
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'norm.ps1')
+$osRoot = if ($env:CHANDANAOS_ROOT) { $env:CHANDANAOS_ROOT } else { 'C:\Users\jeeva\ChandanaOS' }
 $ci = [Globalization.CultureInfo]::InvariantCulture
 $fromDt = [datetime]::ParseExact($From, 'yyyy-MM-dd', $ci)
 
@@ -73,7 +74,7 @@ $rows | Where-Object { $_.sp -ne 'Saathi' -and $_.msg.Trim().Length -ge 6 } | Gr
 $starterUse = @{}
 $closerRx = '^(ha\W*dhanywaad|dhanyabad|dhanywaad|dhanyavad|thik hai|सबकुछ ठीक है|no, i''m good|bilkul batayenge|no thanks|no thank you|ok thanks|ok thank you|abhi nahi|abhi nhi|avi nhi|अभी नहीं|koi problem nahi|nothing|nothing much|sab thik hai|aisa nhi h)\W*'
 # ---------- per session ----------
-$mipSess = [ordered]@{ chal=0; goal=0; obj=0; mip=0; dl=0 }; $convMip = 0; $convKnow = 0
+$mipSess = [ordered]@{ chal=0; goal=0; obj=0; mip=0; dl=0 }; $convMip = 0; $convKnow = 0; $sessChal = @{}
 $onbMins = @(); $ansMins = @(); $planMins = @(); $qToPlan = @(); $turnsToPlan = @(); $msgsPerConv = @()
 $queries = New-Object System.Collections.Generic.List[object]
 $warm = New-Object System.Collections.Generic.List[object]
@@ -89,6 +90,8 @@ foreach ($s in ($rows | Group-Object sid)) {
       if (-not $onbStart -and $t -match 'Could I get your name|आपका नाम') { $onbStart = $m.ts }
       if ($cIdx -ge 0) {
         if (-not $ansTs -and (& $isAnswer $m)) { $ansTs = $m.ts; $st.answered = $true }
+        # funnel step "got an answer or entered the plan flow" (17 Nov): a knowledge answer OR Saathi starting the MIP flow
+        if ((& $isAnswer $m) -or $t -match "Let me understand|I'd like to understand|build a plan|\*\*Goal:") { $st.answered = $true }
         if ($t -match "Let me understand|I'd like to understand|build a plan|improvement plan|tackle th") { $sess.chal = $true }
         if ($t -match 'here is your Goal|\*\*Goal:') { $sess.goal = $true; $sess.chal = $true }
         if ($t -match '\*\*Objective') { $sess.obj = $true; $sess.chal = $true }
@@ -100,8 +103,10 @@ foreach ($s in ($rows | Group-Object sid)) {
     } else {
       $userMsgs++
       if ($prev -match 'Which district|कौन सा जिला|किस जिले') { if ($onbStart -and -not $st.onbMin) { $st.onbMin = ($m.ts - $onbStart).TotalMinutes }; $st.onbDone = $true }
-      $isOnb = ($prev -match $onbQ) -or ($i -le 1 -and -not $prev)
-      if ($cIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $t.Trim().Length -gt 2) { $cIdx = $i; $cTs = $m.ts; $st.query = $true }
+      # 17 Nov: a session's first message counts too (users often open with their question); greetings, "ok", thanks and sign-up answers do not
+      $isOnb = ($prev -match $onbQ)
+      $isChat = $t.Trim() -match $greetRx -or $t.Trim() -match $closerRx -or $t.Trim() -match '^(good (morning|evening|night)|hii+|hello+|dhanyabad|ik)\W*$'
+      if ($cIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and -not $isChat -and $t.Trim().Length -gt 2) { $cIdx = $i; $cTs = $m.ts; $st.query = $true }
       if ($qIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $btn.Contains($t.Trim().ToLower()) -and -not $sess.starter) { $sess.starter = $t.Trim(); $starterUse[$t.Trim()] = 1 + [int]$starterUse[$t.Trim()] }
       if ($qIdx -lt 0 -and $i -gt $lastOnb -and -not $isOnb -and $t.Trim().Length -ge 6 -and $t.Trim() -notmatch $greetRx -and $t.Trim() -notmatch $closerRx -and -not $btn.Contains($t.Trim().ToLower()) -and ($t.Trim() -split '\s+').Count -ge 3 -and $t.Trim().Length -ge 12 -and (-not $prev -or $prev -match $openRx -or $prev -notmatch '\?')) {
         if (Theme $t) { $qIdx = $i; $qTs = $m.ts; $queries.Add([pscustomobject]@{ sid=$s.Name; lang=$m.lang; mode=$m.mode; text=(Mask $t $st.name); theme=(Theme $t); ts=$m.ts }) }
@@ -110,8 +115,10 @@ foreach ($s in ($rows | Group-Object sid)) {
   }
   if ($sess.mip -and $sess.offer) { $sess.dl = $true }
   foreach ($k in 'chal','goal','obj','mip','dl') { if ($sess[$k]) { $mipSess[$k]++; $st[$k] = $true } }
+  $sessChal[$s.Name] = [bool]$sess.chal
   if ($qIdx -ge 0) { $queries[$queries.Count - 1] | Add-Member type $(if ($sess.chal) { 'MIP' } else { 'Knowledge' }) }
   if ($cIdx -ge 0) { if ($sess.chal) { $convMip++ } else { $convKnow++ }
+    if ($ms[-1].sp -ne 'Saathi') { $st.noReply = $true }   # conversation ended on a user message with no Saathi reply
     $msgsPerConv += $userMsgs
     if ($ansTs) { $ansMins += ($ansTs - $cTs).TotalMinutes }
     if ($planIdx -ge 0) {
@@ -122,7 +129,8 @@ foreach ($s in ($rows | Group-Object sid)) {
     }
   }
 }
-foreach ($st in $users.Values) { if ($st.found -and $st.role -ne 'Not captured' -and $st.district -ne 'Not captured') { $st.onbDone = $true }
+# Saathi only opens a conversation after sign-up, so anyone who started one counts as signed up even if some details were not captured (e.g. 2091).
+foreach ($st in $users.Values) { if (($st.found -and $st.role -ne 'Not captured' -and $st.district -ne 'Not captured') -or $st.query) { $st.onbDone = $true }
   if ($st.onbMin -ne $null -and $st.onbMin -le 60) { $onbMins += $st.onbMin } }
 
 # ---------- funnels ----------
@@ -131,7 +139,9 @@ function Funnel($set) { $set = @($set); [ordered]@{
   startedOnboarding = $set.Count; profileFound = @($set | Where-Object found).Count; profileNotFound = @($set | Where-Object { -not $_.found }).Count
   completedOnboarding = @($set | Where-Object onbDone).Count
   startedConversation = @($set | Where-Object { $_.onbDone -and $_.query }).Count
-  receivedAnswer = @($set | Where-Object { $_.onbDone -and $_.query -and $_.answered }).Count } }
+  receivedAnswer = @($set | Where-Object { $_.onbDone -and $_.query -and $_.answered }).Count
+  noAnswerSaathiReplied = @($set | Where-Object { $_.query -and -not $_.answered -and -not $_.noReply }).Count
+  noAnswerNoReply = @($set | Where-Object { $_.query -and -not $_.answered -and $_.noReply }).Count } }
 function MipU($set) { $set = @($set); [ordered]@{ chal=@($set | Where-Object chal).Count; goal=@($set | Where-Object goal).Count; obj=@($set | Where-Object obj).Count; mip=@($set | Where-Object mip).Count; dl=@($set | Where-Object dl).Count } }
 function Breakdown($key) { @($U | Group-Object { $_.$key } | Sort-Object Count -Descending | ForEach-Object { [ordered]@{ name=$_.Name; users=$_.Count; answered=(Funnel $_.Group).receivedAnswer; mip=@($_.Group | Where-Object mip).Count } }) }
 
@@ -147,19 +157,32 @@ foreach ($st in $users.Values) {
   $st.returned = $true; $gap = ($starts[1].Date - $starts[0].Date).Days
   $k = switch ($gap) { 0 { 'Same day' } 1 { 'After 1 day' } 2 { 'After 2 days' } 3 { 'After 3 days' } default { 'After 4+ days' } }; $rep[$k]++ }
 $U = @($users.Values | ForEach-Object { [pscustomobject]$_ })
-$returned = @($U | Where-Object returned)
-# what returning users ask: first real message of each return visit
-$retQ = New-Object System.Collections.Generic.List[object]; $retKinds = [ordered]@{ 'Asked a new education question' = 0; 'Continued an earlier plan' = 0; 'Short reply or greeting' = 0 }
+# Users who came back (13 Nov): a new visit after a gap of 1 hour or more. Definition of a "real" return is still being agreed,
+# so the dashboard shows the count (no %) and what users did on their first return. Categories come from a manual review
+# (data\saathi\return-review.csv, local only); users not yet reviewed are classified by the rules below.
 $byUser = @{}; foreach ($g in ($rows | Group-Object uid)) { $byUser[$g.Name] = @($g.Group | Sort-Object ts, n) }
-foreach ($ru in $returned) { $ms = $byUser[$ru.id]; $starts = @($ru.starts)
-  for ($k = 1; $k -lt $starts.Count; $k++) { $end = if ($k + 1 -lt $starts.Count) { $starts[$k+1] } else { [datetime]::MaxValue }
-    $prev = ''; $q = $null
-    foreach ($m in ($ms | Where-Object { $_.ts -ge $starts[$k] -and $_.ts -lt $end })) { if ($m.sp -eq 'Saathi') { $prev = [string]$m.msg; continue }
-      $t = ([string]$m.msg).Trim(); if ($prev -match $onbQ -or $t -match $greetRx -or $t.Length -lt 3) { continue }; $q = $t; break }
-    if ($q -and (Theme $q)) { $retKinds['Asked a new education question']++; $retQ.Add([ordered]@{ theme=(Theme $q); text=(Mask $q $ru.name) }) }
-    elseif ($q -and $q -match 'download|डाउनलोड|pdf|लक्ष्य की पुष्टि|प्रारूप|योजना|plan|मैं तैयार') { $retKinds['Continued an earlier plan']++ }
-    else { $retKinds['Short reply or greeting']++ } } }
-$conv = @($U | Where-Object { $_.found -and $_.onbDone -and $_.query })
+function RealAsks($msgs, [string]$prev = '') { foreach ($m in $msgs) { if ($m.sp -eq 'Saathi') { $prev = [string]$m.msg; continue }
+    $t = ([string]$m.msg).Trim(); if ($prev -match $onbQ -or $t -match $greetRx -or $t -match $closerRx -or $t -match '^(good (morning|evening|night)|hii+|dhanyabad|ik)\W*$') { continue }
+    if ($btn.Contains($t.ToLower()) -or (Theme $t) -or (@($t -split '\s+' | Where-Object { $_ }).Count -ge 3 -and $t.Length -ge 8)) { $t } } }
+function Words($s) { @(([string]$s).ToLower() -split '[^\p{L}\p{M}\d]+' | Where-Object { $_.Length -ge 3 } | Sort-Object -Unique) }
+$planRx = 'download|डाउनलोड|pdf|लक्ष्य की पुष्टि|उद्देश्य|objective|प्रारूप|alternativ|विकल्प|option|योजना की पुष्टि|मैं तैयार|go deeper|गहराई|पाठ योजना पर वापस|शैक्षिक विषय'
+$cats = @('Started a new conversation', 'Asked their first question (sign-up done earlier)', 'Continued the same conversation or plan', 'Finished a sign-up left halfway', 'Greeting only')
+$review = @{}; $reviewCsv = (Join-Path $osRoot 'data\saathi\return-review.csv'); if (Test-Path $reviewCsv) { Import-Csv $reviewCsv | ForEach-Object { $review[$_.user_id] = $_.category } }
+$dayName = { param($d) switch ($d) { 0 { 'Same day' } 1 { 'Next day' } 2 { '2 days later' } 3 { '3 days later' } default { '4 or more days later' } } }
+$retUsers = New-Object System.Collections.Generic.List[object]
+foreach ($st in $users.Values) { if ($st.visits -lt 2) { continue }; $ms = $byUser[$st.id]; $starts = @($st.starts)
+  $before = @($ms | Where-Object { $_.ts -lt $starts[1] }); $end = if ($starts.Count -gt 2) { $starts[2] } else { [datetime]::MaxValue }
+  $lastS = @($before | Where-Object sp -eq 'Saathi'); $p0 = if ($lastS.Count) { [string]$lastS[-1].msg } else { '' }
+  $asks = @(RealAsks @($ms | Where-Object { $_.ts -ge $starts[1] -and $_.ts -lt $end }) $p0); $prior = @(RealAsks $before | Where-Object { $_ })
+  $cat = $review[$st.id]
+  if (-not $cat) { $cat = if ($p0 -match $onbQ -and -not $prior.Count) { $cats[3] } elseif (-not $asks.Count) { $cats[4] } elseif (-not $prior.Count) { $cats[1] }
+      elseif ($asks[0] -match $planRx -or $btn.Contains($asks[0].ToLower())) { $cats[2] }
+      else { $w = Words $asks[0]; $pw = Words $prior[-1]; if ($w.Count -and (@($w | Where-Object { $pw -contains $_ }).Count / $w.Count) -ge 0.5) { $cats[2] } else { $cats[0] } } }
+  $retUsers.Add([pscustomobject]@{ id=$st.id; days=($starts[1].Date - $starts[0].Date).Days; cat=$cat; times=$starts.Count - 1
+    text=$(if ($asks.Count) { Mask $asks[0] $st.name } else { '' }); text2=$(if ($asks.Count -ge 2) { Mask $asks[1] $st.name } else { '' }) }) }
+$returned = @($U | Where-Object returned)
+$retTable = @($cats | ForEach-Object { $c = $_; $g = @($retUsers | Where-Object cat -eq $c); [ordered]@{ name=$c; sameDay=@($g | Where-Object days -eq 0).Count; later=@($g | Where-Object days -ge 1).Count; total=$g.Count } })
+$rep = [ordered]@{ 'Same day' = 0; 'Next day' = 0; '2 days later' = 0; '3 days later' = 0; '4 or more days later' = 0 }; foreach ($r in $retUsers) { $rep[(& $dayName $r.days)]++ }$conv = @($U | Where-Object { $_.found -and $_.onbDone -and $_.query })
 $elig = @($U | Where-Object { ($_.times | Measure-Object -Minimum).Minimum.Date -le $lastDay.AddDays(-3) })
 
 # ---------- language / voice ----------
@@ -174,7 +197,48 @@ if ($env:SAATHI_Q) { $Q | Export-Csv -NoTypeInformation -Encoding utf8 $env:SAAT
 $themeOut = @($Q | Group-Object theme | Sort-Object { $_.Name -eq 'Other education asks' }, { -$_.Count } | ForEach-Object {
   $ex = @($_.Group | Where-Object { $_.text.Length -ge 12 } | Sort-Object ts -Descending | Group-Object text | Select-Object -First 12 | ForEach-Object { [ordered]@{ text=$_.Name; lang=$_.Group[0].lang; type=$_.Group[0].type } })
   [ordered]@{ name=$_.Name; count=$_.Count; pct=(Pct $_.Count $Q.Count); mip=@($_.Group | Where-Object type -eq 'MIP').Count; examples=$ex } })
-$kVsM = [ordered]@{ knowledge=$convKnow; mip=$convMip }
+# ---------- query categories (17 Nov) ----------
+# Opening questions per conversation: the conversation's first real message (or the first typed message after a tapped
+# starter prompt) plus any new question asked when Saathi invites one. Categories come from a hand review in
+# data\saathi\query-categories.csv (key = session|message id, code). New questions show as "Not yet categorised".
+$chatRx = '^(good (morning|evening|night)|hii+|hello+|dhanyabad|ik)\W*$'
+$oq = New-Object System.Collections.Generic.List[object]
+foreach ($s in ($rows | Group-Object sid)) {
+  $ms = @($s.Group | Sort-Object n, ts); $uid = $ms[0].uid; $nm = $users[$uid].name
+  $firstAns = $ms.Count; for ($k = 0; $k -lt $ms.Count; $k++) { if ($ms[$k].sp -eq 'Saathi' -and ((& $isAnswer $ms[$k]) -or [string]$ms[$k].msg -match "Let me understand|I'd like to understand|build a plan|\*\*Goal:")) { $firstAns = $k; break } }
+  $lastOnb = -1; for ($k = 0; $k -lt $firstAns; $k++) { if ($ms[$k].sp -eq 'Saathi' -and ([string]$ms[$k].msg -match $onbQ -or [string]$ms[$k].msg -match '^\s*Understood\.?\s*$')) { $lastOnb = $k } }
+  $prev = ''; $cI = -1; $need = $false; $starter = ''
+  for ($i = 0; $i -lt $ms.Count; $i++) { $m = $ms[$i]; $t = ([string]$m.msg).Trim()
+    if ($m.sp -eq 'Saathi') { $prev = $t; continue }
+    $chat = $t -match $greetRx -or $t -match $closerRx -or $t -match $chatRx; $isB = $btn.Contains($t.ToLower())
+    if ($cI -lt 0) { if ($i -gt $lastOnb -and $prev -notmatch $onbQ -and -not $chat -and $t.Length -gt 2) { $cI = $i; if ($isB) { $starter = $t; $need = $true; continue } else { $need = $false } } else { continue } }
+    $take = $false
+    if ($i -eq $cI) { $take = $true }
+    elseif ($need -and -not $isB -and -not $chat -and $prev -notmatch $onbQ -and @($t -split '\s+').Count -ge 2) { $take = $true; $need = $false }
+    elseif (-not $isB -and -not $chat -and $prev -match $openRx -and $prev -notmatch $onbQ) { $take = $true }
+    if ($take) { $oq.Add([pscustomobject]@{ key="$($s.Name)|$($m.n)"; sid=$s.Name; uid=$uid; lang=$m.lang; ts=$m.ts; starter=$starter; text=(Mask $t $nm); type=$(if ($sessChal[$s.Name]) { 'MIP' } else { 'Knowledge' }) }) }
+  } }
+if ($env:SAATHI_OQ) { $oq | Export-Csv -NoTypeInformation -Encoding utf8 $env:SAATHI_OQ }
+$catCsv = (Join-Path $osRoot 'data\saathi\query-categories.csv'); $catOf = @{}
+if (Test-Path $catCsv) { Import-Csv $catCsv | ForEach-Object { $catOf[$_.key] = $_.code } }
+$catDefs = [ordered]@{ '1'='School or classroom improvement'; '4'='Lesson plan'; '5'='PBL queries (not lesson plans)'; '3'='Teaching tips or learning resources'; '6'='Classroom management'; '7'='Subject knowledge question'; '8'="Teacher's own needs" }
+$subDefs = @{ '1'='Other school or classroom improvement'; '1b'='Student learning outcomes'; '4a'='PBL lesson plan'; '4b'='General lesson plan' }
+# Definitions (Chandana, 17 Nov): 3 includes teaching/classroom instruction tips and education-related general knowledge; any message naming PBL goes to 5, or 4a if it asks for a lesson plan.
+# Replies that the review found to state a new or the real challenge (any code other than D = detail) are counted too.
+$oqKeys = @{}; foreach ($q in $oq) { $oqKeys[$q.key] = 1 }
+foreach ($m in $rows) { if ($m.sp -eq 'Saathi') { continue }; $k = "$($m.sid)|$($m.n)"
+  if ($oqKeys.ContainsKey($k) -or -not $catOf.ContainsKey($k) -or $catOf[$k] -eq 'D') { continue }
+  $oqKeys[$k] = 1; $oq.Add([pscustomobject]@{ key=$k; sid=$m.sid; uid=$m.uid; lang=$m.lang; ts=$m.ts; starter=''; text=(Mask ([string]$m.msg).Trim() $users[$m.uid].name); type=$(if ($sessChal[$m.sid]) { 'MIP' } else { 'Knowledge' }) }) }
+foreach ($q in $oq) { $c = [string]$catOf[$q.key]; if (-not $c) { $c = '?' }; $q | Add-Member code $c; $q | Add-Member top ($c -replace '[ab]$', '') }
+$edu = @($oq | Where-Object { $catDefs.Contains($_.top) })
+$themeOut = @($edu | Group-Object top | Sort-Object { -$_.Count } | ForEach-Object {
+  $ex = @($_.Group | Where-Object { $_.text.Length -ge 12 } | Sort-Object ts -Descending | Group-Object text | Select-Object -First 12 | ForEach-Object { [ordered]@{ text=$_.Name; lang=$_.Group[0].lang; type=$_.Group[0].type } })
+  $subs = @($_.Group | Where-Object { $subDefs.ContainsKey($_.code) } | Group-Object code | Sort-Object { -$_.Count } | ForEach-Object { [ordered]@{ name=$subDefs[$_.Name]; count=$_.Count } })
+  [ordered]@{ name=$catDefs[$_.Name]; count=$_.Count; users=@($_.Group.uid | Sort-Object -Unique).Count; pct=(Pct $_.Count $edu.Count); mip=@($_.Group | Where-Object type -eq 'MIP').Count; subs=$subs; examples=$ex } })
+$catSummary = [ordered]@{ questions=$edu.Count; users=@($edu.uid | Sort-Object -Unique).Count; notQuestion=@($oq | Where-Object code -eq '9').Count; uncategorised=@($oq | Where-Object code -eq '?').Count }
+
+# users (17 Nov): a user who had both kinds counts as MIP; conversations kept for the expandable detail
+$kVsM = [ordered]@{ mip=@($users.Values | Where-Object { $_.chal }).Count; knowledge=@($users.Values | Where-Object { $_.query -and -not $_.chal }).Count; convMip=$convMip; convKnowledge=$convKnow }
 
 # ---------- tone & warmth examples (3 English, 3 Hindi, distinct) ----------
 $warmOut = @(); foreach ($l in 'English','Hindi') { $warmOut += @($warm.ToArray() | Where-Object { $_.lang -eq $l -and $_.text.Length -le 220 -and $_.text -notmatch '\[name\]' } | Group-Object text | Sort-Object Count | Select-Object -First 3 | ForEach-Object { [ordered]@{ lang=$l; text=$_.Name } }) }
@@ -184,7 +248,6 @@ $pos = New-Object System.Collections.Generic.List[string]; $neg = New-Object Sys
 $f = Funnel $U; $mu = MipU $U
 $retMip = Pct @($returned | Where-Object mip).Count $returned.Count; $oneMip = Pct @($U | Where-Object { -not $_.returned -and $_.mip }).Count ($U.Count - $returned.Count)
 $retWith = @($returned | Where-Object mip).Count; $oneN = $U.Count - $returned.Count; $oneWith = @($U | Where-Object { -not $_.returned -and $_.mip }).Count
-if ($oneMip -and $retMip -gt $oneMip) { $pos.Add("Of the $($returned.Count) users who came back, $retWith ($([Math]::Round($retMip))%) got an improvement plan. Of the $oneN who came only once, $oneWith ($([Math]::Round($oneMip))%) did. Returning users were about $([Math]::Round($retMip / $oneMip)) times as likely to get a plan.") }
 $after = @($userMsgRows | Where-Object { $_.ts.Hour -ge 18 -or $_.ts.Hour -lt 7 }).Count
 $school = @($userMsgRows | Where-Object { $_.ts.Hour -ge 9 -and $_.ts.Hour -lt 17 }).Count
 $pk = $userMsgRows | Group-Object { $_.ts.Hour } | Sort-Object Count -Descending | Select-Object -First 1; $ph = [int]$pk.Name
@@ -197,16 +260,14 @@ if ($hs -and $te -and (Pct $hs.mip $hs.users) -gt (Pct $te.mip $te.users)) { $po
 $bihar = @($U | Where-Object { $_.district -notmatch '^(Not captured|Unrecognised|\(state only\)|Bengaluru|Mysuru|Tumakuru|Mangaluru|Bhubaneswar)' } | Select-Object -ExpandProperty district -Unique).Count
 $pos.Add("Saathi reached users in $bihar of Bihar's 38 districts.")
 $hiPct = ($langUsers | Where-Object name -eq 'Hindi').pct; if ($hiPct) { $pos.Add("$hiPct% of users chose Hindi, and $((($voiceByLang | Where-Object name -eq 'Hindi').voicePct))% of messages in Hindi are voice, compared with $((($voiceByLang | Where-Object name -eq 'English').voicePct))% in English.") }
-$top = $themeOut | Where-Object { $_.name -notlike 'Other*' } | Select-Object -First 1; if ($top) { $pos.Add("The most common real ask is $($top.name.ToLower()): $($top.count) of $($Q.Count) education questions ($($top.pct)%).") }
+$top = $themeOut | Where-Object { $_.name -notlike 'Other*' } | Select-Object -First 1; if ($top) { $pos.Add("The most common real ask is $($top.name.ToLower()): $($top.count) of $($edu.Count) education questions ($($top.pct)%).") }
 if ($ansMins.Count) { $pos.Add("In a typical conversation, the first answer comes within $([Math]::Max(1,[Math]::Round((Med $ansMins),0))) minute of asking.") }
-if ($retKinds['Asked a new education question']) { $topR = ($retQ | Group-Object { $_.theme } | Sort-Object Count -Descending | Select-Object -First 1).Name
-  $pos.Add("When users come back, most bring a new question: $($retKinds['Asked a new education question']) of $(($retKinds.Values | Measure-Object -Sum).Sum) return visits ($(Pct $retKinds['Asked a new education question'] ($retKinds.Values | Measure-Object -Sum).Sum)%), mostly about $($topR.ToLower()).") }
+$cn = @($retUsers | Where-Object cat -eq $cats[0]).Count; $cf = @($retUsers | Where-Object cat -eq $cats[1]).Count; if ($retUsers.Count) { $pos.Add("$($retUsers.Count) users have come back after a gap of an hour or more. On their first return, $cn started a new conversation and $cf asked their first question.") }
 $neg.Add("$($f.completedOnboarding - $f.startedConversation) of $($f.completedOnboarding) users who finish sign-up ($(Pct ($f.completedOnboarding - $f.startedConversation) $f.completedOnboarding)%) never ask a question. This is the biggest drop.")
 $steps = @(@('challenge','goal',$mu.chal,$mu.goal), @('goal','objectives',$mu.goal,$mu.obj), @('objectives','plan',$mu.obj,$mu.mip))
 $worst = $steps | Sort-Object { if ($_[2]) { $_[3] / $_[2] } else { 1 } } | Select-Object -First 1
 $neg.Add("In the plan flow, only $(Pct $worst[3] $worst[2])% of users who reach $($worst[0]) go on to get a $($worst[1]) ($($worst[3]) of $($worst[2])).")
 if ($qToPlan.Count) { $neg.Add("Saathi asks about $(Med $qToPlan) questions before giving a plan, which takes around $([Math]::Round((Med $planMins),0)) minutes.") }
-$neg.Add("Only $($returned.Count) of $($U.Count) users ($(Pct $returned.Count $U.Count)%) have come back so far.")
 $neg.Add("$($f.startedOnboarding - $f.completedOnboarding) of $($f.startedOnboarding) users ($(Pct ($f.startedOnboarding - $f.completedOnboarding) $f.startedOnboarding)%) start sign-up but do not finish it.")
 
 # ---------- daily ----------
@@ -216,19 +277,17 @@ $result = [ordered]@{
   start = $From; from = ($rows | Measure-Object ts -Minimum).Minimum.ToString('yyyy-MM-dd'); to = $lastDay.ToString('yyyy-MM-dd')
   refreshed = (Get-Date).ToString('yyyy-MM-dd HH:mm')
   totals = [ordered]@{ users=$U.Count; conversations=@($rows.sid | Sort-Object -Unique).Count; messages=$rows.Count; duplicatesRemoved=$dupes; perTabSum=(($rows | Group-Object tab | ForEach-Object { @($_.Group.uid | Sort-Object -Unique).Count }) | Measure-Object -Sum).Sum }
-  repeat = [ordered]@{ returnedPct=(Pct $returned.Count $U.Count); returned=$returned.Count; buckets=@($rep.Keys | ForEach-Object { [ordered]@{ name=$_; users=$rep[$_]; pct=(Pct $rep[$_] $U.Count) } })
-    returnedPctOfConversing=(Pct @($conv | Where-Object returned).Count $conv.Count); eligibleUsers=$elig.Count; eligibleReturnedPct=(Pct @($elig | Where-Object returned).Count $elig.Count); multiDay=@($U | Where-Object { $_.activeDays -ge 2 }).Count; threePlusVisits=@($U | Where-Object { $_.visits -ge 3 }).Count
-    frequency=@([ordered]@{ name='Returned once'; users=@($U | Where-Object visits -eq 2).Count }, [ordered]@{ name='Returned twice'; users=@($U | Where-Object visits -eq 3).Count }, [ordered]@{ name='Returned 3 or more times'; users=@($U | Where-Object visits -ge 4).Count })
-    sameDay=@($U | Where-Object { $_.returned -and (@($_.starts | ForEach-Object { $_.Date } | Group-Object | Where-Object Count -ge 2).Count) }).Count
-    kinds=@($retKinds.Keys | ForEach-Object { [ordered]@{ name=$_; visits=$retKinds[$_] } }); returnVisits=($retKinds.Values | Measure-Object -Sum).Sum
-    questions=@($retQ | Group-Object { $_.theme } | Sort-Object Count -Descending | ForEach-Object { [ordered]@{ theme=$_.Name; count=$_.Count; examples=@($_.Group | ForEach-Object { $_.text } | Select-Object -Unique) } }) }
+  repeat = [ordered]@{ returned=$retUsers.Count; users=$U.Count; sameDayUsers=@($retUsers | Where-Object days -eq 0).Count; laterUsers=@($retUsers | Where-Object days -ge 1).Count
+    table=$retTable; buckets=@($rep.Keys | ForEach-Object { [ordered]@{ name=$_; users=$rep[$_] } })
+    frequency=@([ordered]@{ name='Came back once'; users=@($retUsers | Where-Object times -eq 1).Count }, [ordered]@{ name='Came back twice'; users=@($retUsers | Where-Object times -eq 2).Count }, [ordered]@{ name='Came back 3 or more times'; users=@($retUsers | Where-Object times -ge 3).Count })
+    asks=@($cats | ForEach-Object { $c = $_; [ordered]@{ name=$c; items=@($retUsers | Where-Object { $_.cat -eq $c -and $_.text } | Sort-Object days | ForEach-Object { [ordered]@{ when=(& $dayName $_.days); text=$_.text; text2=$_.text2 } }) } }) }
   funnel = $f; mipSessions = $mipSess; mipUsers = $mu
   byDistrict = @(Breakdown 'district'); byRole = @(Breakdown 'role')
   language = [ordered]@{ users=$langUsers; voiceByLang=$voiceByLang }
   time = [ordered]@{ onboardingMedian=(Med $onbMins); onboardingAvg=(Avg $onbMins); onboardingN=$onbMins.Count
     answerMedian=(Med $ansMins); answerAvg=(Avg $ansMins); answerN=$ansMins.Count; planMedian=(Med $planMins); planAvg=(Avg $planMins); planN=$planMins.Count }
   questionsToPlan = [ordered]@{ median=(Med $qToPlan); avg=(Avg $qToPlan); userRepliesMedian=(Med $turnsToPlan) }
-  starterPrompts = @($starterUse.Keys | Sort-Object { -$starterUse[$_] } | Select-Object -First 8 | ForEach-Object { [ordered]@{ text=$_; conversations=$starterUse[$_] } }); starterConversations = ($starterUse.Values | Measure-Object -Sum).Sum; warmth = $warmOut; themes = $themeOut; knowledgeVsMip = $kVsM; insights = [ordered]@{ positive = @($pos); improve = @($neg) }; daily = $daily
+  starterPrompts = @($starterUse.Keys | Sort-Object { -$starterUse[$_] } | Select-Object -First 8 | ForEach-Object { [ordered]@{ text=$_; conversations=$starterUse[$_] } }); starterConversations = ($starterUse.Values | Measure-Object -Sum).Sum; warmth = $warmOut; themes = $themeOut; categorySummary = $catSummary; knowledgeVsMip = $kVsM; insights = [ordered]@{ positive = @($pos); improve = @($neg) }; daily = $daily
 }
 $result | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 $Out
 "users=$($U.Count) conv=$($result.totals.conversations) msgs=$($rows.Count) dupes=$dupes"
